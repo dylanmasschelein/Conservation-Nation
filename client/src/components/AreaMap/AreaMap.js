@@ -32,7 +32,7 @@ class AreaMap extends Component {
       <div>
         <MapContainer
           className='map'
-          center={[9.714, 4.859]}
+          center={[8.024, 46.067]}
           zoom={13}
           scrollWheelZoom={false}
         >
