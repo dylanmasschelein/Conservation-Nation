@@ -22,21 +22,20 @@ async function createListings() {
   }
 }
 
-async function retrieveListings() {
+async function retrieveAreas() {
   try {
     await client.connect();
 
-    await findMultipleAreas(client, "CAN");
+    const areas = await findMultipleAreas(client, "CAN");
+    return areas;
   } catch (err) {
     console.log(err);
-  } finally {
-    await client.close();
   }
 }
 
 // createListings().catch(console.error);
 // Calling functions to DO SOMETHING
-const searchAreaResults = retrieveListings().catch(console.error);
+// retrieveListings().catch(console.error);
 
 // Database helper functions
 async function createMultipleListings(client, newListings) {
@@ -92,9 +91,14 @@ const callProtectedPlanet = async () => {
 
 // Client side rendering request
 
-router.get("/country", (_req, res) => {
-  console.log(searchAreaResults);
-  return res.json(JSON.parse(searchAreaResults));
+router.get("/country", async (_req, res) => {
+  try {
+    const result = await retrieveAreas();
+    console.log(result);
+    res.json(result);
+  } catch (e) {
+    console.log(e, "router catch block!");
+  }
 });
 
 module.exports = router;
