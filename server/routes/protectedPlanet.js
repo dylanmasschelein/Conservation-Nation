@@ -16,14 +16,20 @@ function updateAreas(areas) {
   areasData.push(areas);
   return fs.writeFileSync("./data/areas.json", JSON.stringify(areasData));
 }
-
+// COMPLETED PAGE 15 OF REQUESTS
+// CHECK ARRAY LENGTH EACH TIME TO MAKE SURE ITS STILL 50/49 UNTIL IT ISNT ANYMMORE
 router.get("/", (req, res) => {
   axios
     .get(
-      "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=2&token=1c80aeb620a008918c33c3575aed4236"
+      "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=15&token=1c80aeb620a008918c33c3575aed4236"
     )
     .then((areas) => {
       console.log(areas.data);
+      console.log(
+        `%%%%%%%%%%%%%%%%%%%%%%%%           
+        ${areas.data.length}
+                   %%%%%%%%%%%%%%%%%%%%%%%%`
+      );
       return res.json(updateAreas(areas.data));
     })
     .catch((err) => console.error(err));
