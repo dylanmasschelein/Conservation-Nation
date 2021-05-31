@@ -1,21 +1,20 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { MapContainer, GeoJSON, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import "./AreaMap.scss";
-// import areas from "../../data/singlearea.json";
+import axios from "axios";
+import SinglePolygon from "../SinglePloygon/SinglePolygon";
 import "leaflet/dist/leaflet.css";
 
 class AreaMap extends Component {
   state = {
-    coords: [],
+    areas: null,
   };
-
   getAreas() {
     axios.get("http://localhost:8080/area").then((response) => {
-      const coords = response.data[0].geojson.geometry.coordinates;
-      console.log(coords);
+      const areas = response.data;
+      console.log(areas);
       this.setState({
-        coords: coords,
+        areas: areas,
       });
     });
   }
@@ -23,16 +22,35 @@ class AreaMap extends Component {
   componentDidMount() {
     this.getAreas();
   }
-
   render() {
-    if (this.state.coords === []) {
+    if (this.state.areas === null) {
       return <h1>Loading. . .</h1>;
     }
+    const fillBlueOptions = { fillColor: "blue" };
+    // const limeOptions = { color: "lime" };
     return (
       <div>
-        <h1>Map time</h1>
-        <MapContainer className='map' zoom={2} center={(20, 100)}>
-          <GeoJSON data={this.state.coords} />
+        <MapContainer
+          className='map'
+          center={[9.714, 4.859]}
+          zoom={13}
+          scrollWheelZoom={false}
+        >
+          {/* Map Styling */}
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+          />
+          {/* Render polygons on map */}
+          {this.state.areas.map((area) => {
+            return (
+              <SinglePolygon
+                key={area.id}
+                pathOptions={fillBlueOptions}
+                positions={area.geojson.geometry.coordinates}
+              />
+            );
+          })}
         </MapContainer>
       </div>
     );
