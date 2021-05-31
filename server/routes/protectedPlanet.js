@@ -25,11 +25,7 @@ router.get("/", (req, res) => {
     )
     .then((areas) => {
       console.log(areas.data);
-      console.log(
-        `%%%%%%%%%%%%%%%%%%%%%%%%           
-        ${areas.data.length}
-                   %%%%%%%%%%%%%%%%%%%%%%%%`
-      );
+      console.log("GOT 50 Areas");
       return res.json(updateAreas(areas.data));
     })
     .catch((err) => console.error(err));

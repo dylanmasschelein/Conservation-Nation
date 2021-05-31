@@ -1,0 +1,76 @@
+[
+  {
+    "id": 124027,
+    "name": "Perna",
+    "original_name": "Perna",
+    "wdpa_id": 124027,
+    "geojson": {
+      "type": "Feature",
+      "properties": {
+        "fill-opacity": 0.7,
+        "stroke-width": 0.05,
+        "stroke": "#40541b",
+        "fill": "#83ad35",
+        "marker-color": "#2B3146"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [19.234, 52.266],
+            [19.238, 52.264],
+            [19.228, 52.266],
+            [19.231, 52.267],
+            [19.234, 52.266]
+          ]
+        ]
+      }
+    },
+    "marine": false,
+    "reported_marine_area": "0.0",
+    "reported_area": "0.1568487",
+    "management_plan": "Not Reported",
+    "owner_type": "Not Reported",
+    "countries": [
+      {
+        "name": "Poland",
+        "iso_3": "POL",
+        "id": "POL"
+      }
+    ],
+    "iucn_category": {
+      "id": 5,
+      "name": "IV"
+    },
+    "designation": {
+      "id": 3,
+      "name": "Nature Reserve",
+      "jurisdiction": {
+        "id": 1,
+        "name": "National"
+      }
+    },
+    "no_take_status": {
+      "id": 19613,
+      "name": "Not Applicable",
+      "area": "0.0"
+    },
+    "legal_status": {
+      "id": 1,
+      "name": "Designated"
+    },
+    "management_authority": {
+      "id": 6,
+      "name": "Not Reported"
+    },
+    "governance": {
+      "id": 1,
+      "governance_type": "Governance by Government"
+    },
+    "pame_evaluations": [],
+    "links": {
+      "protected_planet": "http://protectedplanet.net/124027"
+    },
+    "legal_status_updated_at": "01/01/1975"
+  }
+]
