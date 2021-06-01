@@ -9,14 +9,22 @@ class AreaMap extends Component {
   state = {
     areas: null,
   };
+
+  getAreaName = (e) => {
+    console.log(e);
+  };
+
   getAreas() {
-    axios.get("http://localhost:8080/area").then((response) => {
-      const areas = response.data;
-      console.log(areas);
-      this.setState({
-        areas: areas,
+    axios
+      .get(
+        "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=6&token=1c80aeb620a008918c33c3575aed4236"
+      )
+      .then((response) => {
+        const areas = response.data.protected_areas;
+        this.setState({
+          areas: areas,
+        });
       });
-    });
   }
 
   componentDidMount() {
@@ -32,7 +40,7 @@ class AreaMap extends Component {
       <div>
         <MapContainer
           className='map'
-          center={[8.024, 46.067]}
+          center={[19.234, 52.266]}
           zoom={13}
           scrollWheelZoom={false}
         >
@@ -42,12 +50,14 @@ class AreaMap extends Component {
             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
           />
           {/* Render polygons on map */}
-          {this.state.areas.map((area) => {
+          {this.state.areas.map((area, i) => {
+            console.log(i);
             return (
               <SinglePolygon
                 key={area.id}
                 pathOptions={fillBlueOptions}
                 positions={area.geojson.geometry.coordinates}
+                getAreaName={this.getAreaName}
               />
             );
           })}

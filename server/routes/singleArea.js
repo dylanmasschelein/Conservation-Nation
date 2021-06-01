@@ -4,17 +4,17 @@ const router = express.Router();
 const fs = require("fs");
 
 function loadAreas() {
-  return JSON.parse(fs.readFileSync("./data/singlearea.json", "utf-8"));
+  return JSON.parse(fs.readFileSync("./data/protected.json", "utf-8"));
 }
 
 function writeAreas(arr) {
-  return fs.writeFileSync("./data/singlearea.json", JSON.stringify(arr));
+  return fs.writeFileSync("./data/protected.json", JSON.stringify(arr));
 }
 
 function updateAreas(areas) {
   const areasData = loadAreas();
   areasData.push(areas);
-  return fs.writeFileSync("./data/singlearea.json", JSON.stringify(areasData));
+  return fs.writeFileSync("./data/protected.json", JSON.stringify(areasData));
 }
 
 router.get("/", (req, res) => {

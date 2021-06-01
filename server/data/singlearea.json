@@ -1,9 +1,10 @@
 [
   {
-    "id": 555540047,
-    "name": "Alte Valli Anzasca, Antrona e Bognanco",
-    "original_name": "Alte Valli Anzasca, Antrona e Bognanco",
-    "wdpa_id": 555540047,
+    "_id": "60b54e9968540162dcef1d9d",
+    "id": 555715887,
+    "name": "SE-13-002-06 E",
+    "original_name": "SE-13-002-06 E",
+    "wdpa_id": 555715887,
     "geojson": {
       "type": "Feature",
       "properties": {
@@ -17,146 +18,382 @@
         "type": "Polygon",
         "coordinates": [
           [
-            [8.024, 46.067],
-            [8.021, 46.07],
-            [8.029, 46.083],
-            [8.031, 46.099],
-            [8.108, 46.112],
-            [8.115, 46.122],
-            [8.113, 46.13],
-            [8.128, 46.138],
-            [8.142, 46.136],
-            [8.151, 46.144],
-            [8.154, 46.151],
-            [8.149, 46.16],
-            [8.158, 46.174],
-            [8.215, 46.185],
-            [8.23, 46.178],
-            [8.222, 46.159],
-            [8.238, 46.142],
-            [8.223, 46.139],
-            [8.207, 46.158],
-            [8.192, 46.158],
-            [8.185, 46.155],
-            [8.196, 46.151],
-            [8.19, 46.148],
-            [8.195, 46.146],
-            [8.19, 46.142],
-            [8.189, 46.131],
-            [8.176, 46.129],
-            [8.177, 46.122],
-            [8.163, 46.115],
-            [8.199, 46.115],
-            [8.205, 46.11],
-            [8.202, 46.106],
-            [8.207, 46.106],
-            [8.204, 46.102],
-            [8.22, 46.099],
-            [8.219, 46.094],
-            [8.228, 46.091],
-            [8.233, 46.084],
-            [8.224, 46.077],
-            [8.208, 46.086],
-            [8.204, 46.08],
-            [8.196, 46.078],
-            [8.195, 46.071],
-            [8.2, 46.067],
-            [8.181, 46.062],
-            [8.177, 46.055],
-            [8.163, 46.052],
-            [8.16, 46.057],
-            [8.146, 46.051],
-            [8.134, 46.057],
-            [8.139, 46.065],
-            [8.127, 46.061],
-            [8.119, 46.065],
-            [8.132, 46.077],
-            [8.116, 46.087],
-            [8.113, 46.082],
-            [8.118, 46.073],
-            [8.114, 46.063],
-            [8.078, 46.047],
-            [8.119, 46.051],
-            [8.136, 46.042],
-            [8.132, 46.041],
-            [8.147, 46.042],
-            [8.154, 46.036],
-            [8.187, 46.044],
-            [8.227, 46.046],
-            [8.232, 46.054],
-            [8.24, 46.055],
-            [8.244, 46.05],
-            [8.238, 46.043],
-            [8.251, 46.041],
-            [8.252, 46.032],
-            [8.23, 46.026],
-            [8.224, 46.031],
-            [8.204, 46.03],
-            [8.202, 46.024],
-            [8.178, 46.019],
-            [8.172, 46.012],
-            [8.165, 46.016],
-            [8.163, 46.011],
-            [8.15, 46.016],
-            [8.146, 46.002],
-            [8.127, 45.995],
-            [8.125, 45.991],
-            [8.079, 45.983],
-            [8.083, 45.978],
-            [8.044, 45.974],
-            [8.035, 45.977],
-            [8.027, 45.975],
-            [8.029, 45.97],
-            [8.023, 45.968],
-            [8.012, 45.981],
-            [8.001, 45.985],
-            [7.989, 45.996],
-            [8.001, 46.012],
-            [8.012, 46.012],
-            [8.012, 46.022],
-            [8.017, 46.024],
-            [8.012, 46.031],
-            [8.022, 46.04],
-            [8.036, 46.043],
-            [8.024, 46.067]
-          ],
-          [
-            [8.139, 46.086],
-            [8.139, 46.086],
-            [8.139, 46.086],
-            [8.139, 46.086]
+            [-96.663, 49.127],
+            [-96.652, 49.127],
+            [-96.652, 49.119],
+            [-96.662, 49.119],
+            [-96.663, 49.127]
           ]
         ]
       }
     },
     "marine": false,
     "reported_marine_area": "0.0",
-    "reported_area": "215.74",
-    "management_plan": "http://www.regione.piemonte.it/parchi/cms/dati-territoriali-new/aree-protette-e-rn2000/pianificazione-e-norme.html",
-    "owner_type": "Not Reported",
-    "countries": [{ "name": "Italy", "iso_3": "ITA", "id": "ITA" }],
-    "iucn_category": { "id": 8, "name": "Not Reported" },
+    "reported_area": "0.643819496274",
+    "management_plan": "https://www.natureconservancy.ca/en/",
+    "owner_type": "Non-profit organisations",
+    "countries": [
+      {
+        "name": "Canada",
+        "iso_3": "CAN",
+        "id": "CAN"
+      }
+    ],
+    "iucn_category": {
+      "id": 5,
+      "name": "IV"
+    },
     "designation": {
-      "id": 1035,
-      "name": "Special Protection Area (Birds Directive)",
-      "jurisdiction": { "id": 3, "name": "Regional" }
+      "id": 1101,
+      "name": "Private Land",
+      "jurisdiction": {
+        "id": 6,
+        "name": "Not Applicable"
+      }
     },
     "no_take_status": {
-      "id": 142710,
+      "id": 252509,
       "name": "Not Applicable",
       "area": "0.0"
     },
-    "legal_status": { "id": 1, "name": "Designated" },
+    "legal_status": {
+      "id": 5,
+      "name": "Established"
+    },
     "management_authority": {
-      "id": 3490,
-      "name": "Ente di gestione delle Aree protette dell’Ossola"
+      "id": 1051,
+      "name": "Nature Conservancy of Canada"
     },
     "governance": {
+      "id": 7,
+      "governance_type": "Private Governance"
+    },
+    "pame_evaluations": [],
+    "links": {
+      "protected_planet": "http://protectedplanet.net/555715887"
+    },
+    "legal_status_updated_at": "01/01/2020"
+  },
+  {
+    "_id": "60b54e9968540162dcef1dcd",
+    "id": 555715747,
+    "name": "Boyle Point Protected Area",
+    "original_name": "Boyle Point Protected Area",
+    "wdpa_id": 555715747,
+    "geojson": {
+      "type": "Feature",
+      "properties": {
+        "fill-opacity": 0.7,
+        "stroke-width": 0.05,
+        "stroke": "#40541b",
+        "fill": "#83ad35",
+        "marker-color": "#2B3146"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-124.704, 49.488],
+            [-124.704, 49.488],
+            [-124.708, 49.491],
+            [-124.7, 49.489],
+            [-124.704, 49.488]
+          ]
+        ]
+      }
+    },
+    "marine": false,
+    "reported_marine_area": "0.0",
+    "reported_area": "0.093",
+    "management_plan": "http://www.env.gov.bc.ca/bcparks/",
+    "owner_type": "State",
+    "countries": [
+      {
+        "name": "Canada",
+        "iso_3": "CAN",
+        "id": "CAN"
+      }
+    ],
+    "iucn_category": {
+      "id": 3,
+      "name": "II"
+    },
+    "designation": {
+      "id": 42,
+      "name": "Protected Area",
+      "jurisdiction": {
+        "id": 1,
+        "name": "National"
+      }
+    },
+    "no_take_status": {
+      "id": 252369,
+      "name": "Not Applicable",
+      "area": "0.0"
+    },
+    "legal_status": {
       "id": 1,
+      "name": "Designated"
+    },
+    "management_authority": {
+      "id": 221,
+      "name": "Government of British Columbia"
+    },
+    "governance": {
+      "id": 8,
       "governance_type": "Governance by Government"
     },
     "pame_evaluations": [],
-    "links": { "protected_planet": "http://protectedplanet.net/555540047" },
-    "legal_status_updated_at": "01/01/2006"
+    "links": {
+      "protected_planet": "http://protectedplanet.net/555715747"
+    },
+    "legal_status_updated_at": "01/01/2013"
+  },
+  {
+    "_id": "60b54f73996f1756d0d0139c",
+    "id": 555593185,
+    "name": "North and South Green Islands",
+    "original_name": "North and South Green Islands",
+    "wdpa_id": 555593185,
+    "geojson": {
+      "type": "Feature",
+      "properties": {
+        "fill-opacity": 0.7,
+        "stroke-width": 0.05,
+        "stroke": "#2E5387",
+        "fill": "#3E7BB6",
+        "marker-color": "#2B3146"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [-66.76, 44.619],
+              [-66.762, 44.619],
+              [-66.762, 44.621],
+              [-66.76, 44.62],
+              [-66.76, 44.619]
+            ]
+          ],
+          [
+            [
+              [-66.753, 44.613],
+              [-66.752, 44.612],
+              [-66.753, 44.61],
+              [-66.753, 44.611],
+              [-66.753, 44.613]
+            ]
+          ]
+        ]
+      }
+    },
+    "marine": true,
+    "reported_marine_area": "0.0",
+    "reported_area": "0.0510086976034",
+    "management_plan": "https://www2.gnb.ca/content/gnb/en/departments/erd/natural_resources/content/ForestsCrownLands/content/ProtectedNaturalAreas.html",
+    "owner_type": "State",
+    "countries": [
+      {
+        "name": "Canada",
+        "iso_3": "CAN",
+        "id": "CAN"
+      }
+    ],
+    "iucn_category": {
+      "id": 2,
+      "name": "Ib"
+    },
+    "designation": {
+      "id": 320,
+      "name": "Protected Natural Area",
+      "jurisdiction": {
+        "id": 1,
+        "name": "National"
+      }
+    },
+    "no_take_status": {
+      "id": 181561,
+      "name": "Not Reported",
+      "area": "0.0"
+    },
+    "legal_status": {
+      "id": 1,
+      "name": "Designated"
+    },
+    "management_authority": {
+      "id": 418,
+      "name": "Department of Natural Resources, Government of New Brunswick"
+    },
+    "governance": {
+      "id": 8,
+      "governance_type": "Governance by Government"
+    },
+    "pame_evaluations": [],
+    "links": {
+      "protected_planet": "http://protectedplanet.net/555593185"
+    },
+    "legal_status_updated_at": "01/01/2014"
+  },
+  {
+    "_id": "60b54f73996f1756d0d0139f",
+    "id": 18113,
+    "name": "Crow Lake Ecological Reserve",
+    "original_name": "Crow Lake Ecological Reserve",
+    "wdpa_id": 18113,
+    "geojson": {
+      "type": "Feature",
+      "properties": {
+        "fill-opacity": 0.7,
+        "stroke-width": 0.05,
+        "stroke": "#40541b",
+        "fill": "#83ad35",
+        "marker-color": "#2B3146"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-112.165, 55.802],
+            [-112.141, 55.796],
+            [-112.128, 55.801],
+            [-112.128, 55.795],
+            [-112.102, 55.795],
+            [-112.102, 55.788],
+            [-112.089, 55.788],
+            [-112.089, 55.781],
+            [-112.102, 55.781],
+            [-112.102, 55.774],
+            [-112.115, 55.774],
+            [-112.115, 55.781],
+            [-112.172, 55.781],
+            [-112.174, 55.795],
+            [-112.165, 55.802]
+          ]
+        ]
+      }
+    },
+    "marine": false,
+    "reported_marine_area": "0.0",
+    "reported_area": "9.7992",
+    "management_plan": "http://albertaparks.ca/",
+    "owner_type": "State",
+    "countries": [
+      {
+        "name": "Canada",
+        "iso_3": "CAN",
+        "id": "CAN"
+      }
+    ],
+    "iucn_category": {
+      "id": 1,
+      "name": "Ia"
+    },
+    "designation": {
+      "id": 100,
+      "name": "Ecological Reserve",
+      "jurisdiction": {
+        "id": 1,
+        "name": "National"
+      }
+    },
+    "no_take_status": {
+      "id": 5887,
+      "name": "Not Applicable",
+      "area": "0.0"
+    },
+    "legal_status": {
+      "id": 1,
+      "name": "Designated"
+    },
+    "management_authority": {
+      "id": 70,
+      "name": "Parks Operations Division, Alberta Environment and Parks"
+    },
+    "governance": {
+      "id": 8,
+      "governance_type": "Governance by Government"
+    },
+    "pame_evaluations": [],
+    "links": {
+      "protected_planet": "http://protectedplanet.net/18113"
+    },
+    "legal_status_updated_at": "01/01/1987"
+  },
+  {
+    "_id": "60b54f73996f1756d0d013a8",
+    "id": 19919,
+    "name": "Rideau River Provincial Park (Recreational Class)",
+    "original_name": "Rideau River Provincial Park (Recreational Class)",
+    "wdpa_id": 19919,
+    "geojson": {
+      "type": "Feature",
+      "properties": {
+        "fill-opacity": 0.7,
+        "stroke-width": 0.05,
+        "stroke": "#40541b",
+        "fill": "#83ad35",
+        "marker-color": "#2B3146"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-75.661, 45.059],
+            [-75.679, 45.051],
+            [-75.682, 45.054],
+            [-75.662, 45.065],
+            [-75.658, 45.061],
+            [-75.661, 45.059]
+          ]
+        ]
+      }
+    },
+    "marine": false,
+    "reported_marine_area": "0.0",
+    "reported_area": "0.9793",
+    "management_plan": "www.ontarioparks.com/en",
+    "owner_type": "State",
+    "countries": [
+      {
+        "name": "Canada",
+        "iso_3": "CAN",
+        "id": "CAN"
+      }
+    ],
+    "iucn_category": {
+      "id": 3,
+      "name": "II"
+    },
+    "designation": {
+      "id": 130,
+      "name": "Provincial Park",
+      "jurisdiction": {
+        "id": 1,
+        "name": "National"
+      }
+    },
+    "no_take_status": {
+      "id": 6692,
+      "name": "Not Applicable",
+      "area": "0.0"
+    },
+    "legal_status": {
+      "id": 1,
+      "name": "Designated"
+    },
+    "management_authority": {
+      "id": 218,
+      "name": "Ontario Parks"
+    },
+    "governance": {
+      "id": 8,
+      "governance_type": "Governance by Government"
+    },
+    "pame_evaluations": [],
+    "links": {
+      "protected_planet": "http://protectedplanet.net/19919"
+    },
+    "legal_status_updated_at": "01/01/1963"
   }
 ]
