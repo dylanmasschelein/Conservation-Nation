@@ -5,7 +5,9 @@ function SinglePolygon({ pathOptions, positions, getAreaName }) {
     <Polygon
       pathOptions={pathOptions}
       positions={positions}
-      onClick={getAreaName}
+      onClick={() => {
+        getAreaName();
+      }}
     />
   );
 }

@@ -1,10 +1,9 @@
 [
   {
-    "_id": "60b54e9968540162dcef1d9d",
-    "id": 555715887,
-    "name": "SE-13-002-06 E",
-    "original_name": "SE-13-002-06 E",
-    "wdpa_id": 555715887,
+    "id": 124027,
+    "name": "Perna",
+    "original_name": "Perna",
+    "wdpa_id": 124027,
     "geojson": {
       "type": "Feature",
       "properties": {
@@ -18,25 +17,25 @@
         "type": "Polygon",
         "coordinates": [
           [
-            [-96.663, 49.127],
-            [-96.652, 49.127],
-            [-96.652, 49.119],
-            [-96.662, 49.119],
-            [-96.663, 49.127]
+            [19.234, 52.266],
+            [19.238, 52.264],
+            [19.228, 52.266],
+            [19.231, 52.267],
+            [19.234, 52.266]
           ]
         ]
       }
     },
     "marine": false,
     "reported_marine_area": "0.0",
-    "reported_area": "0.643819496274",
-    "management_plan": "https://www.natureconservancy.ca/en/",
-    "owner_type": "Non-profit organisations",
+    "reported_area": "0.1568487",
+    "management_plan": "Not Reported",
+    "owner_type": "Not Reported",
     "countries": [
       {
-        "name": "Canada",
-        "iso_3": "CAN",
-        "id": "CAN"
+        "name": "Poland",
+        "iso_3": "POL",
+        "id": "POL"
       }
     ],
     "iucn_category": {
@@ -44,90 +43,15 @@
       "name": "IV"
     },
     "designation": {
-      "id": 1101,
-      "name": "Private Land",
-      "jurisdiction": {
-        "id": 6,
-        "name": "Not Applicable"
-      }
-    },
-    "no_take_status": {
-      "id": 252509,
-      "name": "Not Applicable",
-      "area": "0.0"
-    },
-    "legal_status": {
-      "id": 5,
-      "name": "Established"
-    },
-    "management_authority": {
-      "id": 1051,
-      "name": "Nature Conservancy of Canada"
-    },
-    "governance": {
-      "id": 7,
-      "governance_type": "Private Governance"
-    },
-    "pame_evaluations": [],
-    "links": {
-      "protected_planet": "http://protectedplanet.net/555715887"
-    },
-    "legal_status_updated_at": "01/01/2020"
-  },
-  {
-    "_id": "60b54e9968540162dcef1dcd",
-    "id": 555715747,
-    "name": "Boyle Point Protected Area",
-    "original_name": "Boyle Point Protected Area",
-    "wdpa_id": 555715747,
-    "geojson": {
-      "type": "Feature",
-      "properties": {
-        "fill-opacity": 0.7,
-        "stroke-width": 0.05,
-        "stroke": "#40541b",
-        "fill": "#83ad35",
-        "marker-color": "#2B3146"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [-124.704, 49.488],
-            [-124.704, 49.488],
-            [-124.708, 49.491],
-            [-124.7, 49.489],
-            [-124.704, 49.488]
-          ]
-        ]
-      }
-    },
-    "marine": false,
-    "reported_marine_area": "0.0",
-    "reported_area": "0.093",
-    "management_plan": "http://www.env.gov.bc.ca/bcparks/",
-    "owner_type": "State",
-    "countries": [
-      {
-        "name": "Canada",
-        "iso_3": "CAN",
-        "id": "CAN"
-      }
-    ],
-    "iucn_category": {
       "id": 3,
-      "name": "II"
-    },
-    "designation": {
-      "id": 42,
-      "name": "Protected Area",
+      "name": "Nature Reserve",
       "jurisdiction": {
         "id": 1,
         "name": "National"
       }
     },
     "no_take_status": {
-      "id": 252369,
+      "id": 19613,
       "name": "Not Applicable",
       "area": "0.0"
     },
@@ -136,264 +60,17 @@
       "name": "Designated"
     },
     "management_authority": {
-      "id": 221,
-      "name": "Government of British Columbia"
+      "id": 6,
+      "name": "Not Reported"
     },
     "governance": {
-      "id": 8,
+      "id": 1,
       "governance_type": "Governance by Government"
     },
     "pame_evaluations": [],
     "links": {
-      "protected_planet": "http://protectedplanet.net/555715747"
+      "protected_planet": "http://protectedplanet.net/124027"
     },
-    "legal_status_updated_at": "01/01/2013"
-  },
-  {
-    "_id": "60b54f73996f1756d0d0139c",
-    "id": 555593185,
-    "name": "North and South Green Islands",
-    "original_name": "North and South Green Islands",
-    "wdpa_id": 555593185,
-    "geojson": {
-      "type": "Feature",
-      "properties": {
-        "fill-opacity": 0.7,
-        "stroke-width": 0.05,
-        "stroke": "#2E5387",
-        "fill": "#3E7BB6",
-        "marker-color": "#2B3146"
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-66.76, 44.619],
-              [-66.762, 44.619],
-              [-66.762, 44.621],
-              [-66.76, 44.62],
-              [-66.76, 44.619]
-            ]
-          ],
-          [
-            [
-              [-66.753, 44.613],
-              [-66.752, 44.612],
-              [-66.753, 44.61],
-              [-66.753, 44.611],
-              [-66.753, 44.613]
-            ]
-          ]
-        ]
-      }
-    },
-    "marine": true,
-    "reported_marine_area": "0.0",
-    "reported_area": "0.0510086976034",
-    "management_plan": "https://www2.gnb.ca/content/gnb/en/departments/erd/natural_resources/content/ForestsCrownLands/content/ProtectedNaturalAreas.html",
-    "owner_type": "State",
-    "countries": [
-      {
-        "name": "Canada",
-        "iso_3": "CAN",
-        "id": "CAN"
-      }
-    ],
-    "iucn_category": {
-      "id": 2,
-      "name": "Ib"
-    },
-    "designation": {
-      "id": 320,
-      "name": "Protected Natural Area",
-      "jurisdiction": {
-        "id": 1,
-        "name": "National"
-      }
-    },
-    "no_take_status": {
-      "id": 181561,
-      "name": "Not Reported",
-      "area": "0.0"
-    },
-    "legal_status": {
-      "id": 1,
-      "name": "Designated"
-    },
-    "management_authority": {
-      "id": 418,
-      "name": "Department of Natural Resources, Government of New Brunswick"
-    },
-    "governance": {
-      "id": 8,
-      "governance_type": "Governance by Government"
-    },
-    "pame_evaluations": [],
-    "links": {
-      "protected_planet": "http://protectedplanet.net/555593185"
-    },
-    "legal_status_updated_at": "01/01/2014"
-  },
-  {
-    "_id": "60b54f73996f1756d0d0139f",
-    "id": 18113,
-    "name": "Crow Lake Ecological Reserve",
-    "original_name": "Crow Lake Ecological Reserve",
-    "wdpa_id": 18113,
-    "geojson": {
-      "type": "Feature",
-      "properties": {
-        "fill-opacity": 0.7,
-        "stroke-width": 0.05,
-        "stroke": "#40541b",
-        "fill": "#83ad35",
-        "marker-color": "#2B3146"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [-112.165, 55.802],
-            [-112.141, 55.796],
-            [-112.128, 55.801],
-            [-112.128, 55.795],
-            [-112.102, 55.795],
-            [-112.102, 55.788],
-            [-112.089, 55.788],
-            [-112.089, 55.781],
-            [-112.102, 55.781],
-            [-112.102, 55.774],
-            [-112.115, 55.774],
-            [-112.115, 55.781],
-            [-112.172, 55.781],
-            [-112.174, 55.795],
-            [-112.165, 55.802]
-          ]
-        ]
-      }
-    },
-    "marine": false,
-    "reported_marine_area": "0.0",
-    "reported_area": "9.7992",
-    "management_plan": "http://albertaparks.ca/",
-    "owner_type": "State",
-    "countries": [
-      {
-        "name": "Canada",
-        "iso_3": "CAN",
-        "id": "CAN"
-      }
-    ],
-    "iucn_category": {
-      "id": 1,
-      "name": "Ia"
-    },
-    "designation": {
-      "id": 100,
-      "name": "Ecological Reserve",
-      "jurisdiction": {
-        "id": 1,
-        "name": "National"
-      }
-    },
-    "no_take_status": {
-      "id": 5887,
-      "name": "Not Applicable",
-      "area": "0.0"
-    },
-    "legal_status": {
-      "id": 1,
-      "name": "Designated"
-    },
-    "management_authority": {
-      "id": 70,
-      "name": "Parks Operations Division, Alberta Environment and Parks"
-    },
-    "governance": {
-      "id": 8,
-      "governance_type": "Governance by Government"
-    },
-    "pame_evaluations": [],
-    "links": {
-      "protected_planet": "http://protectedplanet.net/18113"
-    },
-    "legal_status_updated_at": "01/01/1987"
-  },
-  {
-    "_id": "60b54f73996f1756d0d013a8",
-    "id": 19919,
-    "name": "Rideau River Provincial Park (Recreational Class)",
-    "original_name": "Rideau River Provincial Park (Recreational Class)",
-    "wdpa_id": 19919,
-    "geojson": {
-      "type": "Feature",
-      "properties": {
-        "fill-opacity": 0.7,
-        "stroke-width": 0.05,
-        "stroke": "#40541b",
-        "fill": "#83ad35",
-        "marker-color": "#2B3146"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [-75.661, 45.059],
-            [-75.679, 45.051],
-            [-75.682, 45.054],
-            [-75.662, 45.065],
-            [-75.658, 45.061],
-            [-75.661, 45.059]
-          ]
-        ]
-      }
-    },
-    "marine": false,
-    "reported_marine_area": "0.0",
-    "reported_area": "0.9793",
-    "management_plan": "www.ontarioparks.com/en",
-    "owner_type": "State",
-    "countries": [
-      {
-        "name": "Canada",
-        "iso_3": "CAN",
-        "id": "CAN"
-      }
-    ],
-    "iucn_category": {
-      "id": 3,
-      "name": "II"
-    },
-    "designation": {
-      "id": 130,
-      "name": "Provincial Park",
-      "jurisdiction": {
-        "id": 1,
-        "name": "National"
-      }
-    },
-    "no_take_status": {
-      "id": 6692,
-      "name": "Not Applicable",
-      "area": "0.0"
-    },
-    "legal_status": {
-      "id": 1,
-      "name": "Designated"
-    },
-    "management_authority": {
-      "id": 218,
-      "name": "Ontario Parks"
-    },
-    "governance": {
-      "id": 8,
-      "governance_type": "Governance by Government"
-    },
-    "pame_evaluations": [],
-    "links": {
-      "protected_planet": "http://protectedplanet.net/19919"
-    },
-    "legal_status_updated_at": "01/01/1963"
+    "legal_status_updated_at": "01/01/1975"
   }
 ]

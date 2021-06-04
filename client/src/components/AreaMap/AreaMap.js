@@ -3,28 +3,32 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import "./AreaMap.scss";
 import axios from "axios";
 import SinglePolygon from "../SinglePloygon/SinglePolygon";
+import L from "leaflet";
+
 import "leaflet/dist/leaflet.css";
+
+import { point, flip } from "@turf/turf";
 
 class AreaMap extends Component {
   state = {
     areas: null,
   };
 
-  getAreaName = (e) => {
-    console.log(e);
+  paresGeojson(obj) {
+    const coords = new L.GeoJSON(obj);
+    return coords;
+  }
+  getAreaName = () => {
+    console.log("click");
   };
 
   getAreas() {
-    axios
-      .get(
-        "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=6&token=1c80aeb620a008918c33c3575aed4236"
-      )
-      .then((response) => {
-        const areas = response.data.protected_areas;
-        this.setState({
-          areas: areas,
-        });
+    axios.get("http://localhost:8080/areas/country").then((response) => {
+      const areas = response.data;
+      this.setState({
+        areas: areas,
       });
+    });
   }
 
   componentDidMount() {
@@ -35,13 +39,12 @@ class AreaMap extends Component {
       return <h1>Loading. . .</h1>;
     }
     const fillBlueOptions = { fillColor: "blue" };
-    // const limeOptions = { color: "lime" };
     return (
       <div>
         <MapContainer
           className='map'
-          center={[19.234, 52.266]}
-          zoom={13}
+          center={[49.127, -96.663]}
+          zoom={5}
           scrollWheelZoom={false}
         >
           {/* Map Styling */}
@@ -50,13 +53,12 @@ class AreaMap extends Component {
             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
           />
           {/* Render polygons on map */}
-          {this.state.areas.map((area, i) => {
-            console.log(i);
+          {this.state.areas.map((area) => {
             return (
               <SinglePolygon
                 key={area.id}
                 pathOptions={fillBlueOptions}
-                positions={area.geojson.geometry.coordinates}
+                positions={this.paresGeojson(area.geojson.geometry)}
                 getAreaName={this.getAreaName}
               />
             );
