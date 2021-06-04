@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import "./AreaMap.scss";
 import axios from "axios";
 import SinglePolygon from "../SinglePloygon/SinglePolygon";
 import L from "leaflet";
-
 import "leaflet/dist/leaflet.css";
-
-import { point, flip } from "@turf/turf";
 
 class AreaMap extends Component {
   state = {
@@ -55,12 +52,13 @@ class AreaMap extends Component {
           {/* Render polygons on map */}
           {this.state.areas.map((area) => {
             return (
-              <SinglePolygon
-                key={area.id}
-                pathOptions={fillBlueOptions}
-                positions={this.paresGeojson(area.geojson.geometry)}
-                getAreaName={this.getAreaName}
-              />
+              <GeoJSON data={area.geojson} />
+              // <SinglePolygon
+              //   key={area.id}
+              //   pathOptions={fillBlueOptions}
+              //   positions={area.geojson.geometry.coordinates}
+              //   getAreaName={this.getAreaName}
+              // />
             );
           })}
         </MapContainer>

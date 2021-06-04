@@ -15,7 +15,7 @@ async function createAreas() {
   try {
     await client.connect();
 
-    callProPlanet();
+    callProtectedPlanet();
   } catch (err) {
     console.log(err);
   }
@@ -65,80 +65,80 @@ async function findMultipleAreas(client, location) {
 }
 
 // Request to protected planet API
-// Completed -- 100
-function callProPlanet() {
-  axios
-    .get(
-      "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=91&token=1c80aeb620a008918c33c3575aed4236"
-    )
-    .then((response) => {
-      createMultipleAreas(client, response.data.protected_areas);
+// Completed -- 150
+// function callProPlanet() {
+//   axios
+//     .get(
+//       "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=141&token=1c80aeb620a008918c33c3575aed4236"
+//     )
+//     .then((response) => {
+//       createMultipleAreas(client, response.data.protected_areas);
 
-      return axios.get(
-        "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=92&token=1c80aeb620a008918c33c3575aed4236"
-      );
-    })
-    .then((response) => {
-      createMultipleAreas(client, response.data.protected_areas);
-      return axios.get(
-        "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=93&token=1c80aeb620a008918c33c3575aed4236"
-      );
-    })
-    .then((response) => {
-      createMultipleAreas(client, response.data.protected_areas);
-      return axios.get(
-        "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=94&token=1c80aeb620a008918c33c3575aed4236"
-      );
-    })
-    .then((response) => {
-      createMultipleAreas(client, response.data.protected_areas);
-      return axios.get(
-        "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=95&token=1c80aeb620a008918c33c3575aed4236"
-      );
-    })
-    .then((response) => {
-      createMultipleAreas(client, response.data.protected_areas);
-      return axios.get(
-        "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=96&token=1c80aeb620a008918c33c3575aed4236"
-      );
-    })
-    .then((response) => {
-      createMultipleAreas(client, response.data.protected_areas);
-      return axios.get(
-        "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=97&token=1c80aeb620a008918c33c3575aed4236"
-      );
-    })
-    .then((response) => {
-      createMultipleAreas(client, response.data.protected_areas);
-      return axios.get(
-        "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=98&token=1c80aeb620a008918c33c3575aed4236"
-      );
-    })
-    .then((response) => {
-      createMultipleAreas(client, response.data.protected_areas);
-      return axios.get(
-        "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=99&token=1c80aeb620a008918c33c3575aed4236"
-      );
-    })
-    .then((response) => {
-      createMultipleAreas(client, response.data.protected_areas);
-      return axios.get(
-        "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=100&token=1c80aeb620a008918c33c3575aed4236"
-      );
-    })
-    .then((response) => {
-      console.log("DONE ----------------------------------------");
-      createMultipleAreas(client, response.data.protected_areas);
-    })
+//       return axios.get(
+//         "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=142&token=1c80aeb620a008918c33c3575aed4236"
+//       );
+//     })
+//     .then((response) => {
+//       createMultipleAreas(client, response.data.protected_areas);
+//       return axios.get(
+//         "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=143&token=1c80aeb620a008918c33c3575aed4236"
+//       );
+//     })
+//     .then((response) => {
+//       createMultipleAreas(client, response.data.protected_areas);
+//       return axios.get(
+//         "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=144&token=1c80aeb620a008918c33c3575aed4236"
+//       );
+//     })
+// .then((response) => {
+//   createMultipleAreas(client, response.data.protected_areas);
+//   return axios.get(
+//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=145&token=1c80aeb620a008918c33c3575aed4236"
+//   );
+// })
+// .then((response) => {
+//   createMultipleAreas(client, response.data.protected_areas);
+//   return axios.get(
+//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=146&token=1c80aeb620a008918c33c3575aed4236"
+//   );
+// })
+// .then((response) => {
+//   createMultipleAreas(client, response.data.protected_areas);
+//   return axios.get(
+//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=147&token=1c80aeb620a008918c33c3575aed4236"
+//   );
+// })
+// .then((response) => {
+//   createMultipleAreas(client, response.data.protected_areas);
+//   return axios.get(
+//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=148&token=1c80aeb620a008918c33c3575aed4236"
+//   );
+// })
+// .then((response) => {
+//   createMultipleAreas(client, response.data.protected_areas);
+//   return axios.get(
+//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=149&token=1c80aeb620a008918c33c3575aed4236"
+//   );
+// })
+// .then((response) => {
+//   createMultipleAreas(client, response.data.protected_areas);
+//   return axios.get(
+//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=150&token=1c80aeb620a008918c33c3575aed4236"
+//   );
+// })
+//     .then((response) => {
+//       console.log("DONE ----------------------------------------");
+//       createMultipleAreas(client, response.data.protected_areas);
+//     })
 
-    .catch((err) => console.log(err));
-}
+//     .catch((err) => console.log(err));
+// }
 
 const callProtectedPlanet = async () => {
   // Promise All!!!!!!
   try {
     const response = await axios.get(
-      "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=60&token=1c80aeb620a008918c33c3575aed4236"
+      "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=1450&token=1c80aeb620a008918c33c3575aed4236"
     );
 
     await createMultipleAreas(client, response.data.protected_areas);
@@ -173,41 +173,3 @@ router.get("/writeTestFile", async (_req, res) => {
 });
 
 module.exports = router;
-
-// console.log("promising");
-// const result = Promise.all([
-//   await axios.get(
-//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=50&token=1c80aeb620a008918c33c3575aed4236"
-//   ),
-//   await axios.get(
-//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=50&token=1c80aeb620a008918c33c3575aed4236"
-//   ),
-//   await axios.get(
-//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=50&token=1c80aeb620a008918c33c3575aed4236"
-//   ),
-//   await axios.get(
-//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=50&token=1c80aeb620a008918c33c3575aed4236"
-//   ),
-//   await axios.get(
-//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=50&token=1c80aeb620a008918c33c3575aed4236"
-//   ),
-//   await axios.get(
-//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=50&token=1c80aeb620a008918c33c3575aed4236"
-//   ),
-//   await axios.get(
-//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=50&token=1c80aeb620a008918c33c3575aed4236"
-//   ),
-//   await axios.get(
-//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=50&token=1c80aeb620a008918c33c3575aed4236"
-//   ),
-//   await axios.get(
-//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=50&token=1c80aeb620a008918c33c3575aed4236"
-//   ),
-//   await axios.get(
-//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=50&token=1c80aeb620a008918c33c3575aed4236"
-//   ),
-//   await axios.get(
-//     "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=50&token=1c80aeb620a008918c33c3575aed4236"
-//   ),
-// ]);
-// console.log(result);
