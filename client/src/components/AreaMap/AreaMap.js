@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
+import { MapContainer, TileLayer, GeoJSON, Tooltip } from "react-leaflet";
 import "./AreaMap.scss";
 import axios from "axios";
-import SinglePolygon from "../SinglePloygon/SinglePolygon";
+
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -11,12 +11,10 @@ class AreaMap extends Component {
     areas: null,
   };
 
-  paresGeojson(obj) {
-    const coords = new L.GeoJSON(obj);
-    return coords;
-  }
-  getAreaName = () => {
-    console.log("click");
+  onEachArea = (name, country) => {
+    const area = `${name}, ${country}`;
+    // L.bindPopup(area);
+    // console.log(area);
   };
 
   getAreas() {
@@ -27,7 +25,41 @@ class AreaMap extends Component {
       });
     });
   }
+  // Add to helper function folder
+  //think the object options are overiding this option?
+  fillColor(option) {
+    console.log(option, "optioning");
 
+    if (option === true) {
+      console.log("if");
+      return {
+        fillOpacity: 0.5,
+        fillColor: "blue",
+        color: "blue",
+        markerStroke: "blue",
+        marker: "blue",
+        opacity: 0.4,
+      };
+    } else if (option === false) {
+      console.log("else if");
+      return {
+        fillColor: "green",
+        color: "green",
+        marker: "green",
+        markerStroke: "green",
+        fillOpacity: 0.5,
+      };
+    } else {
+      console.log("else");
+      return {
+        fillColor: "green",
+        color: "green",
+        stroke: "green",
+        markerStroke: "green",
+        fillOpacity: 0.4,
+      };
+    }
+  }
   componentDidMount() {
     this.getAreas();
   }
@@ -35,7 +67,8 @@ class AreaMap extends Component {
     if (this.state.areas === null) {
       return <h1>Loading. . .</h1>;
     }
-    const fillBlueOptions = { fillColor: "blue" };
+    console.log(this.state.areas);
+
     return (
       <div>
         <MapContainer
@@ -52,13 +85,20 @@ class AreaMap extends Component {
           {/* Render polygons on map */}
           {this.state.areas.map((area) => {
             return (
-              <GeoJSON data={area.geojson} />
-              // <SinglePolygon
-              //   key={area.id}
-              //   pathOptions={fillBlueOptions}
-              //   positions={area.geojson.geometry.coordinates}
-              //   getAreaName={this.getAreaName}
-              // />
+              <GeoJSON
+                // pathOptions={() => {
+                //   this.fillColor(area.marine);
+                // }}
+                style={() => {
+                  this.fillColor(area.marine);
+                }}
+                key={area.id}
+                data={area.geojson}
+              >
+                <Tooltip sticky>
+                  {area.name}, {area.countries[0].name}
+                </Tooltip>
+              </GeoJSON>
             );
           })}
         </MapContainer>
