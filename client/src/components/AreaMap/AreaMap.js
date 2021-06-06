@@ -1,21 +1,27 @@
 import React, { Component } from "react";
-import { MapContainer, TileLayer, GeoJSON, Tooltip } from "react-leaflet";
+import { Map, MapContainer, TileLayer, GeoJSON, Tooltip } from "react-leaflet";
+import { geolocated } from "react-geolocated";
 import "./AreaMap.scss";
 import axios from "axios";
-
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 class AreaMap extends Component {
   state = {
     areas: null,
+    lng: null,
+    lat: null,
+    bounds: null,
   };
 
-  onEachArea = (name, country) => {
-    const area = `${name}, ${country}`;
-    // L.bindPopup(area);
-    // console.log(area);
+  onEachArea = (feature, layer) => {
+    layer.on("click", (e) => {
+      console.log(L);
+    });
   };
+  // onEachArea = (name, country) => {
+  //   const area = `${name}, ${country}`;
+  // };
 
   getAreas() {
     axios.get("http://localhost:8080/areas/country").then((response) => {
@@ -26,7 +32,8 @@ class AreaMap extends Component {
     });
   }
   // Add to helper function folder
-  //think the object options are overiding this option?
+
+  // think the object options are overiding this option?
   fillColor(option) {
     console.log(option, "optioning");
 
@@ -60,21 +67,38 @@ class AreaMap extends Component {
       };
     }
   }
+
   componentDidMount() {
     this.getAreas();
+    this.getUserLocation();
   }
+
+  getUserLocation = () => {
+    console.log("Im working");
+    navigator.geolocation.getCurrentPosition(this.centerLocationOnUser);
+  };
+  centerLocationOnUser = (position) => {
+    const { latitude, longitude } = position.coords;
+    const bounds = L.latLngBounds([latitude, longitude]);
+    this.setState({
+      lng: longitude,
+      lat: latitude,
+      bounds: bounds,
+    });
+  };
+
   render() {
     if (this.state.areas === null) {
       return <h1>Loading. . .</h1>;
     }
-    console.log(this.state.areas);
 
     return (
       <div>
         <MapContainer
           className='map'
-          center={[49.127, -96.663]}
+          center={[this.state.lat, this.state.lng]}
           zoom={5}
+          bounds={this.state.bounds}
           scrollWheelZoom={false}
         >
           {/* Map Styling */}
@@ -89,9 +113,10 @@ class AreaMap extends Component {
                 // pathOptions={() => {
                 //   this.fillColor(area.marine);
                 // }}
-                style={() => {
-                  this.fillColor(area.marine);
-                }}
+                // style={() => {
+                //   this.fillColor(area.marine);
+                // }}
+                onEachFeature={this.onEachArea}
                 key={area.id}
                 data={area.geojson}
               >

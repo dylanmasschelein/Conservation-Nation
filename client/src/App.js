@@ -1,5 +1,6 @@
 import { Component } from "react";
 import AreaMap from "./components/AreaMap/AreaMap";
+// import Test from "./components/Test/test";
 
 class App extends Component {
   render() {
