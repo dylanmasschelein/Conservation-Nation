@@ -21,6 +21,9 @@ const AreaMap = (props) => {
   const [naturalisData, setNaturalistData] = useState(null);
   const [areaBounds, setAreaBounds] = useState(null); // NE lat/lng , SW lat/lng format
 
+  const map = useRef();
+  const areaRef = useRef();
+
   const getUserLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
@@ -66,8 +69,12 @@ const AreaMap = (props) => {
       });
   };
 
+  setTimeout(() => {
+    // console.log(map.setView([-83.064, 5]));
+  }, 1000);
+
   useEffect(() => {
-    GetINaturalistData();
+    // GetINaturalistData();
     getAreas();
     getUserLocation();
   }, []);
@@ -75,21 +82,22 @@ const AreaMap = (props) => {
   const onEachArea = (feature, layer) => {
     layer.on("click", (e) => {
       const { _northEast, _southWest } = e.target._bounds;
-      console.log(e.target);
+      console.log(
+        areaRef.current._layers[2642]._map.touchZoom._map.ZoomBoundLayers
+      );
       setAreaBounds({
         neLat: _northEast.lat,
         neLng: _northEast.lng,
         swLat: _southWest.lat,
         swLat: _southWest.lng,
       });
-      // Set state here to zoom into the area!
+      console.log(feature);
     });
   };
 
   const getAreas = () => {
     axios.get("http://localhost:8080/areas/country").then((response) => {
       const areas = response.data;
-      console.log(response.data);
       setAreas(areas);
     });
   };
@@ -119,6 +127,10 @@ const AreaMap = (props) => {
         center={userLocation}
         zoom={5}
         scrollWheelZoom={false}
+        ref={map}
+        whenCreated={(mapInstance) => {
+          map.current = mapInstance;
+        }}
       >
         {/* Map Styling */}
         <TileLayer
@@ -133,7 +145,7 @@ const AreaMap = (props) => {
               key={area.id}
               data={area.geojson}
               style={!area.marine ? landStyle : marineStyle}
-              // ref={areaRef}
+              ref={areaRef}
               // eventHandlers={{
               //   click: zoomToArea,
               // }}

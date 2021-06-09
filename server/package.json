@@ -17,6 +17,7 @@
     "leaflet.locatecontrol": "^0.73.0",
     "mongodb": "^3.6.9",
     "nodemon": "^2.0.7",
-    "react-geolocated": "^3.2.0"
+    "react-geolocated": "^3.2.0",
+    "uuid": "^8.3.2"
   }
 }
