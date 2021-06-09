@@ -16,29 +16,29 @@ async function createAreas() {
     await client.connect();
     // callProtectedPlanet();
     callProPlanet(
-      "1175",
-      "1176",
-      "1177",
-      "1178",
-      "1179",
-      "1180",
-      "1181",
-      "1182",
-      "1183",
-      "1184"
+      "2735",
+      "2736",
+      "2737",
+      "2738",
+      "2739",
+      "2740",
+      "2741",
+      "2742",
+      "2743",
+      "2744"
     );
   } catch (err) {
     console.log(err);
   }
 }
-// completed 904
-createAreas();
+// completed 1184
+// createAreas();
 
 async function retrieveAreas() {
   try {
     await client.connect();
 
-    const areas = await findMultipleAreas(client, "MEX");
+    const areas = await findMultipleAreas(client, "COL");
     return areas;
   } catch (err) {
     console.log(err);
@@ -149,7 +149,7 @@ const callProtectedPlanet = async () => {
   // Promise All!!!!!!
   try {
     const response = await axios.get(
-      "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=697&token=1c80aeb620a008918c33c3575aed4236"
+      "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=2214&token=1c80aeb620a008918c33c3575aed4236"
     );
 
     await createMultipleAreas(client, response.data.protected_areas);
@@ -184,5 +184,3 @@ router.get("/writeTestFile", async (_req, res) => {
 });
 
 module.exports = router;
-
-//70, 203

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Map, MapContainer, TileLayer, GeoJSON, Tooltip } from "react-leaflet";
-import { geolocated } from "react-geolocated";
+import { MapContainer, TileLayer, GeoJSON, Tooltip } from "react-leaflet";
 import "./AreaMap.scss";
 import axios from "axios";
 import L from "leaflet";
@@ -12,16 +11,41 @@ class AreaMap extends Component {
     lng: null,
     lat: null,
     bounds: null,
+    naturalistData: null,
+  };
+
+  GetINaturalistData = () => {
+    axios
+      .get(
+        `https://api.inaturalist.org/v1/observations?geo=true&mappable=true&photos=true&per_page=1`
+      )
+      .then((data) => {
+        console.log(data.data);
+      });
   };
 
   onEachArea = (feature, layer) => {
+    //in this function I will set the layer.options.fillColor
+    // layer.options.fillColor = feature.properties.fill; Gives me ability to access polygon coords and properties -- HUGE
+
     layer.on("click", (e) => {
-      console.log(L);
+      const { coordinates } = feature.geometry;
+      const areaBounds = L.latLngBounds(coordinates);
+      // L.fitBounds(areaBounds);
+      console.log(areaBounds);
+      console.log(MapContainer);
+      // feature.fitBounds(areaBounds);
+      console.log(layer); // layer also exists
+      console.log(feature); // layer also exists
     });
   };
   // onEachArea = (name, country) => {
   //   const area = `${name}, ${country}`;
   // };
+
+  zoomToArea = (e) => {
+    console.log(e.target);
+  };
 
   getAreas() {
     axios.get("http://localhost:8080/areas/country").then((response) => {
@@ -69,6 +93,7 @@ class AreaMap extends Component {
   }
 
   componentDidMount() {
+    this.GetINaturalistData();
     this.getAreas();
     this.getUserLocation();
   }
@@ -77,6 +102,7 @@ class AreaMap extends Component {
     console.log("Im working");
     navigator.geolocation.getCurrentPosition(this.centerLocationOnUser);
   };
+
   centerLocationOnUser = (position) => {
     const { latitude, longitude } = position.coords;
     const bounds = L.latLngBounds([latitude, longitude]);
@@ -91,6 +117,12 @@ class AreaMap extends Component {
     if (this.state.areas === null) {
       return <h1>Loading. . .</h1>;
     }
+    const mapStyle = {
+      fillColor: "green",
+      weight: 1,
+      color: "black",
+      fillOpacity: 0.3,
+    };
 
     return (
       <div>
@@ -110,12 +142,7 @@ class AreaMap extends Component {
           {this.state.areas.map((area) => {
             return (
               <GeoJSON
-                // pathOptions={() => {
-                //   this.fillColor(area.marine);
-                // }}
-                // style={() => {
-                //   this.fillColor(area.marine);
-                // }}
+                style={mapStyle}
                 onEachFeature={this.onEachArea}
                 key={area.id}
                 data={area.geojson}

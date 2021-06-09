@@ -1,5 +1,5 @@
 import { Component } from "react";
-import AreaMap from "./components/AreaMap/AreaMap";
+import AreaMapHooks from "./components/AreaMapHooks/AreaMapHooks";
 // import Test from "./components/Test/test";
 
 class App extends Component {
@@ -9,7 +9,8 @@ class App extends Component {
         <header></header>
         <main>
           <section>
-            <AreaMap />
+            <AreaMapHooks />
+            {/* <AreaMap /> */}
           </section>
 
           <section>
