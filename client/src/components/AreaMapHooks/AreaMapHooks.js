@@ -1,13 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import {
   MapContainer,
   TileLayer,
   GeoJSON,
   Tooltip,
-  Marker,
-  useMapEvents,
-  Popup,
+  Rectangle,
   useMap,
+  useMapEvents,
+  // Marker,
+  // useMapEvents,
+  // Popup,
+  // useMap,
 } from "react-leaflet";
 import "../AreaMap/AreaMap.scss";
 import axios from "axios";
@@ -17,12 +20,12 @@ import "leaflet/dist/leaflet.css";
 const AreaMap = (props) => {
   const [areas, setAreas] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
-  // const [bounds, setBounds] = useState(null);
+  const [zoomBounds, setZoomBounds] = useState([
+    [52, -128],
+    [53, -122],
+  ]);
   const [naturalisData, setNaturalistData] = useState(null);
   const [areaBounds, setAreaBounds] = useState(null); // NE lat/lng , SW lat/lng format
-
-  const map = useRef();
-  const areaRef = useRef();
 
   const getUserLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -60,6 +63,7 @@ const AreaMap = (props) => {
           introduced,
           isActive,
           latinName,
+          sounds,
           native,
           count,
           name,
@@ -68,10 +72,6 @@ const AreaMap = (props) => {
         });
       });
   };
-
-  setTimeout(() => {
-    // console.log(map.setView([-83.064, 5]));
-  }, 1000);
 
   useEffect(() => {
     // GetINaturalistData();
@@ -82,16 +82,16 @@ const AreaMap = (props) => {
   const onEachArea = (feature, layer) => {
     layer.on("click", (e) => {
       const { _northEast, _southWest } = e.target._bounds;
-      console.log(
-        areaRef.current._layers[2642]._map.touchZoom._map.ZoomBoundLayers
-      );
       setAreaBounds({
         neLat: _northEast.lat,
         neLng: _northEast.lng,
         swLat: _southWest.lat,
-        swLat: _southWest.lng,
+        swLng: _southWest.lng,
       });
-      console.log(feature);
+      setZoomBounds([
+        [_northEast.lat, _northEast.lng],
+        [_southWest.lat, _southWest.lng],
+      ]);
     });
   };
 
@@ -116,6 +116,39 @@ const AreaMap = (props) => {
     fillOpacity: 0.3,
   };
 
+  // Works but retirving last zoomBounds from state
+  function SetBoundsRectangles() {
+    const map = useMapEvents({
+      click: () => {
+        setTimeout(() => {
+          console.log(zoomBounds);
+        }, 1000);
+        console.log(zoomBounds);
+        map.fitBounds(zoomBounds);
+      },
+    });
+
+    return (
+      <>
+        {areas.map((area) => {
+          return (
+            <GeoJSON
+              onEachFeature={onEachArea}
+              key={area._id}
+              data={area.geojson}
+              style={!area.marine ? landStyle : marineStyle}
+              bounds={zoomBounds}
+            >
+              <Tooltip sticky>
+                {area.name}, {area.countries[0].name}
+              </Tooltip>
+            </GeoJSON>
+          );
+        })}
+      </>
+    );
+  }
+
   if (areas === null) {
     return <h1>Loading. . .</h1>;
   }
@@ -127,10 +160,6 @@ const AreaMap = (props) => {
         center={userLocation}
         zoom={5}
         scrollWheelZoom={false}
-        ref={map}
-        whenCreated={(mapInstance) => {
-          map.current = mapInstance;
-        }}
       >
         {/* Map Styling */}
         <TileLayer
@@ -142,13 +171,9 @@ const AreaMap = (props) => {
           return (
             <GeoJSON
               onEachFeature={onEachArea}
-              key={area.id}
+              key={area._id}
               data={area.geojson}
               style={!area.marine ? landStyle : marineStyle}
-              ref={areaRef}
-              // eventHandlers={{
-              //   click: zoomToArea,
-              // }}
             >
               <Tooltip sticky>
                 {area.name}, {area.countries[0].name}
@@ -156,6 +181,7 @@ const AreaMap = (props) => {
             </GeoJSON>
           );
         })}
+        <SetBoundsRectangles />
       </MapContainer>
     </div>
   );

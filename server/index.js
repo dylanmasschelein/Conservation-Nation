@@ -4,7 +4,7 @@ require("dotenv").config();
 const cors = require("cors");
 // const userRoutes = require("./routes/userRoutes.js");
 // const observationRoutes = require("./routes/observationRoutes");
-const databaseAreas = require("./areasDB");
+const databaseAreas = require("./routes/areasDB");
 
 const port = 8080;
 

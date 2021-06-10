@@ -145,7 +145,7 @@ async function retrieveAreas() {
   try {
     await client.connect();
 
-    const areas = await findMultipleAreas(client, "Italy");
+    const areas = await findMultipleAreas(client, "Mexico");
     return areas;
   } catch (err) {
     console.log(err);
@@ -168,16 +168,16 @@ async function createAreas() {
     await client.connect();
     // callProtectedPlanet();
     callProPlanet(
-      "3035",
-      "3036",
-      "3037",
-      "3038",
-      "3039",
-      "3040",
-      "3041",
-      "3042",
-      "3043",
-      "3044"
+      "3345",
+      "3346",
+      "3347",
+      "3348",
+      "3349",
+      "3350",
+      "3351",
+      "3352",
+      "3353",
+      "3354"
     );
   } catch (err) {
     console.log(err);
@@ -256,7 +256,7 @@ const callProtectedPlanet = async () => {
   // Promise All!!!!!!
   try {
     const response = await axios.get(
-      "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=2995&token=1c80aeb620a008918c33c3575aed4236"
+      "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=3235&token=1c80aeb620a008918c33c3575aed4236"
     );
 
     await createMultipleAreas(client, response.data.protected_areas);
@@ -289,3 +289,37 @@ router.get("/writeTestFile", async (_req, res) => {
 });
 
 module.exports = router;
+
+// const badWords = ['and', 'the', 'of', 'du']
+
+// function capitalizeAllBut(str) {
+//   const lower = str.toLowerCase()
+
+//   const splitStr = lower.split(' ')
+//   for (let i=0; i < splitStr.length; i++) {
+
+//       switch (splitStr[i]) {
+//         case (badWords[0]):
+//           break;
+//         case (badWords[1]):
+//               break;
+//         case(badWords[2]):
+//               break;
+//         case(badWords[3]):
+//               break;
+//         default:
+//           const capitalLetter = splitStr[i][0].toUpperCase();
+//           splitStr[i] = splitStr[i][0].toUpperCase() + splitStr[i].slice(1)
+//           break;
+//   }
+
+//   }
+//       return splitStr;
+
+// }
+
+// /*
+// str[i] = str[i][0].toUpperCase() + str[i].slice(1);
+// */
+
+// console.log(capitalizeAllBut('parc national du diawaling'));
