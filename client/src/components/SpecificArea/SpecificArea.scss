@@ -1,0 +1,10 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.area {
+  display: flex;
+  flex-direction: column;
+
+  &__info {
+  }
+}

@@ -1,0 +1,14 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.home {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem;
+
+  &__left {
+  }
+
+  &__right {
+  }
+}
