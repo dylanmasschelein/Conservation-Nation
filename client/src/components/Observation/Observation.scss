@@ -1,0 +1,21 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.observation {
+  &__photo {
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__name {
+  }
+
+  &__latin-name {
+  }
+
+  &__info {
+  }
+}

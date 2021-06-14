@@ -1,0 +1,20 @@
+@use '../../partials/variables' as *;
+@use '../../partials/mixins' as *;
+
+.header {
+  @include flex-justify-align(space-between, center);
+  background: palegreen;
+  height: 5rem;
+  padding: 0 2rem;
+
+  &__logo {
+  }
+
+  &__login {
+    @include link-reset;
+    color: white;
+    &--btn {
+      background: green;
+    }
+  }
+}

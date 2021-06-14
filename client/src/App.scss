@@ -1,0 +1,14 @@
+@use './partials/mixins' as *;
+@use './partials/variables' as *;
+
+html,
+body {
+  @include margin-reset;
+  background-color: rgb(235, 250, 255);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}

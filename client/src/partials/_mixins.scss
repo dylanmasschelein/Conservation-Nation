@@ -1,0 +1,26 @@
+@use './variables' as *;
+
+@mixin flex-justify-align($justify, $align: unset) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin margin-reset {
+  margin: 0;
+  padding: 0;
+}
+
+@mixin link-reset {
+  @include margin-reset;
+  text-decoration: none;
+}
+
+@mixin zero-auto {
+  margin: 0 auto;
+}

@@ -1,0 +1,27 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.signup {
+  @include flex-justify-align(center, center);
+  margin-top: 8rem;
+  &__left {
+    @include flex-column;
+    margin-right: 8rem;
+  }
+
+  &__right {
+    @include flex-column;
+  }
+
+  &__label {
+    @include flex-column;
+  }
+
+  &__input {
+    margin: 0.5rem 0;
+  }
+
+  &__submit {
+    margin-top: 1rem;
+  }
+}
