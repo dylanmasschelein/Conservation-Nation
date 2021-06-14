@@ -17,15 +17,13 @@ import L from "leaflet";
 
 const AreaMap = (props) => {
   // const [areas, setAreas] = useState(null);
-  const [userLocation, setUserLocation] = useState(null);
-  const [zoomBounds, setZoomBounds] = useState([
-    [52, -128],
-    [53, -122],
-  ]);
-  console.log(props);
-  // const [zoom, setZoom] = useState(5);
-  const [observations, setObservations] = useState(null);
+  // const [zoomBounds, setZoomBounds] = useState([
+  //   [52, -128],
+  //   [53, -122],
+  // ]);
   const [areaBounds, setAreaBounds] = useState(null); // NE lat/lng , SW lat/lng format
+  const [userLocation, setUserLocation] = useState(null);
+  const [observations, setObservations] = useState(null);
 
   const getUserLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -33,8 +31,7 @@ const AreaMap = (props) => {
       setUserLocation([latitude, longitude]);
     });
   };
-  // I Recieve {_northEast {lat:lng}} and {_southWest {lat:lng}} from LatLngBounds -- Protected planet API
-  // Will need to paginate or limit amount of markers in the area -- some return thousands
+
   const getINaturalistData = () => {
     // https://api.inaturalist.org/v1/observations?geo=true&mappable=true&photos=true -- generic url to view response
     // `https://api.inaturalist.org/v1/observations?geo=true&mappable=true&photos=true&nelat=${neLat}&nelng=${neLng}&swlat=${swLat}&swlng=${swLng}`
@@ -45,7 +42,6 @@ const AreaMap = (props) => {
       )
       .then((observations) => {
         // setObservations;
-        console.log(observations.data.results);
         setObservations(observations.data.results);
         // const {
         //   observation_photos: photo, // Array
@@ -78,23 +74,22 @@ const AreaMap = (props) => {
   };
 
   const PlotObservations = () => {
-    console.log(observations[0].geojson.coordinates[0]);
-    return observations.map((observation) => {
+    return observations.map((observation) => (
       <Marker
         position={[
           observation.geojson.coordinates[1],
           observation.geojson.coordinates[0],
         ]}
         icon={icon}
-      />;
-    });
+      />
+    ));
   };
 
   useEffect(() => {
-    // getINaturalistData();
-    // getAreas();
     getUserLocation();
-  }, [areaBounds, observations]);
+  }, []);
+
+  useEffect(() => {}, [areaBounds, observations]);
 
   const onEachArea = (feature, layer) => {
     layer.on("click", (e) => {
@@ -139,7 +134,6 @@ const AreaMap = (props) => {
               key={area._id}
               data={area.geojson}
               style={!area.marine ? landStyle : marineStyle}
-              bounds={zoomBounds}
             >
               <Tooltip sticky>
                 {area.name}, {area.countries[0].name}
@@ -150,13 +144,6 @@ const AreaMap = (props) => {
       </>
     );
   }
-
-  // const getAreas = () => {
-  //   axios.get("http://localhost:8080/areas/country").then((response) => {
-  //     const areas = response.data;
-  //     setAreas(areas);
-  //   });
-  // };
 
   const icon = L.icon({
     iconUrl:
@@ -171,7 +158,6 @@ const AreaMap = (props) => {
     color: "blue",
     fillOpacity: 0.3,
   };
-
   const landStyle = {
     fillColor: "green",
     weight: 2,
@@ -192,8 +178,7 @@ const AreaMap = (props) => {
         scrollWheelZoom={false}
       >
         {/* Map Styling */}
-        {/* <PlotObservations /> */}
-        {!observations ? null : <PlotObservations />}
+        {observations && <PlotObservations />}
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'

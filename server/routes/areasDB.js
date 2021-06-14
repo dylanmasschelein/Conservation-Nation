@@ -4,7 +4,6 @@ const express = require("express");
 const router = express.Router();
 // MONGO
 const { MongoClient } = require("mongodb");
-const fs = require("fs");
 require("dotenv").config();
 // ADMIN
 const uri = process.env.NODE_MONGO_URI;
@@ -48,6 +47,7 @@ async function retrieveAreaByName(areaName) {
     console.log(err);
   }
 }
+
 async function findAreaByName(client, areaName) {
   const cursor = await client
     .db("OneEarth")
@@ -91,16 +91,6 @@ async function findMarineAreas(client, marine) {
 // Client side rendering request
 // route will be '/country/:name' -- send this with the get request
 router
-  .get("/country", async (_req, res) => {
-    try {
-      const result = await retrieveAreas();
-      res.json(result);
-    } catch (e) {
-      console.error(e);
-    }
-  })
-  // Delete this one when have front-end routes setup
-
   .get("/country/:country", async (req, res) => {
     try {
       const { country } = req.params;
@@ -168,16 +158,16 @@ async function createAreas() {
     await client.connect();
     // callProtectedPlanet();
     callProPlanet(
-      "3345",
-      "3346",
-      "3347",
-      "3348",
-      "3349",
-      "3350",
-      "3351",
-      "3352",
-      "3353",
-      "3354"
+      "3425",
+      "3426",
+      "3427",
+      "3428",
+      "3429",
+      "3430",
+      "3431",
+      "3432",
+      "3433",
+      "3434"
     );
   } catch (err) {
     console.log(err);
