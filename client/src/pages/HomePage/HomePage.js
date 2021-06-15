@@ -4,6 +4,7 @@ import AreaMap from "../../components/AreaMap/AreaMap";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Observation from "../../components/Observation/Observation";
 import SpecificArea from "../../components/SpecificArea/SpecificArea";
+import Tutorial from "../../components/Tutorial/Tutorial";
 import axios from "axios";
 import L from "leaflet";
 import { Marker } from "react-leaflet";
@@ -14,8 +15,21 @@ const HomePage = () => {
   const [areaBounds, setAreaBounds] = useState(null);
   const [observations, setObservations] = useState(null);
   const [clickedObservation, setClickedObservation] = useState(null);
+  const [clickedArea, setClickedArea] = useState(null);
+  const [userLocation, setUserLocation] = useState(null);
 
-  useEffect(() => {}, [areas, observations, clickedObservation]);
+  // Getting userlocation on initial load and setting to map center -- needs work
+  const getUserLocation = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      setUserLocation([latitude, longitude]);
+    });
+  };
+
+  useEffect(() => {
+    getUserLocation();
+  }, []);
+  useEffect(() => {}, [areas, observations, clickedObservation, clickedArea]);
 
   // Handling search
   const handleSearch = (e) => {
@@ -44,6 +58,10 @@ const HomePage = () => {
         getINaturalistData();
       }
     });
+  };
+
+  const getArea = (area) => {
+    console.log(area);
   };
 
   // Retrieve and plot Observation markers
@@ -98,16 +116,16 @@ const HomePage = () => {
           search={search}
         />
         {clickedObservation && <Observation observation={clickedObservation} />}
+        {!clickedArea ? <Tutorial /> : <SpecificArea area={clickedArea} />}
       </div>
       <div className='home__right'>
-        {areas && (
-          <AreaMap
-            areas={areas}
-            onEachArea={onEachArea}
-            PlotObservations={PlotObservations}
-          />
-        )}
-        <SpecificArea />
+        <AreaMap
+          areas={areas}
+          onEachArea={onEachArea}
+          PlotObservations={PlotObservations}
+          setClickedArea={setClickedArea}
+          userLocation={userLocation}
+        />
       </div>
     </div>
   );

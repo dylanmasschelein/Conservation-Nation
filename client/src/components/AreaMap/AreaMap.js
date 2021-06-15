@@ -15,22 +15,10 @@ import "../AreaMap/AreaMap.scss";
 import axios from "axios";
 
 const AreaMap = (props) => {
-  const { areas, onEachArea, PlotObservations } = props;
-  const [userLocation, setUserLocation] = useState(null);
+  const { areas, onEachArea, PlotObservations, setClickedArea, userLocation } =
+    props;
 
-  // Getting userlocation on initial load and setting to map center -- needs work
-  const getUserLocation = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
-      setUserLocation([latitude, longitude]);
-    });
-  };
-
-  useEffect(() => {
-    getUserLocation();
-  }, []);
-
-  useEffect(() => {}, [areas]);
+  useEffect(() => {}, [areas, userLocation]);
 
   // Plotting designated areas on map
   function AreaPolygons() {
@@ -49,6 +37,11 @@ const AreaMap = (props) => {
               key={area._id}
               data={area.geojson}
               style={!area.marine ? landStyle : marineStyle}
+              eventHandlers={{
+                click: () => {
+                  setClickedArea(area);
+                },
+              }}
             >
               <Tooltip sticky>
                 {area.name}, {area.countries[0].name}
@@ -74,11 +67,26 @@ const AreaMap = (props) => {
     fillOpacity: 0.3,
   };
 
+  if (!areas) {
+    return (
+      <MapContainer
+        className='map'
+        center={[52, -112]}
+        zoom={5}
+        scrollWheelZoom={false}
+      >
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        />
+      </MapContainer>
+    );
+  }
   return (
     <div>
       <MapContainer
         className='map'
-        center={[52, -122]}
+        center={userLocation}
         zoom={5}
         scrollWheelZoom={false}
       >

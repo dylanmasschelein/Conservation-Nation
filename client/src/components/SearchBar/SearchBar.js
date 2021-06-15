@@ -1,4 +1,6 @@
 import "./SearchBar.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 function SearchBar({ setSearch, handleSearch, search }) {
   return (
@@ -14,7 +16,7 @@ function SearchBar({ setSearch, handleSearch, search }) {
       ></input>
 
       <button type='submit' className='search__btn'>
-        Search
+        <FontAwesomeIcon icon={faSearch} className='search__icon' />
       </button>
     </form>
   );

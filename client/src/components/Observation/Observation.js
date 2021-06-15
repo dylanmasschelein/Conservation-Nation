@@ -14,10 +14,14 @@ export default function Observation(props) {
 
   return (
     <div className='observation'>
-      {photo ? <img src={photo} alt={name} /> : "Photo not available :("}
+      {photo ? (
+        <img src={photo} alt={name} className='observation__photo' />
+      ) : (
+        "Photo not available :("
+      )}
       <div className='observation__details'>
-        <h1 className='observation__name'>Name: {name}</h1>
-        <h3 className='observation_latin-name'>Latin name: {latinName}</h3>
+        <h1 className='observation__name'>{name}</h1>
+        <h3 className='observation__latin-name'>{latinName}</h3>
         <span className='observation__info'>
           {native ? "Native wildlife" : "Introduced wildlife"}
         </span>
@@ -28,7 +32,7 @@ export default function Observation(props) {
           Currently Active: {isActive ? "Yes" : "No"}
         </span>
         <span className='observation__info'>
-          Status: {threatend ? "Yes" : "No"}
+          {!threatend ? "Healthy population" : "Threatend"}
         </span>
       </div>
     </div>
