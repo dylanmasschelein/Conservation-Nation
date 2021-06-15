@@ -40,6 +40,7 @@ const AreaMap = (props) => {
               eventHandlers={{
                 click: () => {
                   setClickedArea(area);
+                  console.log(area);
                 },
               }}
             >

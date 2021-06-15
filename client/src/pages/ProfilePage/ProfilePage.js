@@ -4,8 +4,8 @@ import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
 import FollowedAreas from "../../components/FollowedAreas/FollowedAreas";
 import axios from "axios";
 
-const ProfilePage = () => {
-  const [user, setUser] = useState(null);
+const ProfilePage = (props) => {
+  const { setUser, user } = props;
   const [auth, setAuth] = useState(false);
 
   useEffect(() => {
@@ -29,10 +29,11 @@ const ProfilePage = () => {
 
   useEffect(() => {}, [user]);
 
-  // complete logout
+  // complete with logout
+
   return (
     <div>
-      <ProfileInfo user={user} />
+      {user && <ProfileInfo user={user} />}
       <FollowedAreas />
     </div>
   );

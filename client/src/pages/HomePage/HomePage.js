@@ -9,7 +9,8 @@ import axios from "axios";
 import L from "leaflet";
 import { Marker } from "react-leaflet";
 
-const HomePage = () => {
+const HomePage = (props) => {
+  const { user } = props;
   const [search, setSearch] = useState("");
   const [areas, setAreas] = useState(null);
   const [areaBounds, setAreaBounds] = useState(null);
@@ -37,7 +38,6 @@ const HomePage = () => {
     axios
       .get(`http://localhost:8080/areas/country/${search}`)
       .then((areas) => {
-        console.log("submitted");
         setAreas(areas.data);
       })
       .catch((err) => console.error(err));
@@ -47,7 +47,6 @@ const HomePage = () => {
   const onEachArea = (feature, layer) => {
     layer.on("click", (e) => {
       const { _northEast, _southWest } = e.target._bounds;
-      console.log(layer);
       setAreaBounds({
         neLat: _northEast.lat,
         neLng: _northEast.lng,
@@ -60,11 +59,6 @@ const HomePage = () => {
     });
   };
 
-  const getArea = (area) => {
-    console.log(area);
-  };
-
-  // Retrieve and plot Observation markers
   const getINaturalistData = () => {
     const { neLat, neLng, swLat, swLng } = areaBounds;
     axios
@@ -98,6 +92,17 @@ const HomePage = () => {
       ));
     }
   };
+  //user.update is not a function (backend)
+  const followArea = () => {
+    const { _id: id } = clickedArea;
+    const { username } = user;
+    console.log("clicked");
+    //grab whoever is logged in id/username or something so i can find them on the backend and update
+    axios
+      .put(`http://localhost:8080/user/${username}/${id}`)
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
+  };
   // Custom Icon
   const icon = L.icon({
     iconUrl:
@@ -116,7 +121,11 @@ const HomePage = () => {
           search={search}
         />
         {clickedObservation && <Observation observation={clickedObservation} />}
-        {!clickedArea ? <Tutorial /> : <SpecificArea area={clickedArea} />}
+        {!clickedArea ? (
+          <Tutorial />
+        ) : (
+          <SpecificArea area={clickedArea} followArea={followArea} />
+        )}
       </div>
       <div className='home__right'>
         <AreaMap

@@ -1,12 +1,16 @@
-import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGlobeAmericas } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "./Header.scss";
+
 export default function Header() {
   return (
     <div className='header'>
-      <img src='dweqd' alt='Logo' className='header__logo' />
+      <Link to='/'>
+        <img src='dweqd' alt='Logo' className='header__logo' />
+      </Link>
       <Link to='/user/login' className='header__link'>
-        <button className='header__link--btn'>Login</button>
+        <FontAwesomeIcon icon={faGlobeAmericas} className='header__drop' />
       </Link>
     </div>
   );

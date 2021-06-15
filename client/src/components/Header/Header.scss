@@ -12,17 +12,11 @@
 
   &__link {
     @include link-reset;
-    background: coral;
+  }
 
-    &--btn {
-      font-weight: bold;
-      background: coral;
-      color: white;
-      border: 1px solid coral;
-      border-radius: 8px;
-      padding: 0.75rem;
-      width: 10rem;
-    }
+  &__drop {
+    color: black;
+    font-size: 4rem;
   }
 
   &__login {

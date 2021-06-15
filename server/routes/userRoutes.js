@@ -19,12 +19,20 @@ const User = require("../model/user");
 const secret = process.env.JWT_SECRET;
 
 // UPDATE PROFILE ------------------------------------
-// router.post("/updateProfile", async (_req, res) => {
-// Have a look at Nolans lecture and figure out where authorize middleware comes in
-//also have a look at updating mongo -- PUT or POST???
-//JWT Auth
-//update profile
-// });
+router.put("/:username/:area", async (req, res) => {
+  const { area, username } = req.params;
+  console.log("username:", username, "...area:", area);
+  // JWT Auth ---------------- add some validation
+
+  // need to add to followed ares array - this is overwriting
+  await User.updateOne(
+    { username: username },
+    { $set: { followedAreas: area } }
+  );
+  // console.log("user:", user);
+
+  res.json({ status: "ok" });
+});
 
 router.get("/current", authorize, async (req, res) => {
   try {
@@ -97,6 +105,7 @@ router.post("/register", async (req, res) => {
     country,
     about,
     volunteer,
+    followedAreas,
   } = req.body;
 
   if (!firstName || typeof firstName !== "string") {
@@ -134,6 +143,7 @@ router.post("/register", async (req, res) => {
       country,
       about,
       volunteer,
+      followedAreas,
     });
     console.log("User Created Successfully:", result);
   } catch (err) {

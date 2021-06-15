@@ -1,7 +1,8 @@
-import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import "./SpecificArea.scss";
 
-export default function SpecificArea({ area }) {
+export default function SpecificArea({ area, followArea }) {
   return (
     <div className='area'>
       <h1 className='area__name'>{area.name}</h1>
@@ -21,6 +22,7 @@ export default function SpecificArea({ area }) {
       <span className='area__info'>
         Governance: {area.governance.governance_type}
       </span>
+      <FontAwesomeIcon onClick={followArea} icon={faHeart} />
     </div>
   );
 }
