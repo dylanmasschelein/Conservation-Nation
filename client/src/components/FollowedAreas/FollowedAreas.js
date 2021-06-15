@@ -1,4 +1,4 @@
-import React from "react";
+import "./FollowedAreas.scss";
 
 export default function FollowedAreas() {
   return (

@@ -94,12 +94,12 @@ const HomePage = (props) => {
   };
   //user.update is not a function (backend)
   const followArea = () => {
-    const { _id: id } = clickedArea;
+    const { name } = clickedArea;
     const { username } = user;
     console.log("clicked");
     //grab whoever is logged in id/username or something so i can find them on the backend and update
     axios
-      .put(`http://localhost:8080/user/${username}/${id}`)
+      .put(`http://localhost:8080/user/${username}/${name}`)
       .then((res) => console.log(res))
       .catch((err) => console.error(err));
   };

@@ -21,15 +21,18 @@ const secret = process.env.JWT_SECRET;
 // UPDATE PROFILE ------------------------------------
 router.put("/:username/:area", async (req, res) => {
   const { area, username } = req.params;
-  console.log("username:", username, "...area:", area);
+  console.log(area, username);
   // JWT Auth ---------------- add some validation
+  const user = await User.findOne({ username: username });
+  // Check if area is part of followedAreas array already
+  const followed = user.followedAreas;
 
+  const updatedFollowedAreas = [...followed, area];
   // need to add to followed ares array - this is overwriting
   await User.updateOne(
     { username: username },
-    { $set: { followedAreas: area } }
+    { $set: { followedAreas: updatedFollowedAreas } }
   );
-  // console.log("user:", user);
 
   res.json({ status: "ok" });
 });

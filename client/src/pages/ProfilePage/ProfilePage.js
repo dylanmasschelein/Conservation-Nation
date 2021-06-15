@@ -7,6 +7,14 @@ import axios from "axios";
 const ProfilePage = (props) => {
   const { setUser, user } = props;
   const [auth, setAuth] = useState(false);
+  const [followedAreas, setFollowedAreas] = useState(null);
+
+  const getFollowedAreas = () => {
+    axios
+      .get(`http://localhost:8080/areas/area/following/${followedAreas}`)
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
+  };
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -23,18 +31,21 @@ const ProfilePage = (props) => {
       })
       .then((user) => {
         setUser(user.data);
+        setFollowedAreas(user.data.followedAreas);
       })
       .catch((err) => console.error(err));
   }, []);
 
-  useEffect(() => {}, [user]);
+  useEffect(() => {
+    followedAreas && getFollowedAreas();
+  }, [user, followedAreas]);
 
   // complete with logout
 
   return (
     <div>
       {user && <ProfileInfo user={user} />}
-      <FollowedAreas />
+      {user && <FollowedAreas />}
     </div>
   );
 };
