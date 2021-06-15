@@ -4,17 +4,28 @@
 .header {
   @include flex-justify-align(space-between, center);
   background: darkcyan;
-  height: 5rem;
+  height: 7rem;
   padding: 0 2rem;
 
   &__logo {
   }
 
-  &__login {
+  &__link {
     @include link-reset;
-    color: white;
+    background: coral;
+
     &--btn {
-      background: green;
+      font-weight: bold;
+      background: coral;
+      color: white;
+      border: 1px solid coral;
+      border-radius: 8px;
+      padding: 0.75rem;
+      width: 10rem;
     }
+  }
+
+  &__login {
+    color: white;
   }
 }

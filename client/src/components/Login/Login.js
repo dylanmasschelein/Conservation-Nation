@@ -31,10 +31,10 @@ class Login extends Component {
         password: this.state.password,
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
 
         res.data.status === "ok" ? this.successAlert() : this.failedAlert();
-        localStorage.setItem("token", res.data);
+        sessionStorage.setItem("token", res.data.data);
       })
       .catch((err) => console.error(err));
   };

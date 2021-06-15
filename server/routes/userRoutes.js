@@ -2,6 +2,7 @@ const { default: axios } = require("axios");
 const express = require("express");
 const router = express.Router();
 const uri = process.env.NODE_MONGO_URI;
+const { MongoClient } = require("mongodb");
 const mongoose = require("mongoose");
 mongoose.connect(uri, {
   useNewUrlParser: true,
@@ -10,6 +11,7 @@ mongoose.connect(uri, {
 });
 require("dotenv").config();
 // ADMIN
+const client = new MongoClient(uri, { useUnifiedTopology: true });
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authorize = require("../middleware/authorize"); // Research
@@ -17,11 +19,21 @@ const User = require("../model/user");
 const secret = process.env.JWT_SECRET;
 
 // UPDATE PROFILE ------------------------------------
-router.post("/updateProfile", async (_req, res) => {
-  // Have a look at Nolans lecture and figure out where authorize middleware comes in
-  //also have a look at updating mongo -- PUT or POST???
-  //JWT Auth
-  //update profile
+// router.post("/updateProfile", async (_req, res) => {
+// Have a look at Nolans lecture and figure out where authorize middleware comes in
+//also have a look at updating mongo -- PUT or POST???
+//JWT Auth
+//update profile
+// });
+
+router.get("/current", authorize, async (req, res) => {
+  try {
+    const user = await User.findOne({ id: req.decoded.id });
+    delete user.password;
+    res.json(user);
+  } catch (err) {
+    return res.status(400).json({ status: "error" });
+  }
 });
 // CHANGE PASSWORD ------------------------------------
 router.post("/change-password", async (req, res) => {
@@ -59,7 +71,7 @@ router.post("/change-password", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username }).lean();
-  console.log(secret);
+
   if (!user) {
     return res.json({ status: "error", error: "Invalid username/password" });
   }

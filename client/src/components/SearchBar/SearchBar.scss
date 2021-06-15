@@ -2,21 +2,31 @@
 @use '../../partials/variables' as *;
 
 .search {
-  box-shadow: 0 0 10px black;
-  padding: 0.5rem;
-  background-color: white;
-  right: 48px;
-  top: 128px;
+  @include box-shadow;
+  padding: 1rem;
+  margin: 1rem;
 
   &__label {
     display: flex;
   }
 
   &__input {
-    background: lightgray;
-    border-radius: 8px;
-    border: 1px solid white;
-    padding: 0.5rem 0;
+    background-color: #f6f6f6;
+    box-shadow: inset 0px 1px 4px rgba(153, 153, 153, 0.25);
+    border-radius: 0.5rem;
+    border: 1px solid darkcyan;
+    padding: 0.5rem;
+    width: 85%;
+
+    &:focus {
+      outline: none;
+      border: 1px solid coral;
+    }
+
+    &:active {
+      outline: none;
+      border: 1px solid coral;
+    }
   }
 
   &__btn {

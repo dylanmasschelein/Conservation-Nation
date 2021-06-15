@@ -5,12 +5,22 @@
   @include flex-justify-align(center, center);
   margin-top: 8rem;
   &__left {
+    @include box-shadow;
     @include flex-column;
-    margin-right: 8rem;
+    padding: 1rem;
+    margin-right: 4rem;
+    min-width: 15rem;
+    min-height: 23.25rem;
+    max-height: 23.25rem;
   }
 
   &__right {
+    @include box-shadow;
     @include flex-column;
+    padding: 1rem;
+    min-width: 15rem;
+    min-height: 23.25rem;
+    max-height: 23.25rem;
   }
 
   &__label {
@@ -18,10 +28,21 @@
   }
 
   &__input {
+    @include form-input;
     margin: 0.5rem 0;
+
+    &--about {
+      height: 4rem;
+    }
   }
 
   &__submit {
+    font-weight: bold;
+    background: coral;
+    color: white;
+    border: 1px solid coral;
+    border-radius: 8px;
+    padding: 0.75rem;
     margin-top: 1rem;
   }
 }

@@ -6,6 +6,12 @@
   margin: 1rem;
   border: 2px solid coral;
   border-radius: 0.5rem;
+
+  &:hover {
+    background: darkcyan;
+    box-shadow: 5px 5px coral;
+    color: white;
+  }
   &__num {
     padding-bottom: 0.25rem;
   }
