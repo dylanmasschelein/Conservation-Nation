@@ -4,9 +4,10 @@
 .home {
   display: flex;
   justify-content: space-between;
-  margin: 2rem;
 
   &__left {
+    width: 40vw;
+    z-index: 99999;
   }
 
   &__right {

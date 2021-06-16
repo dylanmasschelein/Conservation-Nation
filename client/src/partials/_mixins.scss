@@ -24,3 +24,16 @@
 @mixin zero-auto {
   margin: 0 auto;
 }
+
+@mixin form-input {
+  background-color: #f6f6f6;
+  box-shadow: inset 0px 1px 4px rgba(153, 153, 153, 0.25);
+  border-radius: 0.5rem;
+  border: 1px solid darkcyan;
+  padding: 0.5rem;
+}
+
+@mixin box-shadow {
+  box-shadow: 0 0 5px 5px darkcyan;
+  border-radius: 0.5rem;
+}

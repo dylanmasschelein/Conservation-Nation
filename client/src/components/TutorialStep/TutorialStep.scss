@@ -1,0 +1,21 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.tutorial-step {
+  padding: 1rem;
+  margin: 1rem;
+  border: 2px solid coral;
+  border-radius: 0.5rem;
+
+  &:hover {
+    background: darkcyan;
+    box-shadow: 5px 5px coral;
+    color: white;
+  }
+  &__num {
+    padding-bottom: 0.25rem;
+  }
+
+  &__direction {
+  }
+}

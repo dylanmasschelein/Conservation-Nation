@@ -121,6 +121,29 @@ router
     } catch (e) {
       console.error(e);
     }
+  })
+
+  .get("/area/following/:followed", async (req, res) => {
+    const followed = req.params.followed.split(",");
+    await client.connect();
+
+    try {
+      const followedAreas = await Promise.all(
+        followed.map(async (areaName) => {
+          const myCollection = await client
+            .db("OneEarth")
+            .collection("OneEarth_areas");
+
+          const result = await myCollection.findOne({ name: areaName });
+
+          return result;
+        })
+      );
+      console.log(followedAreas);
+      res.json(followedAreas);
+    } catch (err) {
+      console.error(err, "catch block");
+    }
   });
 
 // Helper Functions

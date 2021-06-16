@@ -2,20 +2,33 @@
 @use '../../partials/variables' as *;
 
 .observation {
+  @include box-shadow;
+  margin: 1rem;
+  margin-top: 1.5rem;
+
   &__photo {
+    margin: 1.5rem;
+    width: 85%;
+    height: 225px;
+    object-fit: cover;
+    border-radius: 8px;
   }
 
   &__details {
     display: flex;
     flex-direction: column;
+    text-align: center;
   }
 
   &__name {
+    padding-bottom: 1rem;
   }
 
   &__latin-name {
+    padding-bottom: 0.5rem;
   }
 
   &__info {
+    padding-bottom: 0.5rem;
   }
 }

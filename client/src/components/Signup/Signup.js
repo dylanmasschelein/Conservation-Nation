@@ -108,13 +108,13 @@ class Signup extends Component {
         </div>
         <div className='signup__right'>
           <label htmlFor='about' className='signup__label'>
-            About you (interests, hobbies...)
+            About you...
             <input
               type='text'
               name='about'
               value={this.state.about}
               onChange={this.handleChange}
-              className='signup__input'
+              className='signup__input signup__input--about'
             ></input>
           </label>
           <label htmlFor='volunteer' className='signup__label'>

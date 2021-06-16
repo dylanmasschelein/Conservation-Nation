@@ -1,16 +1,28 @@
-import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import "./SpecificArea.scss";
 
-export default function SpecificArea() {
+export default function SpecificArea({ area, followArea }) {
   return (
     <div className='area'>
-      <h1>Area name</h1>
-      <span className='area__info'>Area Info</span>
-      <span className='area__info'>Area Info</span>
-      <span className='area__info'>Area Info</span>
-      <span className='area__info'>Area Info</span>
-      <span className='area__info'>Area Info</span>
-      <span className='area__info'>Area Info</span>
+      <h1 className='area__name'>{area.name}</h1>
+      <span className='area__info'>Country: {area.countries[0].name}</span>
+      <span className='area__info'>Total Area: {area.reported_area}</span>
+      {area.marine && <span className='area__info'>Protected marine area</span>}
+      {area.marine && (
+        <span className='area__info'>
+          Total marine area: {area.reported_marine_area}
+        </span>
+      )}
+      <span className='area__info'>Category: {area.iucn_category.name}</span>
+      <span className='area__info'>Jurisdiction: {area.designation.name}</span>
+      <span className='area__info'>
+        Management Authority: {area.management_authority.name}
+      </span>
+      <span className='area__info'>
+        Governance: {area.governance.governance_type}
+      </span>
+      <FontAwesomeIcon onClick={followArea} icon={faHeart} />
     </div>
   );
 }

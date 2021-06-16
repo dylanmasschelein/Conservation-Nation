@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import "./App.scss";
@@ -9,20 +9,23 @@ import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
-class App extends Component {
-  render() {
-    return (
-      <Router>
-        <Header />
-        <Switch>
-          <Route path='/' exact component={HomePage} />
-          <Route path='/user/register' component={Signup} />
-          <Route path='/user/login' component={Login} />
-          <Route path='/profile' component={ProfilePage} />
-        </Switch>
-      </Router>
-    );
-  }
-}
+const App = () => {
+  const [user, setUser] = useState(null);
+
+  return (
+    <Router>
+      <Header />
+      <Switch>
+        <Route path='/' exact render={() => <HomePage user={user} />} />
+        <Route path='/user/register' component={Signup} />
+        <Route path='/user/login' component={Login} />
+        <Route
+          path='/profile'
+          render={() => <ProfilePage setUser={setUser} user={user} />}
+        />
+      </Switch>
+    </Router>
+  );
+};
 
 export default App;

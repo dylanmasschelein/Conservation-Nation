@@ -3,18 +3,23 @@
 
 .header {
   @include flex-justify-align(space-between, center);
-  background: palegreen;
-  height: 5rem;
+  background: darkcyan;
+  height: 7rem;
   padding: 0 2rem;
 
   &__logo {
   }
 
-  &__login {
+  &__link {
     @include link-reset;
+  }
+
+  &__drop {
+    color: black;
+    font-size: 4rem;
+  }
+
+  &__login {
     color: white;
-    &--btn {
-      background: green;
-    }
   }
 }

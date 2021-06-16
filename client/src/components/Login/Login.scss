@@ -7,10 +7,11 @@
   margin-top: 8rem;
   &__form {
     @include flex-column;
-    border: 2px solid black;
+    box-shadow: 0 0 5px 5px darkcyan;
+    border: 1px solid darkcyan;
+    border-radius: 0.5rem;
     width: 18rem;
     padding: 1rem;
-    border-radius: 0.75rem;
     // border-shadow:
   }
 
@@ -20,16 +21,26 @@
   }
 
   &__input {
+    @include form-input;
     margin: 0.5rem 0;
-    padding: 1rem;
-    background: palegreen;
-    border: 2px solid paleturquoise;
+    padding: 0.5rem;
+
+    &:focus {
+      outline: none;
+      border: 1px solid coral;
+    }
+
+    &:active {
+      outline: none;
+      border: 1px solid coral;
+    }
   }
 
   &__submit {
     background: coral;
-    padding: 1rem;
+    padding: 0.75rem;
     border: 1px solid coral;
+    color: white;
   }
 
   &__signup {
