@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import "./HomePage.scss";
 import ExploreBtn from "../../components/ExploreBtn/ExploreBtn";
 import AreaMap from "../../components/AreaMap/AreaMap";
@@ -141,6 +143,7 @@ const HomePage = (props) => {
           handleSearch={handleSearch}
           search={search}
         />
+        <FontAwesomeIcon onClick={followArea} icon={faHeart} />
         {!clickedObservation ? (
           <Tutorial />
         ) : (

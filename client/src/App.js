@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  withRouter,
+} from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import "./App.scss";
 // import AreaMap from "./components/AreaMap/AreaMap";
@@ -9,12 +14,12 @@ import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
-const App = () => {
+const App = (props) => {
   const [user, setUser] = useState(null);
-
+  console.log(props);
   return (
     <Router>
-      <Header />
+      <Header user={user} />
       <Switch>
         <Route path='/' exact render={() => <HomePage user={user} />} />
         <Route path='/user/register' component={Signup} />

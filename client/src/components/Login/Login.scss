@@ -4,25 +4,33 @@
 .login {
   @include flex-column;
   @include flex-justify-align(center, center);
-  margin-top: 8rem;
+
   &__form {
     @include flex-column;
-    box-shadow: 0 0 5px 5px darkcyan;
-    border: 1px solid darkcyan;
+    box-shadow: 0 0 5px 5px coral;
+    border: 1px solid coral;
     border-radius: 0.5rem;
-    width: 18rem;
-    padding: 1rem;
+    margin: 0 1rem;
+
+    // width: 18rem;
+    // padding: 1rem;
     // border-shadow:
   }
 
   &__label {
     @include flex-column;
-    margin: 0.5rem 0;
+    margin-left: 0.5rem;
+
+    margin-bottom: 0.25rem;
+    &--top {
+      margin-top: 1rem;
+    }
   }
 
   &__input {
     @include form-input;
-    margin: 0.5rem 0;
+    width: 89%;
+    margin-left: 0.5rem;
     padding: 0.5rem;
 
     &:focus {
@@ -38,9 +46,10 @@
 
   &__submit {
     background: coral;
-    padding: 0.75rem;
+    padding: 0.5rem;
     border: 1px solid coral;
     color: white;
+    margin: 1rem 0.5rem;
   }
 
   &__signup {

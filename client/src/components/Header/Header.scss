@@ -2,10 +2,8 @@
 @use '../../partials/mixins' as *;
 
 .header {
-  background: darkgreen;
-
-  position: relative;
   @include flex-justify-align(space-between, center);
+  position: relative;
 
   &__logo {
   }
@@ -15,13 +13,40 @@
   }
 
   &__drop {
-    color: black;
+    color: darkcyan;
     font-size: 4rem;
-    z-index: 999999999999;
+    margin: 1rem;
   }
 
   &__login {
     color: white;
+  }
+}
+
+.dropdown {
+  background: white;
+  @include box-shadow;
+  width: 12rem;
+  position: absolute;
+  top: 7rem;
+  right: 1rem;
+  z-index: 999999;
+  @include flex-column;
+  align-items: flex-end;
+
+  &__link {
+    @include link-reset;
+    box-shadow: 0 0 5px 5px coral;
+    border-radius: 0.5rem;
+    width: 85%;
+    color: black;
+    padding: 0.5rem;
+    margin: 1rem;
+
+    &:hover {
+      background-color: darkcyan;
+      color: white;
+    }
   }
 }
 
