@@ -1,0 +1,7 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.tutorial {
+  @include flex-column;
+  justify-content: space-between;
+}

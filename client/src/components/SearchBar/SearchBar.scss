@@ -4,9 +4,9 @@
 .search {
   @include box-shadow;
   background: white;
+  opacity: 0.9;
   padding: 1rem;
   margin: 1rem;
-
   &__label {
     display: flex;
   }

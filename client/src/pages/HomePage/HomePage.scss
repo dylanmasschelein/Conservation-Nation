@@ -8,10 +8,19 @@
 
   &__left {
     position: absolute;
-    width: 40vw;
+    width: 36vw;
     z-index: 99999;
   }
 
   &__right {
+  }
+  &__button {
+    position: absolute;
+    right: 2rem;
+    bottom: 12rem;
+    z-index: 9999999;
+    padding: 2rem;
+    background: black;
+    color: white;
   }
 }

@@ -143,7 +143,7 @@ const HomePage = (props) => {
           handleSearch={handleSearch}
           search={search}
         />
-        <FontAwesomeIcon onClick={followArea} icon={faHeart} />
+        {/* <FontAwesomeIcon onClick={followArea} icon={faHeart} /> */}
         {!clickedObservation ? (
           <Tutorial />
         ) : (
@@ -161,6 +161,7 @@ const HomePage = (props) => {
           center={center}
           observations={observations}
         />
+        <button className='home__button'>EXPLORE</button>
       </div>
     </div>
   );

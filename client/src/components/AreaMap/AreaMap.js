@@ -89,7 +89,7 @@ const AreaMap = (props) => {
         className='map'
         center={[52, -122]}
         zoom={2.5}
-        scrollWheelZoom={false}
+        scrollWheelZoom={true}
         zoomControl={false}
       >
         <ZoomControl position='bottomright' />

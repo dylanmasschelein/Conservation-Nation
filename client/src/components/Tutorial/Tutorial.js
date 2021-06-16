@@ -22,7 +22,7 @@ export default function Tutorial() {
   };
 
   return (
-    <div>
+    <div className='tutorial'>
       <TutorialStep step={stepOne} />
       <TutorialStep step={stepTwo} />
       <TutorialStep step={stepThree} />

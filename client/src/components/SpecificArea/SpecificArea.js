@@ -2,7 +2,6 @@ import iucnCategories from "../../helperFunctions";
 import "./SpecificArea.scss";
 
 export default function SpecificArea({ area }) {
-  console.log(iucnCategories, "this is the function");
   return (
     <div className='area'>
       <h1 className='area__name'>{area.name}</h1>
