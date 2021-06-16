@@ -1,18 +1,19 @@
 import { useState, useEffect } from "react";
 import "./ProfilePage.scss";
 import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
-import FollowedAreas from "../../components/FollowedAreas/FollowedAreas";
+import FollowedAreasList from "../../components/FollowedAreasList/FollowedAreasList";
 import axios from "axios";
 
 const ProfilePage = (props) => {
   const { setUser, user } = props;
   const [auth, setAuth] = useState(false);
   const [followedAreas, setFollowedAreas] = useState(null);
+  const [followedAreasArr, setFollowedAreasArr] = useState(null);
 
   const getFollowedAreas = () => {
     axios
       .get(`http://localhost:8080/areas/area/following/${followedAreas}`)
-      .then((res) => console.log(res))
+      .then((areas) => setFollowedAreasArr(areas.data))
       .catch((err) => console.error(err));
   };
 
@@ -45,7 +46,9 @@ const ProfilePage = (props) => {
   return (
     <div>
       {user && <ProfileInfo user={user} />}
-      {user && <FollowedAreas />}
+      {followedAreasArr && (
+        <FollowedAreasList followedAreas={followedAreasArr} />
+      )}
     </div>
   );
 };

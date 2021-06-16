@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./HomePage.scss";
+import ExploreBtn from "../../components/ExploreBtn/ExploreBtn";
 import AreaMap from "../../components/AreaMap/AreaMap";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Observation from "../../components/Observation/Observation";
@@ -7,7 +8,7 @@ import SpecificArea from "../../components/SpecificArea/SpecificArea";
 import Tutorial from "../../components/Tutorial/Tutorial";
 import axios from "axios";
 import L from "leaflet";
-import { Marker } from "react-leaflet";
+import { Marker, useMap } from "react-leaflet";
 
 const HomePage = (props) => {
   const { user } = props;
@@ -18,8 +19,10 @@ const HomePage = (props) => {
   const [clickedObservation, setClickedObservation] = useState(null);
   const [clickedArea, setClickedArea] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
+  const [center, setCenter] = useState(null);
 
   // Getting userlocation on initial load and setting to map center -- needs work
+
   const getUserLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
@@ -30,7 +33,16 @@ const HomePage = (props) => {
   useEffect(() => {
     getUserLocation();
   }, []);
-  useEffect(() => {}, [areas, observations, clickedObservation, clickedArea]);
+
+  useEffect(() => {});
+
+  useEffect(() => {}, [
+    areas,
+    observations,
+    clickedObservation,
+    clickedArea,
+    center,
+  ]);
 
   // Handling search
   const handleSearch = (e) => {
@@ -38,6 +50,11 @@ const HomePage = (props) => {
     axios
       .get(`http://localhost:8080/areas/country/${search}`)
       .then((areas) => {
+        //should re-render and recenter??
+        setCenter([
+          areas.data[0].geojson.geometry.coordinates[0][0][1],
+          areas.data[0].geojson.geometry.coordinates[0][0][0],
+        ]);
         setAreas(areas.data);
       })
       .catch((err) => console.error(err));
@@ -77,6 +94,7 @@ const HomePage = (props) => {
     } else {
       return observations.map((observation) => (
         <Marker
+          key={observation._id}
           position={[
             observation.geojson.coordinates[1],
             observation.geojson.coordinates[0],
@@ -85,7 +103,6 @@ const HomePage = (props) => {
           eventHandlers={{
             click: () => {
               setClickedObservation(observation);
-              console.log(observation);
             },
           }}
         />
@@ -128,12 +145,14 @@ const HomePage = (props) => {
         )}
       </div>
       <div className='home__right'>
+        {/* <ExploreBtn PlotObservations={PlotObservations} /> */}
         <AreaMap
           areas={areas}
           onEachArea={onEachArea}
           PlotObservations={PlotObservations}
           setClickedArea={setClickedArea}
           userLocation={userLocation}
+          center={center}
         />
       </div>
     </div>

@@ -126,20 +126,21 @@ router
   .get("/area/following/:followed", async (req, res) => {
     const followed = req.params.followed.split(",");
     await client.connect();
+
     try {
-      const followedAreas = followed.map(async (areaName) => {
-        const myCollection = await client
-          .db("OneEarth")
-          .collection("OneEarth_areas");
+      const followedAreas = await Promise.all(
+        followed.map(async (areaName) => {
+          const myCollection = await client
+            .db("OneEarth")
+            .collection("OneEarth_areas");
 
-        const result = await myCollection.find({ name: areaName }).toArray();
+          const result = await myCollection.findOne({ name: areaName });
 
-        return result;
-      });
-
+          return result;
+        })
+      );
       console.log(followedAreas);
-      const result = await followedAreas;
-      res.json(result);
+      res.json(followedAreas);
     } catch (err) {
       console.error(err, "catch block");
     }

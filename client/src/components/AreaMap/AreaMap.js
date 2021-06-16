@@ -15,13 +15,24 @@ import "../AreaMap/AreaMap.scss";
 import axios from "axios";
 
 const AreaMap = (props) => {
-  const { areas, onEachArea, PlotObservations, setClickedArea, userLocation } =
-    props;
+  const {
+    areas,
+    onEachArea,
+    PlotObservations,
+    setClickedArea,
+    userLocation,
+    center,
+  } = props;
 
   useEffect(() => {}, [areas, userLocation]);
 
+  const CenterMap = (center) => {
+    const map = useMap();
+    map.flyTo(center.center, 6);
+    return null;
+  };
   // Plotting designated areas on map
-  function AreaPolygons() {
+  const AreaPolygons = () => {
     const map = useMapEvents({
       click: (e) => {
         map.setView(e.latlng, 9);
@@ -40,7 +51,6 @@ const AreaMap = (props) => {
               eventHandlers={{
                 click: () => {
                   setClickedArea(area);
-                  console.log(area);
                 },
               }}
             >
@@ -52,7 +62,7 @@ const AreaMap = (props) => {
         })}
       </>
     );
-  }
+  };
 
   // Area styles based on land or marine
   const marineStyle = {
@@ -67,7 +77,6 @@ const AreaMap = (props) => {
     color: "green",
     fillOpacity: 0.3,
   };
-
   if (!areas) {
     return (
       <MapContainer
@@ -83,14 +92,16 @@ const AreaMap = (props) => {
       </MapContainer>
     );
   }
+
   return (
     <div>
       <MapContainer
         className='map'
-        center={userLocation}
+        center={[52, -122]}
         zoom={5}
         scrollWheelZoom={false}
       >
+        {center && <CenterMap center={center} />}
         <PlotObservations />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
