@@ -21,7 +21,9 @@ const App = () => {
         <Route path='/user/login' component={Login} />
         <Route
           path='/profile'
-          render={() => <ProfilePage setUser={setUser} user={user} />}
+          render={(routerProps) => (
+            <ProfilePage setUser={setUser} user={user} {...routerProps} />
+          )}
         />
       </Switch>
     </Router>

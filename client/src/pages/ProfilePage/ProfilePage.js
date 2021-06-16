@@ -6,7 +6,7 @@ import axios from "axios";
 
 const ProfilePage = (props) => {
   const { setUser, user } = props;
-  const [auth, setAuth] = useState(false);
+  const [failedAuth, setFailedAuth] = useState(false);
   const [followedAreas, setFollowedAreas] = useState(null);
   const [followedAreasArr, setFollowedAreasArr] = useState(null);
 
@@ -19,9 +19,9 @@ const ProfilePage = (props) => {
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
-    console.log(token);
+
     if (!token) {
-      setAuth(true);
+      setFailedAuth(true);
     }
 
     axios
@@ -34,14 +34,24 @@ const ProfilePage = (props) => {
         setUser(user.data);
         setFollowedAreas(user.data.followedAreas);
       })
-      .catch((err) => console.error(err));
+      .catch(() => setFailedAuth(true));
   }, []);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    setUser(null);
+    setFailedAuth(true);
+    alert("You've been logged out!");
+    props.history.push("/");
+  };
 
   useEffect(() => {
     followedAreas && getFollowedAreas();
   }, [user, followedAreas]);
 
-  // complete with logout
+  {
+    !failedAuth && <h1>You must be logged in to view your profile</h1>;
+  }
 
   return (
     <div>
@@ -49,6 +59,9 @@ const ProfilePage = (props) => {
       {followedAreasArr && (
         <FollowedAreasList followedAreas={followedAreasArr} />
       )}
+      <button onClick={handleLogout} className='logout'>
+        Log out
+      </button>
     </div>
   );
 };

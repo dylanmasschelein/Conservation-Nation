@@ -7,12 +7,12 @@ import Observation from "../../components/Observation/Observation";
 import SpecificArea from "../../components/SpecificArea/SpecificArea";
 import Tutorial from "../../components/Tutorial/Tutorial";
 import axios from "axios";
-
 import L from "leaflet";
 import tree from "../../assets/Images/tree.png";
 import { Marker, useMap } from "react-leaflet";
 
 const HomePage = (props) => {
+  console.log(props);
   const { user } = props;
   const [search, setSearch] = useState("");
   const [areas, setAreas] = useState(null);
@@ -58,6 +58,7 @@ const HomePage = (props) => {
           areas.data[0].geojson.geometry.coordinates[0][0][0],
         ]);
         setAreas(areas.data);
+        setObservations(null);
       })
       .catch((err) => console.error(err));
   };
@@ -105,6 +106,7 @@ const HomePage = (props) => {
           eventHandlers={{
             click: () => {
               setClickedObservation(observation);
+              console.log(observation);
             },
           }}
         />
@@ -139,11 +141,10 @@ const HomePage = (props) => {
           handleSearch={handleSearch}
           search={search}
         />
-        {clickedObservation && <Observation observation={clickedObservation} />}
-        {!clickedArea ? (
+        {!clickedObservation ? (
           <Tutorial />
         ) : (
-          <SpecificArea area={clickedArea} followArea={followArea} />
+          <Observation observation={clickedObservation} />
         )}
       </div>
       <div className='home__right'>
@@ -155,6 +156,7 @@ const HomePage = (props) => {
           setClickedArea={setClickedArea}
           userLocation={userLocation}
           center={center}
+          observations={observations}
         />
       </div>
     </div>

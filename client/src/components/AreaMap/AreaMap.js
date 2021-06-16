@@ -22,6 +22,7 @@ const AreaMap = (props) => {
     setClickedArea,
     userLocation,
     center,
+    observations,
   } = props;
 
   useEffect(() => {}, [areas, userLocation]);
@@ -35,7 +36,7 @@ const AreaMap = (props) => {
   const AreaPolygons = () => {
     const map = useMapEvents({
       click: (e) => {
-        map.setView(e.latlng, 9);
+        map.flyTo(e.latlng, 9);
       },
     });
 
@@ -51,12 +52,44 @@ const AreaMap = (props) => {
               eventHandlers={{
                 click: () => {
                   setClickedArea(area);
+                  console.log(area);
                 },
               }}
             >
-              <Tooltip sticky>
-                {area.name}, {area.countries[0].name}
-              </Tooltip>
+              {!observations && (
+                <Tooltip className='tooltips' sticky>
+                  {/* {area.name}, {area.countries[0].name} */}
+                  <div className='area'>
+                    <h1 className='area__name'>{area.name}</h1>
+                    <span className='area__info'>
+                      Country: {area.countries[0].name}
+                    </span>
+                    <span className='area__info'>
+                      Total Area: {area.reported_area}
+                    </span>
+                    {area.marine && (
+                      <span className='area__info'>Protected marine area</span>
+                    )}
+                    {area.marine && (
+                      <span className='area__info'>
+                        Total marine area: {area.reported_marine_area}
+                      </span>
+                    )}
+                    <span className='area__info'>
+                      Category: {area.iucn_category.name}
+                    </span>
+                    <span className='area__info'>
+                      Jurisdiction: {area.designation.name}
+                    </span>
+                    <span className='area__info'>
+                      Management Authority: {area.management_authority.name}
+                    </span>
+                    <span className='area__info'>
+                      Governance: {area.governance.governance_type}
+                    </span>
+                  </div>
+                </Tooltip>
+              )}
             </GeoJSON>
           );
         })}
@@ -77,42 +110,44 @@ const AreaMap = (props) => {
     color: "green",
     fillOpacity: 0.3,
   };
-  if (!areas) {
-    return (
-      <MapContainer
-        className='map'
-        center={[52, -112]}
-        zoom={2}
-        scrollWheelZoom={true}
-      >
-        <TileLayer
-          attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          // attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
-          url='https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg'
-          // url='https://api.mapbox.com/styles/v1/dylanmasschelein/ckpyx7zjx4dga18nwl5c9fwwb/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZHlsYW5tYXNzY2hlbGVpbiIsImEiOiJja3B5dmlyZXUwaG55Mm9xc3RsNzBybWV2In0.NJDvx0UbxYYMpvuQsamo6w'
-        />
-      </MapContainer>
-    );
-  }
+  // Chunky because of the re-rendering of the map when there are areas...
+  // Also maybe as about re-rendering the center... sort this out tomorrow morning...
+  // maybe as someone for their opinion on conditionally rending this??
+  // if (!areas) {
+  //   return (
+  //     <MapContainer
+  //       className='map'
+  //       center={[52, -112]}
+  //       zoom={3}
+  //       scrollWheelZoom={true}
+  //     >
+  //       <TileLayer
+  //         attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  //         // attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
+  //         url='https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg'
+  //         // url='https://api.mapbox.com/styles/v1/dylanmasschelein/ckpyx7zjx4dga18nwl5c9fwwb/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZHlsYW5tYXNzY2hlbGVpbiIsImEiOiJja3B5dmlyZXUwaG55Mm9xc3RsNzBybWV2In0.NJDvx0UbxYYMpvuQsamo6w'
+  //       />
+  //     </MapContainer>
+  //   );
+  // }
 
   return (
     <div>
       <MapContainer
         className='map'
         center={[52, -122]}
-        zoom={5}
+        zoom={2.5}
         scrollWheelZoom={false}
       >
-        {center && <CenterMap center={center} />}
-        <PlotObservations />
+        {!observations && center ? <CenterMap center={center} /> : null}
+        {observations && <PlotObservations />}
         <TileLayer
           attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url='https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg'
           // attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
           // url='https://api.mapbox.com/styles/v1/dylanmasschelein/ckpyx7zjx4dga18nwl5c9fwwb/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZHlsYW5tYXNzY2hlbGVpbiIsImEiOiJja3B5dmlyZXUwaG55Mm9xc3RsNzBybWV2In0.NJDvx0UbxYYMpvuQsamo6w'
         />
-        mapbox://styles/dylanmasschelein/ckpyx7zjx4dga18nwl5c9fwwb
-        <AreaPolygons />
+        {areas && <AreaPolygons />}
       </MapContainer>
     </div>
   );

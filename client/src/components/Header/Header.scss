@@ -2,10 +2,10 @@
 @use '../../partials/mixins' as *;
 
 .header {
+  background: darkgreen;
+
+  position: relative;
   @include flex-justify-align(space-between, center);
-  background: darkcyan;
-  height: 7rem;
-  padding: 0 2rem;
 
   &__logo {
   }
@@ -17,9 +17,32 @@
   &__drop {
     color: black;
     font-size: 4rem;
+    z-index: 999999999999;
   }
 
   &__login {
     color: white;
   }
 }
+
+// .custom-shape-divider-top-1623857236 {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   overflow: hidden;
+//   line-height: 0;
+//   z-index: 999;
+// }
+
+// .custom-shape-divider-top-1623857236 svg {
+//   position: relative;
+//   display: block;
+//   width: calc(117% + 1.3px);
+//   height: 181px;
+// }
+
+// .custom-shape-divider-top-1623857236 .shape-fill {
+//   fill: darkgreen;
+//   opacity: 0.7;
+// }
