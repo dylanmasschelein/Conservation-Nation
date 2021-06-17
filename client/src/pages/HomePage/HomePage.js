@@ -32,9 +32,7 @@ const HomePage = (props) => {
     });
   };
 
-  useEffect(() => {
-    getUserLocation();
-  }, []);
+  useEffect(() => {});
 
   useEffect(() => {}, [
     areas,
@@ -71,7 +69,6 @@ const HomePage = (props) => {
         swLat: _southWest.lat,
         swLng: _southWest.lng,
       });
-      console.log("OnEachArea");
       // if (areaBounds) {
       //   getINaturalistData();
       // }
@@ -81,6 +78,7 @@ const HomePage = (props) => {
   const exploreArea = () => {
     console.log("exploreArea");
     if (areaBounds) getINaturalistData();
+
     console.log("still exploringArea");
   };
 
@@ -148,7 +146,7 @@ const HomePage = (props) => {
           handleSearch={handleSearch}
           search={search}
         />
-        <FontAwesomeIcon onClick={followArea} icon={faHeart} />
+        {/* <FontAwesomeIcon onClick={followArea} icon={faHeart} /> */}
         {/* {!clickedObservation ? (
           <Tutorial />
         ) : ( */}
