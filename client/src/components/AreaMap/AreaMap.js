@@ -1,18 +1,16 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MapContainer,
   TileLayer,
   GeoJSON,
   Tooltip,
-  Rectangle,
+  ZoomControl,
   useMap,
   useMapEvents,
-  Marker,
-  Popup,
-  // useMap,
 } from "react-leaflet";
+import "leaflet-defaulticon-compatibility";
 import "../AreaMap/AreaMap.scss";
-import axios from "axios";
+import SpecificArea from "../../components/SpecificArea/SpecificArea";
 
 const AreaMap = (props) => {
   const {
@@ -22,6 +20,7 @@ const AreaMap = (props) => {
     setClickedArea,
     userLocation,
     center,
+    observations,
   } = props;
 
   useEffect(() => {}, [areas, userLocation]);
@@ -35,7 +34,7 @@ const AreaMap = (props) => {
   const AreaPolygons = () => {
     const map = useMapEvents({
       click: (e) => {
-        map.setView(e.latlng, 9);
+        map.flyTo(e.latlng, 9);
       },
     });
 
@@ -51,12 +50,15 @@ const AreaMap = (props) => {
               eventHandlers={{
                 click: () => {
                   setClickedArea(area);
+                  console.log(area);
                 },
               }}
             >
-              <Tooltip sticky>
-                {area.name}, {area.countries[0].name}
-              </Tooltip>
+              {!observations && (
+                <Tooltip className='tooltips' sticky>
+                  <SpecificArea area={area} />
+                </Tooltip>
+              )}
             </GeoJSON>
           );
         })}
@@ -77,38 +79,26 @@ const AreaMap = (props) => {
     color: "green",
     fillOpacity: 0.3,
   };
-  if (!areas) {
-    return (
-      <MapContainer
-        className='map'
-        center={[52, -112]}
-        zoom={5}
-        scrollWheelZoom={false}
-      >
-        <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-        />
-      </MapContainer>
-    );
-  }
 
   return (
     <div>
       <MapContainer
         className='map'
         center={[52, -122]}
-        zoom={5}
-        scrollWheelZoom={false}
+        zoom={2}
+        scrollWheelZoom={true}
+        zoomControl={false}
       >
-        {center && <CenterMap center={center} />}
-        <PlotObservations />
+        <ZoomControl position='bottomright' />
+        {!observations && center ? <CenterMap center={center} /> : null}
+        {observations && <PlotObservations />}
         <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+          attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url='https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg'
+          // attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
+          // url='https://api.mapbox.com/styles/v1/dylanmasschelein/ckpyx7zjx4dga18nwl5c9fwwb/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZHlsYW5tYXNzY2hlbGVpbiIsImEiOiJja3B5dmlyZXUwaG55Mm9xc3RsNzBybWV2In0.NJDvx0UbxYYMpvuQsamo6w'
         />
-
-        <AreaPolygons />
+        {areas && <AreaPolygons />}
       </MapContainer>
     </div>
   );

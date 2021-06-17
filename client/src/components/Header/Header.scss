@@ -3,11 +3,14 @@
 
 .header {
   @include flex-justify-align(space-between, center);
-  background: darkcyan;
-  height: 7rem;
-  padding: 0 2rem;
-
+  position: relative;
+  background: #141b80;
   &__logo {
+    position: absolute;
+    height: 10rem;
+    margin-left: 1.5rem;
+    top: 0;
+    z-index: 402;
   }
 
   &__link {
@@ -15,11 +18,61 @@
   }
 
   &__drop {
-    color: black;
+    color: darkcyan;
     font-size: 4rem;
+    margin: 1rem;
   }
 
   &__login {
     color: white;
   }
+}
+
+.dropdown {
+  background: white;
+  @include box-shadow;
+  width: 12rem;
+  position: absolute;
+  top: 7rem;
+  right: 1rem;
+  z-index: 999999;
+  @include flex-column;
+  align-items: flex-end;
+
+  &__link {
+    @include link-reset;
+    box-shadow: 0 0 5px 5px coral;
+    border-radius: 0.5rem;
+    width: 85%;
+    color: black;
+    padding: 0.5rem;
+    margin: 1rem;
+
+    &:hover {
+      background-color: darkcyan;
+      color: white;
+    }
+  }
+}
+
+.custom-shape-divider-top-1623907872 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+  z-index: 401;
+}
+
+.custom-shape-divider-top-1623907872 svg {
+  position: relative;
+  display: block;
+  width: calc(199% + 1.3px);
+  height: 500px;
+}
+
+.custom-shape-divider-top-1623907872 .shape-fill {
+  fill: #141b80;
 }

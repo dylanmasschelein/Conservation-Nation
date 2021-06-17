@@ -3,15 +3,22 @@
 
 .observation {
   @include box-shadow;
+  @include flex-column;
+  justify-content: center;
+  align-items: center;
   margin: 1rem;
-  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  background: white;
+  opacity: 0.8;
 
   &__photo {
-    margin: 1.5rem;
-    width: 85%;
+    opacity: 15;
+    // margin: 1.5rem;
+
     height: 225px;
     object-fit: cover;
     border-radius: 8px;
+    z-index: 9999;
   }
 
   &__details {
@@ -21,7 +28,7 @@
   }
 
   &__name {
-    padding-bottom: 1rem;
+    padding-bottom: 0.25rem;
   }
 
   &__latin-name {

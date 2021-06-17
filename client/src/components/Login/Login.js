@@ -1,82 +1,67 @@
 import "./Login.scss";
-import { Component } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-class Login extends Component {
-  state = {
-    username: "",
-    password: "",
-  };
+const Login = ({ history, setOpen, setOpenLogin }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  handleChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    });
-  };
-  successAlert = () => {
+  const successAlert = () => {
     alert("Successfully logged in!");
-    this.props.history.push("/profile");
+    history.push("/profile");
   };
 
-  failedAlert = () => {
+  const failedAlert = () => {
     alert("Please enter valid username/password");
   };
-  handleSubmit = (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     axios
       .post(`http://localhost:8080/user/login`, {
-        username: this.state.username,
-        password: this.state.password,
+        username: username,
+        password: password,
       })
       .then((res) => {
-        console.log(res.data);
-
-        res.data.status === "ok" ? this.successAlert() : this.failedAlert();
+        res.data.status === "ok" ? successAlert() : failedAlert();
         sessionStorage.setItem("token", res.data.data);
+        setOpen(false);
+        setOpenLogin(false);
       })
       .catch((err) => console.error(err));
   };
 
-  render() {
-    return (
-      <div className='login'>
-        <form onSubmit={this.handleSubmit} className='login__form'>
-          <label htmlFor='email' className='login__label'>
-            Username
-            <input
-              type='username'
-              name='username'
-              value={this.state.username}
-              onChange={this.handleChange}
-              className='login__input'
-            ></input>
-          </label>
-          <label htmlFor='password' className='login__label'>
-            Password
-            <input
-              type='password'
-              name='password'
-              value={this.state.password}
-              onChange={this.handleChange}
-              className='login__input'
-            ></input>
-          </label>
-          {/* do i need a link here?? */}
-          <button type='submit' className='login__submit'>
-            Login
-          </button>
-        </form>
-        <div className='login__signup'>
-          <span className='login__prompt'>Don't have an account yet?</span>
-          <Link to='/user/register' className='login__signup-link'>
-            Signup here!
-          </Link>
-        </div>
-      </div>
-    );
-  }
-}
+  return (
+    <div className='login'>
+      <form onSubmit={handleSubmit} className='login__form'>
+        <label htmlFor='email' className='login__label login__label--top'>
+          Username
+        </label>
+        <input
+          type='username'
+          name='username'
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className='login__input'
+        ></input>
+
+        <label htmlFor='password' className='login__label'>
+          Password
+        </label>
+        <input
+          type='password'
+          name='password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className='login__input'
+        ></input>
+        <button type='submit' className='login__submit'>
+          Login
+        </button>
+      </form>
+    </div>
+  );
+};
 
 export default Login;
