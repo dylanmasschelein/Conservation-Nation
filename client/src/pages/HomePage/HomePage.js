@@ -123,11 +123,11 @@ const HomePage = (props) => {
   //user.update is not a function (backend)
   const followArea = () => {
     const { name } = clickedArea;
-    const { username } = user;
+    const { email } = user;
     console.log("clicked");
     //grab whoever is logged in id/username or something so i can find them on the backend and update
     axios
-      .put(`http://localhost:8080/user/${username}/${name}`)
+      .put(`http://localhost:8080/user/${email}/${name}`)
       .then((res) => console.log(res))
       .catch((err) => console.error(err));
   };
@@ -148,12 +148,12 @@ const HomePage = (props) => {
           handleSearch={handleSearch}
           search={search}
         />
-        {/* <FontAwesomeIcon onClick={followArea} icon={faHeart} /> */}
-        {!clickedObservation ? (
+        <FontAwesomeIcon onClick={followArea} icon={faHeart} />
+        {/* {!clickedObservation ? (
           <Tutorial />
-        ) : (
-          <Observation observation={clickedObservation} />
-        )}
+        ) : ( */}
+        {clickedObservation && <Observation observation={clickedObservation} />}
+        {/* )} */}
       </div>
       <div className='home__right'>
         {/* <ExploreBtn PlotObservations={PlotObservations} /> */}

@@ -4,8 +4,13 @@
 .header {
   @include flex-justify-align(space-between, center);
   position: relative;
-
+  background: #141b80;
   &__logo {
+    position: absolute;
+    height: 10rem;
+    margin-left: 1.5rem;
+    top: 0;
+    z-index: 402;
   }
 
   &__link {
@@ -50,24 +55,24 @@
   }
 }
 
-// .custom-shape-divider-top-1623857236 {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   overflow: hidden;
-//   line-height: 0;
-//   z-index: 999;
-// }
+.custom-shape-divider-top-1623907872 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+  z-index: 401;
+}
 
-// .custom-shape-divider-top-1623857236 svg {
-//   position: relative;
-//   display: block;
-//   width: calc(117% + 1.3px);
-//   height: 181px;
-// }
+.custom-shape-divider-top-1623907872 svg {
+  position: relative;
+  display: block;
+  width: calc(199% + 1.3px);
+  height: 500px;
+}
 
-// .custom-shape-divider-top-1623857236 .shape-fill {
-//   fill: darkgreen;
-//   opacity: 0.7;
-// }
+.custom-shape-divider-top-1623907872 .shape-fill {
+  fill: #141b80;
+}

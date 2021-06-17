@@ -32,7 +32,7 @@ router
   // REGISTER ---------------------------------------------
   .post("/register", async (req, res) => {
     const {
-      username,
+      email,
       password: incomingPassword,
       firstName,
       lastName,
@@ -46,17 +46,17 @@ router
 
     // Check if first name exists and is a string
     if (!firstName || typeof firstName !== "string") {
-      return res.json({ status: "error", error: "Invalid username" });
+      return res.json({ status: "error", error: "Invalid entry" });
     }
 
     // Check if last name exists and is a string
     if (!lastName || typeof lastName !== "string") {
-      return res.json({ status: "error", error: "Invalid username" });
+      return res.json({ status: "error", error: "Invalid entry" });
     }
 
-    // Check if username exists and is a string
-    if (!username || typeof username !== "string") {
-      return res.json({ status: "error", error: "Invalid username" });
+    // Check if email exists and is a string
+    if (!email || typeof email !== "string") {
+      return res.json({ status: "error", error: "Invalid email" });
     }
 
     // Check if password exists and is a string
@@ -77,7 +77,7 @@ router
 
     try {
       const result = await User.create({
-        username,
+        email,
         password,
         firstName,
         lastName,
@@ -92,7 +92,7 @@ router
     } catch (err) {
       if (err.code === 11000) {
         console.log(err.message);
-        return res.json({ status: "error", err: "Username already in use" });
+        return res.json({ status: "error", err: "Email already in use" });
       }
       throw err;
     }
@@ -102,30 +102,30 @@ router
 
   // LOGIN --------------------------------------
   .post("/login", async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     // Find the user
-    const user = await User.findOne({ username }).lean();
+    const user = await User.findOne({ email }).lean();
 
     // Check if the user exists
     if (!user) {
-      return res.json({ status: "error", error: "Invalid username/password" });
+      return res.json({ status: "error", error: "Invalid email/password" });
     }
 
     // Check that the hashed password matches
     if (await bcrypt.compare(password, user.password)) {
-      const token = jwt.sign({ id: user.id, username: user.username }, secret);
+      const token = jwt.sign({ id: user.id, email: user.email }, secret);
 
       return res.json({ status: "ok", data: token });
     }
 
-    res.json({ status: "error", error: "Invalid username/password" });
+    res.json({ status: "error", error: "Invalid email/password" });
   })
 
   // Updating liked followed areas ------------------------------------
-  .put("/:username/:area", async (req, res) => {
-    const { area, username } = req.params;
+  .put("/:email/:area", async (req, res) => {
+    const { area, email } = req.params;
     // JWT Auth ---------------- add some validation
-    const user = await User.findOne({ username: username });
+    const user = await User.findOne({ email: email });
     // Check if area is part of followedAreas array already
     if (!user) {
       return res.json({
@@ -139,7 +139,7 @@ router
     const updatedFollowedAreas = [...followed, area];
 
     await User.updateOne(
-      { username: username },
+      { email: email },
       { $set: { followedAreas: updatedFollowedAreas } }
     );
 
@@ -147,10 +147,10 @@ router
   })
 
   // Updating user profile ------------------------------------
-  // .put("/:username", async (req, res) => {
-  //   const { area, username } = req.params;
+  // .put("/:email", async (req, res) => {
+  //   const { area, email } = req.params;
   //   // JWT Auth ---------------- add some validation
-  //   const user = await User.findOne({ username: username });
+  //   const user = await User.findOne({ email: email });
   //   // Check if area is part of followedAreas array already
   //   if (!user) {
   //     return res.json({
@@ -164,7 +164,7 @@ router
   //   const updatedFollowedAreas = [...followed, area];
 
   //   await User.updateOne(
-  //     { username: username },
+  //     { email: email },
   //     { $set: { followedAreas: updatedFollowedAreas } }
   //   );
 
@@ -176,8 +176,8 @@ router
     const { token, newpassword: incomingPassword } = req.body;
     //if i keep this - add double password check & match before proceeding
     //create a validation function
-    if (!username || typeof username !== "string") {
-      return res.json({ status: "error", error: "Invalid username" });
+    if (!email || typeof email !== "string") {
+      return res.json({ status: "error", error: "Invalid email" });
     }
 
     if (!incomingPassword || typeof incomingPassword !== "string") {

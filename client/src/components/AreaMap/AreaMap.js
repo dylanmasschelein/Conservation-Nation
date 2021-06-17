@@ -85,7 +85,7 @@ const AreaMap = (props) => {
       <MapContainer
         className='map'
         center={[52, -122]}
-        zoom={2.5}
+        zoom={2}
         scrollWheelZoom={true}
         zoomControl={false}
       >

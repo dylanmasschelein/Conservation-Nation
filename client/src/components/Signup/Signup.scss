@@ -2,29 +2,52 @@
 @use '../../partials/variables' as *;
 
 .signup {
-  @include flex-justify-align(center, center);
-  margin-top: 8rem;
+  background-image: url("../../assets/Images/imageedit_1_4043602993.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 36rem;
+
+  &__name {
+    text-align: center;
+  }
+
+  &__form {
+    @include flex-justify-align(center, center);
+    margin-top: 2rem;
+    color: white;
+  }
+
   &__left {
     @include box-shadow;
     @include flex-column;
+    background: black;
+    opacity: 0.8;
     padding: 1rem;
     margin-right: 4rem;
     min-width: 15rem;
-    min-height: 23.25rem;
-    max-height: 23.25rem;
+    min-height: 30rem;
+    max-height: 30rem;
   }
 
   &__right {
     @include box-shadow;
     @include flex-column;
+    background: black;
+    opacity: 0.8;
     padding: 1rem;
     min-width: 15rem;
-    min-height: 23.25rem;
-    max-height: 23.25rem;
+    min-height: 30rem;
+    max-height: 30rem;
   }
 
   &__label {
     @include flex-column;
+  }
+  &__radio {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0.5rem;
   }
 
   &__input {

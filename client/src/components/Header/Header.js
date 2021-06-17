@@ -4,21 +4,26 @@ import { useState } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import Login from "../Login/Login";
+import ConservationNation from "../../assets/Images/Conservation-nation.png";
 import "./Header.scss";
 
 const Header = ({ history, user }) => {
   const [open, setOpen] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
 
-  const alertSignIn = () => {
-    alert("Please login to continue to profile");
-    // setOpen(true);
+  const profileNavigation = () => {
+    if (typeof sessionStorage.getItem("token") !== "string") {
+      alert("Please login or register to continue to profile");
+      setOpenLogin(true);
+    } else {
+      history.push("/profile");
+    }
   };
 
   return (
     <div className='header'>
       <Link to='/'>
-        <img src='dweqd' alt='Logo' className='header__logo' />
+        <img src={ConservationNation} alt='Logo' className='header__logo' />
       </Link>
       {/* <Link to='/user/login' className='header__link'> */}
       <FontAwesomeIcon
@@ -48,11 +53,7 @@ const Header = ({ history, user }) => {
               setOpenLogin={setOpenLogin}
             />
           )}
-          <Link
-            to='/profile'
-            className='dropdown__link'
-            onClick={() => setOpen(false)}
-          >
+          <Link className='dropdown__link' onClick={profileNavigation}>
             Profile
           </Link>
           <Link
@@ -65,7 +66,7 @@ const Header = ({ history, user }) => {
         </nav>
       )}
 
-      {/* <div class='custom-shape-divider-top-1623857236'>
+      <div class='custom-shape-divider-top-1623907872'>
         <svg
           data-name='Layer 1'
           xmlns='http://www.w3.org/2000/svg'
@@ -73,11 +74,11 @@ const Header = ({ history, user }) => {
           preserveAspectRatio='none'
         >
           <path
-            d='M1200 120L0 16.48 0 0 1200 0 1200 120z'
+            d='M602.45,3.86h0S572.9,116.24,281.94,120H923C632,116.24,602.45,3.86,602.45,3.86Z'
             class='shape-fill'
           ></path>
-        </svg> */}
-      {/* </div> */}
+        </svg>
+      </div>
     </div>
   );
 };
