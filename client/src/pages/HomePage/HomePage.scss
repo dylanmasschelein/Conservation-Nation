@@ -14,13 +14,21 @@
 
   &__right {
   }
+
+  &__button-div {
+    display: flex;
+    margin: 0 1rem;
+  }
   &__button {
-    position: absolute;
-    right: 2rem;
-    bottom: 12rem;
     z-index: 9999999;
-    padding: 2rem;
-    background: black;
-    color: white;
+    padding: 1rem;
+    background: white;
+    color: black;
+    border: 1px solid white;
+    width: 50%;
+
+    &--right {
+      margin-left: 0.5rem;
+    }
   }
 }

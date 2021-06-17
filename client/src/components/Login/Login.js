@@ -3,31 +3,38 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Login = ({ history, setOpen, setOpenLogin }) => {
-  const [username, setUsername] = useState("");
+const Login = ({
+  history,
+  setOpen,
+  setOpenLogin,
+  setModalText,
+  setToggleModal,
+}) => {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const successAlert = () => {
-    alert("Successfully logged in!");
     history.push("/profile");
+    setOpenLogin(false);
+    setOpen(false);
   };
 
   const failedAlert = () => {
-    alert("Please enter valid username/password");
+    setToggleModal(true);
+    setModalText("Please enter valid username and password");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
       .post(`http://localhost:8080/user/login`, {
-        username: username,
-        password: password,
+        email,
+        password,
       })
       .then((res) => {
+        console.log(res);
         res.data.status === "ok" ? successAlert() : failedAlert();
         sessionStorage.setItem("token", res.data.data);
-        setOpen(false);
-        setOpenLogin(false);
       })
       .catch((err) => console.error(err));
   };
@@ -39,10 +46,10 @@ const Login = ({ history, setOpen, setOpenLogin }) => {
           Username
         </label>
         <input
-          type='username'
-          name='username'
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          type='email'
+          name='email'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className='login__input'
         ></input>
 

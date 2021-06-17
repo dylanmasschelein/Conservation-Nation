@@ -11,9 +11,7 @@ import L from "leaflet";
 import tree from "../../assets/Images/tree.png";
 import { Marker } from "react-leaflet";
 
-const HomePage = (props) => {
-  console.log(props);
-  const { user } = props;
+const HomePage = ({ user, setToggleModal, setModalText }) => {
   const [search, setSearch] = useState("");
   const [areas, setAreas] = useState(null);
   const [areaBounds, setAreaBounds] = useState(null);
@@ -76,10 +74,11 @@ const HomePage = (props) => {
   };
 
   const exploreArea = () => {
-    console.log("exploreArea");
+    if (!clickedArea) {
+      setToggleModal(true);
+      setModalText("You must click an area to explore it!");
+    }
     if (areaBounds) getINaturalistData();
-
-    console.log("still exploringArea");
   };
 
   const getINaturalistData = () => {
@@ -120,14 +119,19 @@ const HomePage = (props) => {
   };
   //user.update is not a function (backend)
   const followArea = () => {
-    const { name } = clickedArea;
-    const { email } = user;
-    console.log("clicked");
-    //grab whoever is logged in id/username or something so i can find them on the backend and update
-    axios
-      .put(`http://localhost:8080/user/${email}/${name}`)
-      .then((res) => console.log(res))
-      .catch((err) => console.error(err));
+    if (!user) {
+      setToggleModal(true);
+      setModalText("Please sign in to follow an area!");
+    } else {
+      const { name } = clickedArea;
+      const { email } = user;
+      console.log("clicked");
+      //grab whoever is logged in id/username or something so i can find them on the backend and update
+      axios
+        .put(`http://localhost:8080/user/${email}/${name}`)
+        .then((res) => console.log(res))
+        .catch((err) => console.error(err));
+    }
   };
   // Custom Icon
   const icon = L.icon({
@@ -146,7 +150,18 @@ const HomePage = (props) => {
           handleSearch={handleSearch}
           search={search}
         />
-        {/* <FontAwesomeIcon onClick={followArea} icon={faHeart} /> */}
+        <div className='home__button-div'>
+          <button onClick={followArea} className='home__button'>
+            FOLLOW
+          </button>
+          <button
+            onClick={exploreArea}
+            className='home__button home__button--right'
+          >
+            EXPLORE
+          </button>
+        </div>
+
         {/* {!clickedObservation ? (
           <Tutorial />
         ) : ( */}
@@ -164,9 +179,6 @@ const HomePage = (props) => {
           center={center}
           observations={observations}
         />
-        <button onClick={exploreArea} className='home__button'>
-          EXPLORE
-        </button>
       </div>
     </div>
   );

@@ -34,6 +34,7 @@ router
     const {
       email,
       password: incomingPassword,
+      confirmPassword,
       firstName,
       lastName,
       address,
@@ -57,6 +58,10 @@ router
     // Check if email exists and is a string
     if (!email || typeof email !== "string") {
       return res.json({ status: "error", error: "Invalid email" });
+    }
+
+    if (!incomingPassword !== confirmPassword) {
+      return res.json({ status: "error", error: "Passwords must match" });
     }
 
     // Check if password exists and is a string
@@ -104,21 +109,36 @@ router
   .post("/login", async (req, res) => {
     const { email, password } = req.body;
     // Find the user
+    console.log(email, "email");
     const user = await User.findOne({ email }).lean();
-
+    console.log(user, "user");
     // Check if the user exists
     if (!user) {
+      console.log("stopped in !user");
       return res.json({ status: "error", error: "Invalid email/password" });
     }
 
     // Check that the hashed password matches
     if (await bcrypt.compare(password, user.password)) {
       const token = jwt.sign({ id: user.id, email: user.email }, secret);
-
+      console.log(token, "getting token... or not");
       return res.json({ status: "ok", data: token });
     }
 
     res.json({ status: "error", error: "Invalid email/password" });
+  })
+
+  // Updating user profile ------------------------------------
+  .put("/edit/:email", async (req, res) => {
+    const { email } = req.params;
+    const { value, key } = req.body;
+    console.log(email, "email");
+    console.log(value, "detail", key, "key");
+
+    //   // JWT Auth ---------------- add some validation
+    const user = await User.updateOne({ email }, { $set: { key: value } });
+
+    res.json({ status: "ok" });
   })
 
   // Updating liked followed areas ------------------------------------
@@ -145,31 +165,6 @@ router
 
     res.json({ status: "ok" });
   })
-
-  // Updating user profile ------------------------------------
-  // .put("/:email", async (req, res) => {
-  //   const { area, email } = req.params;
-  //   // JWT Auth ---------------- add some validation
-  //   const user = await User.findOne({ email: email });
-  //   // Check if area is part of followedAreas array already
-  //   if (!user) {
-  //     return res.json({
-  //       status: "error",
-  //       error: "Must be logged in to follow areas",
-  //     });
-  //   }
-
-  // Retreiving previously followed areas and updating database to include new followed area
-  //   const followed = user.followedAreas;
-  //   const updatedFollowedAreas = [...followed, area];
-
-  //   await User.updateOne(
-  //     { email: email },
-  //     { $set: { followedAreas: updatedFollowedAreas } }
-  //   );
-
-  //   res.json({ status: "ok" });
-  // })
 
   // CHANGE PASSWORD ------------------------------------
   .post("/change-password", async (req, res) => {

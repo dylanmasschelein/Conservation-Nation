@@ -27,16 +27,16 @@ const Signup = (props) => {
     e.preventDefault();
     axios
       .post(`http://localhost:8080/user/register`, {
-        firstName: firstName,
-        lastName: lastName,
-        address: address,
-        city: city,
-        country: country,
-        volunteer: volunteer,
-        about: about,
-        email: email,
-        password: password,
-        confirmPassword: confirmPassword,
+        firstName,
+        lastName,
+        address,
+        city,
+        country,
+        volunteer,
+        about,
+        email,
+        password,
+        confirmPassword,
       })
       .then((res) => {
         res.data.status === "ok" ? successAlert() : failedAlert();
