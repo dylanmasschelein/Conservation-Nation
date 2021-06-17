@@ -7,16 +7,14 @@ import {
 } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import "./App.scss";
-// import AreaMap from "./components/AreaMap/AreaMap";
 import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
-const App = (props) => {
+const App = () => {
   const [user, setUser] = useState(null);
-  console.log(props);
   return (
     <Router>
       <Header user={user} />

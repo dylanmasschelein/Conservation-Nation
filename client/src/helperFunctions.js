@@ -14,7 +14,7 @@ const iucnCategories = (category) => {
   } else if (category === "VI") {
     return "Protected area with sustainable use of natural resources";
   } else {
-    return "";
+    return "Not designated";
   }
 };
 

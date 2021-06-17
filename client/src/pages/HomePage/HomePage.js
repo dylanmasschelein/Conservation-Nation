@@ -2,16 +2,14 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import "./HomePage.scss";
-import ExploreBtn from "../../components/ExploreBtn/ExploreBtn";
 import AreaMap from "../../components/AreaMap/AreaMap";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Observation from "../../components/Observation/Observation";
-import SpecificArea from "../../components/SpecificArea/SpecificArea";
 import Tutorial from "../../components/Tutorial/Tutorial";
 import axios from "axios";
 import L from "leaflet";
 import tree from "../../assets/Images/tree.png";
-import { Marker, useMap } from "react-leaflet";
+import { Marker } from "react-leaflet";
 
 const HomePage = (props) => {
   console.log(props);
@@ -37,8 +35,6 @@ const HomePage = (props) => {
   useEffect(() => {
     getUserLocation();
   }, []);
-
-  useEffect(() => {});
 
   useEffect(() => {}, [
     areas,
@@ -75,13 +71,21 @@ const HomePage = (props) => {
         swLat: _southWest.lat,
         swLng: _southWest.lng,
       });
-      if (areaBounds) {
-        getINaturalistData();
-      }
+      console.log("OnEachArea");
+      // if (areaBounds) {
+      //   getINaturalistData();
+      // }
     });
   };
 
+  const exploreArea = () => {
+    console.log("exploreArea");
+    if (areaBounds) getINaturalistData();
+    console.log("still exploringArea");
+  };
+
   const getINaturalistData = () => {
+    console.log("getINaturalistData");
     const { neLat, neLng, swLat, swLng } = areaBounds;
     axios
       .get(
@@ -94,6 +98,7 @@ const HomePage = (props) => {
   };
 
   const PlotObservations = () => {
+    console.log("PlotObservations");
     if (!observations) {
       return null;
     } else {
@@ -161,7 +166,9 @@ const HomePage = (props) => {
           center={center}
           observations={observations}
         />
-        <button className='home__button'>EXPLORE</button>
+        <button onClick={exploreArea} className='home__button'>
+          EXPLORE
+        </button>
       </div>
     </div>
   );

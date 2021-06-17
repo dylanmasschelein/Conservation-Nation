@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -7,13 +7,10 @@ import {
   ZoomControl,
   useMap,
   useMapEvents,
-  Marker,
-  Popup,
-  // useMap,
 } from "react-leaflet";
+import "leaflet-defaulticon-compatibility";
 import "../AreaMap/AreaMap.scss";
 import SpecificArea from "../../components/SpecificArea/SpecificArea";
-import axios from "axios";
 
 const AreaMap = (props) => {
   const {
