@@ -4,7 +4,7 @@
 .header {
   @include flex-justify-align(space-between, center);
   position: relative;
-  background: #141b80;
+  background: #62c370;
   &__logo {
     position: absolute;
     height: 10rem;
@@ -12,6 +12,19 @@
     top: 0;
     z-index: 402;
   }
+  //secondary
+  // 586994
+  // 5497A7
+  // EB9486
+  // 065A82
+  //466365
+  //774C60
+  //FE4A49
+  // C44900
+  // A3320B
+  //9C0D38
+  // 28666E
+  // 258EA6
 
   &__link {
     @include link-reset;

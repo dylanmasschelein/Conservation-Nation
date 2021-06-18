@@ -12,7 +12,7 @@ import ModalWindow from "./components/ModalWindow/ModalWindow";
 const App = () => {
   const [user, setUser] = useState(null);
   const [toggleModal, setToggleModal] = useState(false);
-  const [modalText, setModalText] = useState("");
+  const [modalText, setModalText] = useState();
   return (
     <Router>
       <Header

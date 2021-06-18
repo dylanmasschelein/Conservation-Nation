@@ -2,15 +2,22 @@
 @use '../../partials/variables' as *;
 
 .search {
-  @include box-shadow;
-  background: white;
-  opacity: 0.9;
+  background: #258ea6;
   padding: 1rem;
   margin: 1rem;
   margin-top: 5rem;
+  border-radius: $border-radius;
   &__label {
     display: flex;
   }
+  //secondary
+  // 586994 *
+  // 5497A7 *
+  // 065A82 **
+  //FE4A49 *
+  // C44900 *
+  // 28666E *
+  // 258EA6 **
 
   &__input {
     background-color: #f6f6f6;
@@ -32,12 +39,21 @@
   }
 
   &__btn {
-    background: coral;
-    border: 1px solid coral;
+    background: #f8333c;
+    border: 1px solid #f8333c;
     border-radius: 50%;
     padding: 0.5rem;
     margin-left: 0.25rem;
+
+    &:hover {
+      background: #ffcf00;
+      border: 1px solid #ffcf00;
+    }
   }
+  // thirdary
+
+  // FFCF00 **
+  // F8333C
 
   &__icon {
     font-size: 1rem;

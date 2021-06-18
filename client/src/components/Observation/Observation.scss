@@ -2,14 +2,14 @@
 @use '../../partials/variables' as *;
 
 .observation {
-  @include box-shadow;
   @include flex-column;
   justify-content: center;
   align-items: center;
   margin: 1rem;
   padding-top: 1.5rem;
-  background: white;
-  opacity: 0.8;
+  background: $color-secondary;
+  border-radius: $border-radius;
+  // opacity: 0.8;
 
   &__photo {
     opacity: 15;

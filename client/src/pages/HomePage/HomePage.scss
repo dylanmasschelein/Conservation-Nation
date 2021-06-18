@@ -5,6 +5,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  // padding: 0 2rem;
 
   &__left {
     position: absolute;
@@ -22,10 +23,11 @@
   &__button {
     z-index: 9999999;
     padding: 1rem;
-    background: white;
     color: black;
-    border: 1px solid white;
+    border-radius: $border-radius;
+    border: 1px solid #62c370;
     width: 50%;
+    background: #62c370;
 
     &--right {
       margin-left: 0.5rem;

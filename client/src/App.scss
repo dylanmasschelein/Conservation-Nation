@@ -5,12 +5,6 @@ html,
 body {
   @include margin-reset;
   font-family: "AvenirNext LT Pro";
-  background: rgb(253, 190, 45);
-  background: radial-gradient(
-    circle,
-    rgba(253, 190, 45, 1) 24%,
-    rgba(0, 77, 153, 1) 81%
-  );
 }
 
 *,

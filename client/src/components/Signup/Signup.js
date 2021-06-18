@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 const Signup = ({ setToggleModal, setModalText, history }) => {
   const successAlert = () => {
     alert("Signup Successful!");
-    history.push("/user/login");
+    history.push("/profile");
   };
 
   const failedAlert = () => {
