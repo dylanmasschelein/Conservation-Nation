@@ -35,7 +35,12 @@ const App = () => {
             />
           )}
         />
-        <Route path='/user/register' component={Signup} />
+        <Route
+          path='/user/register'
+          component={Signup}
+          setToggleModal={setToggleModal}
+          setModalText={setModalText}
+        />
         <Route path='/user/login' component={Login} />
         <Route
           path='/profile'

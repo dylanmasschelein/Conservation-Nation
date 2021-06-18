@@ -44,6 +44,7 @@ router
       volunteer,
       followedAreas,
     } = req.body;
+    console.log("this is the register route talking");
 
     // Check if first name exists and is a string
     if (!firstName || typeof firstName !== "string") {
@@ -60,7 +61,7 @@ router
       return res.json({ status: "error", error: "Invalid email" });
     }
 
-    if (!incomingPassword !== confirmPassword) {
+    if (incomingPassword !== confirmPassword) {
       return res.json({ status: "error", error: "Passwords must match" });
     }
 
@@ -95,11 +96,7 @@ router
       });
       console.log("User Created Successfully:", result);
     } catch (err) {
-      if (err.code === 11000) {
-        console.log(err.message);
-        return res.json({ status: "error", err: "Email already in use" });
-      }
-      throw err;
+      console.error(err);
     }
 
     res.json({ status: "ok" });
