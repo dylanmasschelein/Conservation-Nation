@@ -1,39 +1,49 @@
 @use '../../partials/variables' as *;
 @use '../../partials/mixins' as *;
 
+@keyframes slidein {
+  from {
+    transform: translate(100%);
+  }
+
+  to {
+    transform: translate(0%);
+  }
+}
+
+@keyframes slideout {
+  from {
+    transform: translate(100%);
+  }
+
+  to {
+    transform: translate(0%);
+  }
+}
+
 .header {
   @include flex-justify-align(space-between, center);
   position: relative;
-  background: #62c370;
+  background: $color-primary;
+  height: 7rem;
+  border-bottom: 3px solid $border-primary;
+
   &__logo {
-    position: absolute;
-    height: 10rem;
-    margin-left: 1.5rem;
-    top: 0;
-    z-index: 402;
+    height: 17rem;
+    margin-left: 2rem;
   }
-  //secondary
-  // 586994
-  // 5497A7
-  // EB9486
-  // 065A82
-  //466365
-  //774C60
-  //FE4A49
-  // C44900
-  // A3320B
-  //9C0D38
-  // 28666E
-  // 258EA6
 
   &__link {
     @include link-reset;
   }
 
   &__drop {
-    color: darkcyan;
-    font-size: 4rem;
-    margin: 1rem;
+    color: black;
+    // position: absolute;
+    height: 10rem;
+    margin: 5.5rem 2rem 0 0;
+    top: 0;
+    z-index: 402;
   }
 
   &__login {
@@ -42,50 +52,42 @@
 }
 
 .dropdown {
-  background: white;
-  @include box-shadow;
-  width: 12rem;
-  position: absolute;
-  top: 7rem;
-  right: 1rem;
-  z-index: 999999;
   @include flex-column;
   align-items: flex-end;
+  position: absolute;
+  top: 6rem;
+  right: 0;
+  width: 15rem;
+  padding: 1rem 0;
+  background: $color-secondary;
+  border: 3px solid $border-secondary;
+  z-index: 999999;
+
+  &--slidein {
+    animation-duration: 3s;
+    animation-name: slidein;
+  }
+
+  &--slideout {
+    animation-duration: 3s;
+    animation-name: slideout;
+  }
 
   &__link {
     @include link-reset;
-    box-shadow: 0 0 5px 5px coral;
-    border-radius: 0.5rem;
+    background: $color-secondary;
+    box-shadow: 0 0 5px 5px $color-secondary;
+    // border-radius: 0.5rem;
+    border-top: 1px solid $color-accent;
+    text-align: right;
     width: 85%;
     color: black;
     padding: 0.5rem;
     margin: 1rem;
 
     &:hover {
-      background-color: darkcyan;
+      background-color: $color-hover;
       color: white;
     }
   }
-}
-
-.custom-shape-divider-top-1623907872 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-  transform: rotate(180deg);
-  z-index: 401;
-}
-
-.custom-shape-divider-top-1623907872 svg {
-  position: relative;
-  display: block;
-  width: calc(199% + 1.3px);
-  height: 500px;
-}
-
-.custom-shape-divider-top-1623907872 .shape-fill {
-  fill: #141b80;
 }

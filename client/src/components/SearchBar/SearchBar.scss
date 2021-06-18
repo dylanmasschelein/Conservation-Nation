@@ -2,52 +2,43 @@
 @use '../../partials/variables' as *;
 
 .search {
-  background: #258ea6;
+  background: $color-secondary;
   padding: 1rem;
-  margin: 1rem;
-  margin-top: 5rem;
-  border-radius: $border-radius;
+  border: 3px solid $border-secondary;
+  margin: 1rem 0 1rem 0;
+  border-radius: 50px;
   &__label {
     display: flex;
   }
-  //secondary
-  // 586994 *
-  // 5497A7 *
-  // 065A82 **
-  //FE4A49 *
-  // C44900 *
-  // 28666E *
-  // 258EA6 **
 
   &__input {
-    background-color: #f6f6f6;
-    box-shadow: inset 0px 1px 4px rgba(153, 153, 153, 0.25);
-    border-radius: 0.5rem;
-    border: 1px solid darkcyan;
-    padding: 0.5rem;
-    width: 85%;
+    @include form-input;
+    padding-left: 1rem;
+    margin: 0 1rem 0 0.5rem;
+    width: 70%;
 
     &:focus {
       outline: none;
-      border: 1px solid coral;
+      border: 1px solid $color-hover;
     }
 
     &:active {
       outline: none;
-      border: 1px solid coral;
+      border: 1px solid $color-hover;
     }
   }
 
   &__btn {
-    background: #f8333c;
-    border: 1px solid #f8333c;
-    border-radius: 50%;
+    background: $color-accent;
+    border: 1px solid $color-accent;
+    border-radius: 1.25rem;
     padding: 0.5rem;
+    width: 6rem;
     margin-left: 0.25rem;
 
     &:hover {
-      background: #ffcf00;
-      border: 1px solid #ffcf00;
+      background: $color-hover;
+      border: 1px solid $color-hover;
     }
   }
   // thirdary

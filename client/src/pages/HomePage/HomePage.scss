@@ -8,6 +8,7 @@
   // padding: 0 2rem;
 
   &__left {
+    margin: 0 2rem;
     position: absolute;
     width: 36vw;
     z-index: 99999;
@@ -18,16 +19,15 @@
 
   &__button-div {
     display: flex;
-    margin: 0 1rem;
   }
   &__button {
     z-index: 9999999;
     padding: 1rem;
     color: black;
     border-radius: $border-radius;
-    border: 1px solid #62c370;
+    border: 3px solid $border-primary;
     width: 50%;
-    background: #62c370;
+    background: $color-primary;
 
     &--right {
       margin-left: 0.5rem;

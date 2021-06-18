@@ -67,9 +67,6 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
         swLat: _southWest.lat,
         swLng: _southWest.lng,
       });
-      // if (areaBounds) {
-      //   getINaturalistData();
-      // }
     });
   };
 

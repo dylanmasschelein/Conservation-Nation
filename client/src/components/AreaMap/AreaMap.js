@@ -68,15 +68,15 @@ const AreaMap = (props) => {
 
   // Area styles based on land or marine
   const marineStyle = {
-    fillColor: "blue",
+    fillColor: "#044F67",
     weight: 2,
-    color: "blue",
+    color: "#044F67",
     fillOpacity: 0.3,
   };
   const landStyle = {
-    fillColor: "green",
+    fillColor: "#679267",
     weight: 2,
-    color: "green",
+    color: "#679267",
     fillOpacity: 0.3,
   };
 

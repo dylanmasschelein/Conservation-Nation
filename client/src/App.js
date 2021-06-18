@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
+import "./partials/_typography.scss";
 import "./App.scss";
 import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
