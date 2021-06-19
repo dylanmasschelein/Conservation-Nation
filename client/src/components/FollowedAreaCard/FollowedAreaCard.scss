@@ -6,13 +6,17 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  border: $border-secondary;
+  background: $color-secondary;
+  border-radius: 50px 15px 50px 15px;
   margin: 2rem;
-  border: 1px solid blue;
   height: 12rem;
   width: 12rem;
   &__name {
+    text-align: center;
   }
 
   &__country {
+    text-align: center;
   }
 }

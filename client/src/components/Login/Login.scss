@@ -40,11 +40,8 @@
   }
 
   &__submit {
-    background: $color-primary;
+    @include button;
     padding: 0.5rem;
-    border: 1px solid $color-primary;
-    color: white;
-    border-radius: $border-radius;
     margin: 1rem 0.5rem;
   }
 

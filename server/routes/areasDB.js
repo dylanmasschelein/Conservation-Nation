@@ -64,7 +64,7 @@ router
   .get("/area/following/:followed", async (req, res) => {
     const followed = req.params.followed.split(",");
     await client.connect();
-
+    console.log("top");
     try {
       const followedAreas = await Promise.all(
         followed.map(async (areaName) => {
@@ -73,13 +73,13 @@ router
             .collection("OneEarth_areas");
 
           const result = await myCollection.findOne({ name: areaName });
-
+          console.log("in the try");
           return result;
         })
       );
-      console.log(followedAreas);
       res.json(followedAreas);
     } catch (err) {
+      res.json({ status: "error", error: "caught in following endpoint" });
       console.error(err, "catch block");
     }
   });

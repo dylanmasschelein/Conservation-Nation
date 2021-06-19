@@ -2,48 +2,44 @@
 @use '../../partials/variables' as *;
 
 .signup {
-  background-image: url("../../assets/Images/imageedit_1_4043602993.gif");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  height: 36rem;
+  background: $color-black;
+  height: 87vh;
 
   &__name {
     text-align: center;
+    padding-top: 2rem;
+    font-size: 2rem;
+    color: white;
   }
 
   &__form {
     @include flex-justify-align(center, center);
-    margin-top: 2rem;
-    color: white;
+    margin-top: 1rem;
   }
 
   &__left {
-    @include box-shadow;
     @include flex-column;
-    background: black;
-    opacity: 0.8;
+    @include min-max-height(30rem);
+    background: $color-secondary;
+    border-radius: $border-radius;
     padding: 1rem;
     margin-right: 4rem;
     min-width: 15rem;
-    min-height: 30rem;
-    max-height: 30rem;
   }
 
   &__right {
-    @include box-shadow;
     @include flex-column;
-    background: black;
-    opacity: 0.8;
+    @include min-max-height(30rem);
+    background: $color-secondary;
+    border-radius: $border-radius;
     padding: 1rem;
     min-width: 15rem;
-    min-height: 30rem;
-    max-height: 30rem;
   }
 
   &__label {
     @include flex-column;
   }
+
   &__radio {
     display: flex;
     justify-content: space-evenly;
@@ -60,11 +56,11 @@
   }
 
   &__submit {
+    border-radius: $border-radius;
+    border: $border-primary;
+    background: $color-primary;
+    padding: 1rem;
     font-weight: bold;
-    background: coral;
-    color: white;
-    border: 1px solid coral;
-    border-radius: 8px;
     padding: 0.75rem;
     margin-top: 1rem;
   }

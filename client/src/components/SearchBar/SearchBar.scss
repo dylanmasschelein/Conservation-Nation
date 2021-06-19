@@ -4,7 +4,7 @@
 .search {
   background: $color-secondary;
   padding: 1rem;
-  border: 3px solid $border-secondary;
+  border: $border-secondary;
   margin: 1rem 0 1rem 0;
   border-radius: 50px;
   &__label {
@@ -33,7 +33,7 @@
     border: 1px solid $color-accent;
     border-radius: 1.25rem;
     padding: 0.5rem;
-    width: 6rem;
+    width: 4rem;
     margin-left: 0.25rem;
 
     &:hover {

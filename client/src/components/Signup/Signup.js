@@ -96,6 +96,7 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
           <label htmlFor='about' className='signup__label'>
             About you...
             <input
+              type='textarea'
               {...register("about", { required: true })}
               id='about'
               className='signup__input signup__input--about'

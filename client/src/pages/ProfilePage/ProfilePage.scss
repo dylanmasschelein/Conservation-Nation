@@ -3,10 +3,11 @@
 
 .profile {
   display: flex;
+  background: $color-black;
 
   &__user {
     padding: 2rem;
-    background: darkgrey;
+    background: $color-primary;
     height: 88vh;
   }
 
@@ -16,9 +17,14 @@
 
   &__title {
     text-align: center;
-    padding: 2rem;
+    padding-top: 2rem;
+    color: white;
   }
 
+  &__logout {
+    @include secondary-button;
+    width: 100%;
+  }
   &__areas {
     // display: flex;
     // justify-content: space-between;

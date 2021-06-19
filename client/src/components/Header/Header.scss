@@ -13,11 +13,11 @@
 
 @keyframes slideout {
   from {
-    transform: translate(100%);
+    transform: translate(0%);
   }
 
   to {
-    transform: translate(0%);
+    transform: translate(100%);
   }
 }
 
@@ -26,11 +26,11 @@
   position: relative;
   background: $color-primary;
   height: 7rem;
-  border-bottom: 3px solid $border-primary;
+  border-bottom: $border-primary;
 
   &__logo {
     height: 17rem;
-    margin-left: 2rem;
+    margin-left: 1.5rem;
   }
 
   &__link {
@@ -60,16 +60,16 @@
   width: 15rem;
   padding: 1rem 0;
   background: $color-secondary;
-  border: 3px solid $border-secondary;
+  border: $border-secondary;
   z-index: 999999;
 
   &--slidein {
-    animation-duration: 3s;
+    animation-duration: 1s;
     animation-name: slidein;
   }
 
   &--slideout {
-    animation-duration: 3s;
+    animation-duration: 1s;
     animation-name: slideout;
   }
 
@@ -77,8 +77,7 @@
     @include link-reset;
     background: $color-secondary;
     box-shadow: 0 0 5px 5px $color-secondary;
-    // border-radius: 0.5rem;
-    border-top: 1px solid $color-accent;
+    border-top: $border-accent;
     text-align: right;
     width: 85%;
     color: black;

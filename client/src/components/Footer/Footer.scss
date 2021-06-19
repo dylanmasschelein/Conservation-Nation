@@ -1,0 +1,15 @@
+@use '../../partials/variables' as *;
+@use '../../partials/mixins' as *;
+
+.footer {
+  height: 7rem;
+  background: $color-primary;
+
+  &__quote {
+    position: absolute;
+    height: 5rem;
+    left: 2rem;
+    bottom: 0.75rem;
+    // margin-bottom: 1rem 0 1rem 2rem;
+  }
+}

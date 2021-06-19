@@ -133,8 +133,9 @@ router
   })
 
   // Updating liked followed areas ------------------------------------
-  .put("/:email/:area", async (req, res) => {
-    const { area, email } = req.params;
+  .put("/:email", async (req, res) => {
+    const { email } = req.params;
+    const { clickedArea: area } = req.body;
 
     if (!area) {
       res.json({ status: "error", error: "No area followed" });
@@ -142,6 +143,7 @@ router
 
     const user = await User.findOne({ email: email });
     // If area already followed.. send warning
+
     if (!user) {
       return res.json({
         status: "error",
@@ -159,6 +161,32 @@ router
 
     res.json({ status: "ok" });
   })
+  // .put("/:email/:area", async (req, res) => {
+  //   const { area, email } = req.params;
+
+  //   if (!area) {
+  //     res.json({ status: "error", error: "No area followed" });
+  //   }
+
+  //   const user = await User.findOne({ email: email });
+  //   // If area already followed.. send warning
+  //   if (!user) {
+  //     return res.json({
+  //       status: "error",
+  //       error: "Must be logged in to follow areas",
+  //     });
+  //   }
+
+  //   const followed = user.followedAreas;
+  //   const updatedFollowedAreas = [...followed, area];
+
+  //   await User.updateOne(
+  //     { email: email },
+  //     { $set: { followedAreas: updatedFollowedAreas } }
+  //   );
+
+  //   res.json({ status: "ok" });
+  // })
 
   // CHANGE PASSWORD ------------------------------------ Add if time allows
   .post("/change-password", async (req, res) => {

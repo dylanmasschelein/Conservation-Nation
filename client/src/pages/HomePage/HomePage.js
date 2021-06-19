@@ -92,7 +92,6 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
   };
 
   const PlotObservations = () => {
-    console.log("PlotObservations");
     if (!observations) {
       return null;
     } else {
@@ -107,7 +106,6 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
           eventHandlers={{
             click: () => {
               setClickedObservation(observation);
-              console.log(observation);
             },
           }}
         />
@@ -120,12 +118,13 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
       setToggleModal(true);
       setModalText("Please sign in to follow an area!");
     } else {
-      const { name } = clickedArea;
       const { email } = user;
       console.log("clicked");
       //grab whoever is logged in id/username or something so i can find them on the backend and update
       axios
-        .put(`http://localhost:8080/user/${email}/${name}`)
+        .put(`http://localhost:8080/user/${email}`, {
+          clickedArea,
+        })
         .then((res) => console.log(res))
         .catch((err) => console.error(err));
     }
@@ -146,6 +145,7 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
           setSearch={setSearch}
           handleSearch={handleSearch}
           search={search}
+          setClickedObservation={setClickedObservation}
         />
         <div className='home__button-div'>
           <button onClick={followArea} className='home__button'>

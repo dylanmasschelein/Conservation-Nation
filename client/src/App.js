@@ -9,6 +9,7 @@ import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ModalWindow from "./components/ModalWindow/ModalWindow";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -56,6 +57,7 @@ const App = () => {
           )}
         />
       </Switch>
+      {/* <Footer /> */}
     </Router>
   );
 };

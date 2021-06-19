@@ -9,6 +9,7 @@ import "./Header.scss";
 const Header = ({ history, setToggleModal, setModalText }) => {
   const [open, setOpen] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
+  const [animate, setAnimate] = useState(false);
 
   const profileNavigation = () => {
     if (typeof sessionStorage.getItem("token") !== "string") {
@@ -29,43 +30,46 @@ const Header = ({ history, setToggleModal, setModalText }) => {
       <img
         src={whereTo}
         className='header__drop'
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          setOpen(!open);
+        }}
       />
-      <nav
-        className={
-          open ? "dropdown dropdown--slidein" : "dropdown dropdown--slideout"
-        }
-      >
-        <Link to='/' className='dropdown__link' onClick={() => setOpen(false)}>
-          Home
-        </Link>
-        <Link
-          onClick={() => setOpenLogin(!openLogin)}
-          className='dropdown__link'
-        >
-          Login
-        </Link>
-        {openLogin && (
-          <Login
-            history={history}
-            setOpen={setOpen}
-            setOpenLogin={setOpenLogin}
-            setToggleModal={setToggleModal}
-            setModalText={setModalText}
-          />
-        )}
-        <Link className='dropdown__link' onClick={profileNavigation}>
-          Profile
-        </Link>
-        <Link
-          to='/user/register'
-          className='dropdown__link'
-          onClick={() => setOpen(false)}
-        >
-          Register
-        </Link>
-      </nav>
-      )
+      {open && (
+        <nav className={"dropdown dropdown--slidein"}>
+          <Link
+            to='/'
+            className='dropdown__link'
+            onClick={() => setOpen(false)}
+          >
+            Home
+          </Link>
+          <Link
+            onClick={() => setOpenLogin(!openLogin)}
+            className='dropdown__link'
+          >
+            Login
+          </Link>
+          {openLogin && (
+            <Login
+              history={history}
+              setOpen={setOpen}
+              setOpenLogin={setOpenLogin}
+              setToggleModal={setToggleModal}
+              setModalText={setModalText}
+            />
+          )}
+          <Link className='dropdown__link' onClick={profileNavigation}>
+            Profile
+          </Link>
+          <Link
+            to='/user/register'
+            className='dropdown__link'
+            onClick={() => setOpen(false)}
+          >
+            Register
+          </Link>
+        </nav>
+      )}
     </div>
   );
 };

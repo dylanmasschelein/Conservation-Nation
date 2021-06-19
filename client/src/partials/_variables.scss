@@ -4,12 +4,15 @@ $color-secondary: #89a68f;
 $color-accent: #8b341f;
 $color-hover: #a3a47a;
 $color-form-input: #f2fff6;
+$color-black: #3a3b3a;
 
 // borders
 $border-radius: 1.25rem;
+$border-radius-card: 125px 30px 125px 30px;
 
-$border-primary: #997e09;
-$border-secondary: #516356;
+$border-primary: 3px solid #997e09;
+$border-secondary: 3px solid #516356;
+$border-accent: 1px solid $color-accent;
 
 // OG
 // $color-primary: #62c370;
