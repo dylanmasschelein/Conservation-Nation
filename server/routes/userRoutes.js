@@ -150,9 +150,21 @@ router
         error: "Must be logged in to follow areas",
       });
     }
-    console.log(area);
-
     const followed = user.followedAreas;
+
+    const match = followed.find((followedArea) => {
+      if (followedArea.id === area.id) {
+        return followedArea;
+      }
+    });
+
+    if (match) {
+      return res.json({
+        status: "error",
+        error: `You are already following ${area.name} area!`,
+      });
+    }
+
     const updatedFollowedAreas = [...followed, area];
 
     await User.updateOne(

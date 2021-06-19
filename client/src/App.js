@@ -40,6 +40,7 @@ const App = () => {
               user={user}
               setToggleModal={setToggleModal}
               setModalText={setModalText}
+              setRedirect={setRedirect}
             />
           )}
         />

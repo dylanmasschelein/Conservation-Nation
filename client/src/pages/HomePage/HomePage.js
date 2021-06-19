@@ -11,7 +11,7 @@ import L from "leaflet";
 import tree from "../../assets/Images/tree.png";
 import { Marker } from "react-leaflet";
 
-const HomePage = ({ user, setToggleModal, setModalText }) => {
+const HomePage = ({ user, setToggleModal, setModalText, setRedirect }) => {
   const [search, setSearch] = useState("");
   const [areas, setAreas] = useState(null);
   const [areaBounds, setAreaBounds] = useState(null);
@@ -118,9 +118,11 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
     if (!user) {
       setToggleModal(true);
       setModalText("Please sign in to follow an area!");
+      setRedirect("/");
     } else if (!clickedArea) {
       setToggleModal(true);
       setModalText("You must inspect an area to follow it!");
+      setRedirect("/");
     } else {
       const { email } = user;
       console.log("clicked");
@@ -129,7 +131,11 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
         .put(`http://localhost:8080/user/${email}`, {
           clickedArea,
         })
-        .then((res) => console.log(res))
+        .then((res) => {
+          setToggleModal(true);
+          setModalText(res.data.error);
+          setRedirect("/");
+        })
         .catch((err) => console.error(err));
     }
   };
