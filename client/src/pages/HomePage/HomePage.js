@@ -97,7 +97,7 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
     } else {
       return observations.map((observation) => (
         <Marker
-          key={observation._id}
+          key={observation.id}
           position={[
             observation.geojson.coordinates[1],
             observation.geojson.coordinates[0],
@@ -112,11 +112,15 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
       ));
     }
   };
+  // why didnt if guards work??
   //user.update is not a function (backend)
   const followArea = () => {
     if (!user) {
       setToggleModal(true);
       setModalText("Please sign in to follow an area!");
+    } else if (!clickedArea) {
+      setToggleModal(true);
+      setModalText("You must inspect an area to follow it!");
     } else {
       const { email } = user;
       console.log("clicked");
@@ -129,6 +133,7 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
         .catch((err) => console.error(err));
     }
   };
+
   // Custom Icon
   const icon = L.icon({
     iconUrl: tree,
@@ -162,7 +167,14 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
         {/* {!clickedObservation ? (
           <Tutorial />
         ) : ( */}
-        {clickedObservation && <Observation observation={clickedObservation} />}
+        {clickedObservation && (
+          <Observation
+            setToggleModal={setToggleModal}
+            setModalText={setModalText}
+            observation={clickedObservation}
+            setClickedObservation={setClickedObservation}
+          />
+        )}
         {/* )} */}
       </div>
       <div className='home__right'>

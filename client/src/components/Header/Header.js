@@ -6,7 +6,7 @@ import Login from "../Login/Login";
 import logo from "../../assets/Images/logo.png";
 import "./Header.scss";
 
-const Header = ({ history, setToggleModal, setModalText }) => {
+const Header = ({ setRedirect, history, setToggleModal, setModalText }) => {
   const [open, setOpen] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
   const [animate, setAnimate] = useState(false);
@@ -18,6 +18,7 @@ const Header = ({ history, setToggleModal, setModalText }) => {
       setModalText("Please login to continue");
     } else {
       history.push("/profile");
+      setOpen(false);
     }
   };
 
@@ -56,6 +57,7 @@ const Header = ({ history, setToggleModal, setModalText }) => {
               setOpenLogin={setOpenLogin}
               setToggleModal={setToggleModal}
               setModalText={setModalText}
+              setRedirect={setRedirect}
             />
           )}
           <Link className='dropdown__link' onClick={profileNavigation}>

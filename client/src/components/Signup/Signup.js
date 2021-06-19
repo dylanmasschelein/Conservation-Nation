@@ -3,9 +3,11 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 
 const Signup = ({ setToggleModal, setModalText, history }) => {
+  console.log(history);
   const successAlert = () => {
-    alert("Signup Successful!");
-    history.push("/profile");
+    setModalText("Signup successful! Welcome!");
+    setToggleModal(true);
+    history.push("/profile"); // redirect to profile using modal once JWT sorted on register
   };
 
   const failedAlert = () => {

@@ -4,17 +4,19 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Login = ({
-  history,
   setOpen,
   setOpenLogin,
   setModalText,
   setToggleModal,
+  setRedirect,
 }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const successAlert = () => {
-    history.push("/profile");
+    setRedirect("/profile");
+    setToggleModal(true);
+    setModalText("Successfully logged in! Welcome!");
     setOpenLogin(false);
     setOpen(false);
   };

@@ -14,16 +14,22 @@ import Footer from "./components/Footer/Footer";
 const App = () => {
   const [user, setUser] = useState(null);
   const [toggleModal, setToggleModal] = useState(false);
-  const [modalText, setModalText] = useState();
+  const [modalText, setModalText] = useState("");
+  const [redirect, setRedirect] = useState("");
   return (
     <Router>
       <Header
         user={user}
         setToggleModal={setToggleModal}
         setModalText={setModalText}
+        setRedirect={setRedirect}
       />
       {toggleModal && (
-        <ModalWindow setToggleModal={setToggleModal} modalText={modalText} />
+        <ModalWindow
+          redirect={redirect}
+          setToggleModal={setToggleModal}
+          modalText={modalText}
+        />
       )}
       <Switch>
         <Route
@@ -38,13 +44,6 @@ const App = () => {
           )}
         />
         <Route
-          path='/user/register'
-          component={Signup}
-          setToggleModal={setToggleModal}
-          setModalText={setModalText}
-        />
-        <Route path='/user/login' component={Login} />
-        <Route
           path='/profile'
           render={(routerProps) => (
             <ProfilePage
@@ -52,6 +51,18 @@ const App = () => {
               user={user}
               setToggleModal={setToggleModal}
               setModalText={setModalText}
+              setRedirect={setRedirect}
+              {...routerProps}
+            />
+          )}
+        />
+        <Route
+          path='/user/register'
+          render={(routerProps) => (
+            <Signup
+              setToggleModal={setToggleModal}
+              setModalText={setModalText}
+              setRedirect={setRedirect}
               {...routerProps}
             />
           )}

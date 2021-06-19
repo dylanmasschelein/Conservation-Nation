@@ -1,11 +1,21 @@
-import React from "react";
 import "./ModalWindow.scss";
-const ModalWindow = ({ setToggleModal, modalText }) => {
+import { withRouter } from "react-router";
+
+const ModalWindow = ({ setToggleModal, modalText, redirect, history }) => {
+  const pageRedirect = () => {
+    history.push(`${redirect}`);
+  };
   return (
     <div className='modal'>
       <div className='modal__window'>
         <h3 className='modal__message'>{modalText}</h3>
-        <button onClick={() => setToggleModal(false)} className='modal__button'>
+        <button
+          onClick={() => {
+            setToggleModal(false);
+            pageRedirect();
+          }}
+          className='modal__button'
+        >
           Okay!
         </button>
       </div>
@@ -13,4 +23,4 @@ const ModalWindow = ({ setToggleModal, modalText }) => {
   );
 };
 
-export default ModalWindow;
+export default withRouter(ModalWindow);
