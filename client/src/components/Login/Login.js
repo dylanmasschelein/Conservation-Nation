@@ -34,7 +34,6 @@ const Login = ({
         password,
       })
       .then((res) => {
-        console.log(res);
         res.data.status === "ok"
           ? successAlert(res.data.data)
           : failedAlert(res.data.error);

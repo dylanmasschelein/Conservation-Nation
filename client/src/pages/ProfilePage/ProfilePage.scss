@@ -24,6 +24,12 @@
   &__logout {
     @include secondary-button;
     width: 100%;
+    transition: all 0.2s;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
   }
   &__areas {
     // display: flex;

@@ -1,6 +1,17 @@
 @use '../../partials/mixins' as *;
 @use '../../partials/variables' as *;
 
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
 .home {
   display: flex;
   justify-content: space-between;
@@ -20,12 +31,26 @@
   &__button-div {
     display: flex;
   }
+
   &__button {
     @include button;
     width: 50%;
+    animation: moveInBottom 1s ease-out;
+    animation-fill-mode: backwards;
+    transition: all 0.2s;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+      background: #997e09;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
 
     &--right {
-      margin-left: 0.5rem;
+      margin-left: 1rem;
     }
   }
 }

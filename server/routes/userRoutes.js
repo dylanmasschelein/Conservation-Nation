@@ -87,9 +87,8 @@ router
 
     // Hashing password
     const password = await bcrypt.hash(incomingPassword, 8);
-
     try {
-      const result = await User.create({
+      const newUser = await User.create({
         email,
         username: email,
         password,
@@ -102,14 +101,23 @@ router
         volunteer,
         followedAreas,
       });
-      console.log("created user", result);
+
+      // if (password === user.password) {
+      //   const token = jwt.sign({ id: user.id, email: user.email }, secret);
+      //   return res.json({ status: "ok", data: token });
+      // }
     } catch (err) {
       return res
         .status(400)
         .json({ status: "error", error: "Issues creating new user" });
     }
-
-    res.json({ status: "ok" });
+    // const user = await User.findOne({ id: req.decoded.id });
+    // console.log(user);
+    // if (await bcrypt.compare(password, user.password)) {
+    //   const token = jwt.sign({ id: user.id, email: user.email }, secret);
+    //   return res.json({ status: "ok", data: token });
+    // }
+    res.status(200).json({ status: "ok" });
   })
 
   // LOGIN --------------------------------------

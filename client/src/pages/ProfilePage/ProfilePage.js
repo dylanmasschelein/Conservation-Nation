@@ -11,7 +11,7 @@ const ProfilePage = (props) => {
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
-
+    console.log(token);
     if (!token) {
       setFailedAuth(true);
     }
@@ -22,6 +22,7 @@ const ProfilePage = (props) => {
         },
       })
       .then((user) => {
+        console.log(user);
         setUser(user.data);
         setFollowedAreas(user.data.followedAreas);
       })

@@ -42,6 +42,7 @@
   border-radius: $border-radius;
   border: $border-primary;
   background: $color-primary;
+  cursor: pointer;
   padding: 1rem;
 }
 
@@ -49,6 +50,7 @@
   border-radius: $border-radius;
   border: $border-secondary;
   background: $color-secondary;
+  cursor: pointer;
   padding: 1rem;
 }
 
@@ -56,6 +58,7 @@
   border-radius: $border-radius;
   border: $border-accent;
   background: $color-accent;
+  cursor: pointer;
   padding: 1rem;
 }
 

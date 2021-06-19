@@ -7,6 +7,7 @@ import axios from "axios";
 import L from "leaflet";
 import tree from "../../assets/Images/tree.png";
 import { Marker } from "react-leaflet";
+import { Redirect } from "react-router-dom";
 
 const HomePage = ({ user, setToggleModal, setModalText, setRedirect }) => {
   const [search, setSearch] = useState("");
@@ -67,6 +68,7 @@ const HomePage = ({ user, setToggleModal, setModalText, setRedirect }) => {
 
   const exploreArea = () => {
     if (!clickedArea) {
+      setRedirect("/");
       setToggleModal(true);
       setModalText("You must click an area to explore it!");
     }
@@ -126,9 +128,9 @@ const HomePage = ({ user, setToggleModal, setModalText, setRedirect }) => {
         .put(`http://localhost:8080/user/${email}`, {
           clickedArea,
         })
-        .then((res) => {
+        .then(() => {
           setToggleModal(true);
-          setModalText(res.data.error);
+          setModalText("Area followed!");
           setRedirect("/");
         })
         .catch((err) => console.error(err));

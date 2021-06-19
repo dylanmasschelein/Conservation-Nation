@@ -2,12 +2,12 @@ import "./Signup.scss";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
-const Signup = ({ setRedirect, setToggleModal, setModalText, history }) => {
-  console.log(history);
-  const successAlert = () => {
-    setModalText("Signup successful! Welcome!");
+const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
+  const successAlert = (token) => {
+    // sessionStorage.setItem("token", token);
+    setRedirect("/profile");
     setToggleModal(true);
-    setRedirect("/profile"); // redirect to profile using modal once JWT sorted on register
+    setModalText("Signup successful! Welcome!");
   };
 
   const failedAlert = () => {
@@ -16,7 +16,6 @@ const Signup = ({ setRedirect, setToggleModal, setModalText, history }) => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     axios
       .post(`http://localhost:8080/user/register`, {
         firstName: data.firstName,
@@ -31,7 +30,7 @@ const Signup = ({ setRedirect, setToggleModal, setModalText, history }) => {
         confirmPassword: data.confirmPassword,
       })
       .then((res) => {
-        res.data.status === "ok" ? successAlert() : failedAlert();
+        res.data.status === "ok" ? successAlert(res.data.data) : failedAlert();
       })
       .catch((err) => console.error(err));
   };
@@ -41,6 +40,8 @@ const Signup = ({ setRedirect, setToggleModal, setModalText, history }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  console.log(errors);
 
   return (
     <div className='signup'>

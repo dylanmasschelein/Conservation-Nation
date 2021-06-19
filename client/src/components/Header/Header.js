@@ -3,7 +3,7 @@ import { useState } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import Login from "../Login/Login";
-import logo from "../../assets/Images/logo.png";
+import logo from "../../assets/Images/conservation-nation-logo.png";
 import "./Header.scss";
 
 const Header = ({ setRedirect, history, setToggleModal, setModalText }) => {
@@ -36,43 +36,42 @@ const Header = ({ setRedirect, history, setToggleModal, setModalText }) => {
           setOpen(!open);
         }}
       />
-      {open && (
-        <nav className={"dropdown dropdown--slidein"}>
-          <Link
-            to='/'
-            className='dropdown__link'
-            onClick={() => setOpen(false)}
-          >
-            Home
-          </Link>
-          <Link
-            onClick={() => setOpenLogin(!openLogin)}
-            className='dropdown__link'
-          >
-            Login
-          </Link>
-          {openLogin && (
-            <Login
-              history={history}
-              setOpen={setOpen}
-              setOpenLogin={setOpenLogin}
-              setToggleModal={setToggleModal}
-              setModalText={setModalText}
-              setRedirect={setRedirect}
-            />
-          )}
-          <Link className='dropdown__link' onClick={profileNavigation}>
-            Profile
-          </Link>
-          <Link
-            to='/user/register'
-            className='dropdown__link'
-            onClick={() => setOpen(false)}
-          >
-            Register
-          </Link>
-        </nav>
-      )}
+
+      <nav
+        className={
+          open ? "dropdown dropdown--slidein" : "dropdown dropdown--slideout"
+        }
+      >
+        <Link to='/' className='dropdown__link' onClick={() => setOpen(false)}>
+          Home
+        </Link>
+        <Link
+          onClick={() => setOpenLogin(!openLogin)}
+          className='dropdown__link'
+        >
+          Login
+        </Link>
+        {openLogin && (
+          <Login
+            history={history}
+            setOpen={setOpen}
+            setOpenLogin={setOpenLogin}
+            setToggleModal={setToggleModal}
+            setModalText={setModalText}
+            setRedirect={setRedirect}
+          />
+        )}
+        <Link className='dropdown__link' onClick={profileNavigation}>
+          Profile
+        </Link>
+        <Link
+          to='/user/register'
+          className='dropdown__link'
+          onClick={() => setOpen(false)}
+        >
+          Register
+        </Link>
+      </nav>
     </div>
   );
 };
