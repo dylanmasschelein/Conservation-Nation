@@ -2,41 +2,49 @@
 @use '../../partials/variables' as *;
 
 .search {
-  @include box-shadow;
-  background: white;
-  opacity: 0.9;
+  background: $color-secondary;
   padding: 1rem;
-  margin: 1rem;
+  border: $border-secondary;
+  margin: 1rem 0 1rem 0;
+  border-radius: 50px;
   &__label {
     display: flex;
   }
 
   &__input {
-    background-color: #f6f6f6;
-    box-shadow: inset 0px 1px 4px rgba(153, 153, 153, 0.25);
-    border-radius: 0.5rem;
-    border: 1px solid darkcyan;
-    padding: 0.5rem;
-    width: 85%;
+    @include form-input;
+    padding-left: 1rem;
+    margin: 0 1rem 0 0.5rem;
+    width: 70%;
 
     &:focus {
       outline: none;
-      border: 1px solid coral;
+      border: 1px solid $color-hover;
     }
 
     &:active {
       outline: none;
-      border: 1px solid coral;
+      border: 1px solid $color-hover;
     }
   }
 
   &__btn {
-    background: coral;
-    border: 1px solid coral;
-    border-radius: 50%;
+    background: $color-accent;
+    border: 1px solid $color-accent;
+    border-radius: 1.25rem;
     padding: 0.5rem;
+    width: 4rem;
     margin-left: 0.25rem;
+
+    &:hover {
+      background: $color-hover;
+      border: 1px solid $color-hover;
+    }
   }
+  // thirdary
+
+  // FFCF00 **
+  // F8333C
 
   &__icon {
     font-size: 1rem;

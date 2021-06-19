@@ -9,115 +9,53 @@ require("dotenv").config();
 const uri = process.env.NODE_MONGO_URI;
 const client = new MongoClient(uri, { useUnifiedTopology: true });
 
-// Retreive countries from Database using ISO_3 or country
-// Need search bar to send search to this route for country
-// will need to .toLowercase and capitalize first letter
-
-//Finding areas by country -------------------------
-async function retrieveAreasByCountry(country) {
-  try {
-    await client.connect();
-
-    const areas = await findAreasByCountry(client, country);
-    return areas;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-async function findAreasByCountry(client, country) {
-  const cursor = await client
-    .db("OneEarth")
-    .collection("OneEarth_areas")
-    .find({ "countries.0.name": country });
-  console.log(country);
-
-  const result = await cursor.toArray();
-  return result;
-}
-// ------------------------------------------------------
-// Find area by name -----------------------------------
-async function retrieveAreaByName(areaName) {
-  try {
-    await client.connect();
-
-    const area = await findAreaByName(client, areaName);
-    return area;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-async function findAreaByName(client, areaName) {
-  const cursor = await client
-    .db("OneEarth")
-    .collection("OneEarth_areas")
-    .findOne({ name: areaName });
-  console.log(areaName);
-
-  const result = await cursor;
-  return result;
-  // if (result) {
-  //   console.log("found listing");
-  //   console.log(result);         ------Validation method??
-  // } else {
-  //   console.log("no listings found");
-  // }
-}
-// -------------------------------------------------------------
-// Find country areas by marine ---------------------------------------
-async function retrieveMarineAreas(marine) {
-  try {
-    await client.connect();
-
-    const areas = await findMarineAreas(client, marine);
-    return areas;
-  } catch (err) {
-    console.log(err);
-  }
-}
-async function findMarineAreas(client, marine) {
-  const cursor = await client
-    .db("OneEarth")
-    .collection("OneEarth_areas")
-    .findOne({ marine: marine });
-  console.log(marine);
-
-  const result = await cursor.toArray();
-  return result;
-}
-// ---------------------------------------------------
-// Search Routes -----------------------------------
-// Client side rendering request
-// route will be '/country/:name' -- send this with the get request
 router
   .get("/country/:country", async (req, res) => {
+    const { country } = req.params;
+    capitalize(country);
     try {
-      const { country } = req.params;
-      capitalize(country);
-      const result = await retrieveAreasByCountry(country);
-      res.json(result);
-    } catch (e) {
-      console.error(e);
+      await client.connect();
+      const cursor = await client
+        .db("OneEarth")
+        .collection("OneEarth_areas")
+        .find({ "countries.0.name": country });
+
+      const areas = await cursor.toArray();
+      res.json(areas);
+    } catch (err) {
+      console.error(err);
     }
   })
+
   // Will need filtering for country and marine -- phase 2
   .get("/area/country/:country/marine/:marine", async (req, res) => {
+    const { marine } = req.params;
     try {
-      const { marine } = req.params;
-      const result = await retrieveMarineAreas(marine);
-      res.json(result);
+      await client.connect();
+      const cursor = await client
+        .db("OneEarth")
+        .collection("OneEarth_areas")
+        .findOne({ marine: marine });
+
+      const areas = await cursor.toArray();
+      res.json(areas);
     } catch (e) {
       console.error(e);
     }
   })
-  // will need formatting --- try any words > 3 letters capitalize
+
+  // will need formatting --- try any words > 3 letters capitalize -- phase 2
   .get("/area/:name", async (req, res) => {
+    const { name } = req.params;
     try {
-      const { name } = req.params;
-      capitalize(name); // Will need a fucntion to capitalize every word other than the/and...
-      const result = await retrieveAreaByName(name);
-      res.json(result);
+      await client.connect();
+      const cursor = await client
+        .db("OneEarth")
+        .collection("OneEarth_areas")
+        .findOne({ name: name });
+
+      const area = await cursor.toArray();
+      res.json(area);
     } catch (e) {
       console.error(e);
     }
@@ -126,7 +64,7 @@ router
   .get("/area/following/:followed", async (req, res) => {
     const followed = req.params.followed.split(",");
     await client.connect();
-
+    console.log("top");
     try {
       const followedAreas = await Promise.all(
         followed.map(async (areaName) => {
@@ -135,13 +73,13 @@ router
             .collection("OneEarth_areas");
 
           const result = await myCollection.findOne({ name: areaName });
-
+          console.log("in the try");
           return result;
         })
       );
-      console.log(followedAreas);
       res.json(followedAreas);
     } catch (err) {
+      res.json({ status: "error", error: "caught in following endpoint" });
       console.error(err, "catch block");
     }
   });
@@ -266,7 +204,6 @@ function callProPlanet(id1, id2, id3, id4, id5, id6, id7, id8, id9, id10) {
     .catch((err) => console.log(err));
 }
 const callProtectedPlanet = async () => {
-  // Promise All!!!!!!
   try {
     const response = await axios.get(
       "http://api.protectedplanet.net/v3/protected_areas?with_geometry=true&per_page=50&page=3235&token=1c80aeb620a008918c33c3575aed4236"
@@ -286,20 +223,6 @@ async function createMultipleAreas(client, newListings) {
     .collection("OneEarth_areas")
     .insertMany(newListings);
 }
-
-// // Writing JSON file for testing
-router.get("/writeTestFile", async (_req, res) => {
-  try {
-    const result = await retrieveAreas();
-    console.log(result);
-    return fs.writeFileSync(
-      "./data/protectedAreas.json",
-      JSON.stringify(result)
-    );
-  } catch (e) {
-    console.log(e, "router catch block!");
-  }
-});
 
 module.exports = router;
 

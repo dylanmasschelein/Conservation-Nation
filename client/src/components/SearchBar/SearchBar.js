@@ -2,13 +2,19 @@ import "./SearchBar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-function SearchBar({ setSearch, handleSearch, search }) {
+function SearchBar({ setSearch, handleSearch, search, setClickedObservation }) {
   return (
-    <form onSubmit={handleSearch} className='search'>
-      <label className='search__label'>Find a country </label>
+    <form
+      onSubmit={(e) => {
+        handleSearch(e);
+        setClickedObservation(null);
+      }}
+      className='search'
+    >
+      {/* <label className='search__label'>Discover</label> */}
       <input
         type='text'
-        placeholder='France...'
+        placeholder='Discover'
         name='search'
         value={search}
         onChange={(e) => setSearch(e.target.value)}

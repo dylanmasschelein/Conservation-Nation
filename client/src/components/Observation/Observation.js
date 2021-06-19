@@ -14,26 +14,30 @@ export default function Observation(props) {
 
   return (
     <div className='observation'>
-      {photo ? (
-        <img src={photo} alt={name} className='observation__photo' />
-      ) : (
-        "Photo not available :("
-      )}
-      <div className='observation__details'>
-        <h1 className='observation__name'>{name}</h1>
-        <h3 className='observation__latin-name'>{latinName}</h3>
-        <span className='observation__info'>
-          {native ? "Native wildlife" : "Introduced wildlife"}
-        </span>
-        <span className='observation__info'>
-          Observed population count: {count}
-        </span>
-        <span className='observation__info'>
-          Currently Active: {isActive ? "Yes" : "No"}
-        </span>
-        <span className='observation__info'>
-          {!threatend ? "Healthy population" : "Threatend"}
-        </span>
+      <div className='observation__photo-container'>
+        {photo ? (
+          <img src={photo} alt={name} className='observation__photo' />
+        ) : (
+          "Photo not available :("
+        )}
+      </div>
+      <div className='observation__details-container'>
+        <div className='observation__details'>
+          <h1 className='observation__name'>{name}</h1>
+          <h3 className='observation__latin-name'>{latinName}</h3>
+          <span className='observation__info'>
+            {native ? "Native wildlife" : "Introduced wildlife"}
+          </span>
+          <span className='observation__info'>
+            Observed population count: {count}
+          </span>
+          <span className='observation__info'>
+            Currently Active: {isActive ? "Yes" : "No"}
+          </span>
+          <span className='observation__info'>
+            {!threatend ? "Healthy population" : "Threatend"}
+          </span>
+        </div>
       </div>
     </div>
   );

@@ -1,22 +1,26 @@
-const { default: axios } = require("axios");
+// Admin
 const express = require("express");
 const router = express.Router();
 const uri = process.env.NODE_MONGO_URI;
-const { MongoClient } = require("mongodb");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const authorize = require("../middleware/authorize");
+const User = require("../model/user");
+const secret = process.env.JWT_SECRET;
+// Mongo
 const mongoose = require("mongoose");
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
 });
-require("dotenv").config();
-// ADMIN
-const client = new MongoClient(uri, { useUnifiedTopology: true });
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const authorize = require("../middleware/authorize"); // Research
-const User = require("../model/user");
-const secret = process.env.JWT_SECRET;
+
+function validateInput(input) {
+  if (!input || typeof input !== "string") {
+    return res.json({ status: "error", error: "Invalid entry" });
+  }
+}
 
 router
   .get("/current", authorize, async (req, res) => {
@@ -29,11 +33,14 @@ router
     }
   })
 
+  // create token on reguister? -- or login after register?
+
   // REGISTER ---------------------------------------------
   .post("/register", async (req, res) => {
     const {
       email,
       password: incomingPassword,
+      confirmPassword,
       firstName,
       lastName,
       address,
@@ -44,19 +51,19 @@ router
       followedAreas,
     } = req.body;
 
-    // Check if first name exists and is a string
-    if (!firstName || typeof firstName !== "string") {
-      return res.json({ status: "error", error: "Invalid entry" });
-    }
+    validateInput(firstName);
+    validateInput(lastName);
+    validateInput(address);
+    validateInput(city);
+    validateInput(country);
+    validateInput(about);
 
-    // Check if last name exists and is a string
-    if (!lastName || typeof lastName !== "string") {
-      return res.json({ status: "error", error: "Invalid entry" });
-    }
-
-    // Check if email exists and is a string
     if (!email || typeof email !== "string") {
       return res.json({ status: "error", error: "Invalid email" });
+    }
+
+    if (incomingPassword !== confirmPassword) {
+      return res.json({ status: "error", error: "Passwords must match" });
     }
 
     // Check if password exists and is a string
@@ -78,6 +85,7 @@ router
     try {
       const result = await User.create({
         email,
+        username: email,
         password,
         firstName,
         lastName,
@@ -88,13 +96,9 @@ router
         volunteer,
         followedAreas,
       });
-      console.log("User Created Successfully:", result);
+      console.log("created user", result);
     } catch (err) {
-      if (err.code === 11000) {
-        console.log(err.message);
-        return res.json({ status: "error", err: "Email already in use" });
-      }
-      throw err;
+      return res.json({ status: "error", error: "Issues creating new user" });
     }
 
     res.json({ status: "ok" });
@@ -103,30 +107,43 @@ router
   // LOGIN --------------------------------------
   .post("/login", async (req, res) => {
     const { email, password } = req.body;
-    // Find the user
+
     const user = await User.findOne({ email }).lean();
 
-    // Check if the user exists
     if (!user) {
       return res.json({ status: "error", error: "Invalid email/password" });
     }
-
     // Check that the hashed password matches
     if (await bcrypt.compare(password, user.password)) {
       const token = jwt.sign({ id: user.id, email: user.email }, secret);
-
       return res.json({ status: "ok", data: token });
     }
 
     res.json({ status: "error", error: "Invalid email/password" });
   })
 
+  // Updating user profile ------------------------------------ Needs completion
+  .put("/edit/:email", async (req, res) => {
+    const { email } = req.params;
+    const { value, key } = req.body;
+
+    const user = await User.updateOne({ email }, { $set: { key: value } });
+
+    res.json({ status: "ok" });
+  })
+
   // Updating liked followed areas ------------------------------------
-  .put("/:email/:area", async (req, res) => {
-    const { area, email } = req.params;
-    // JWT Auth ---------------- add some validation
+  .put("/:email", async (req, res) => {
+    const { email } = req.params;
+    const { clickedArea: area } = req.body;
+
+    if (!area) {
+      res.json({ status: "error", error: "No area followed" });
+    }
+
     const user = await User.findOne({ email: email });
-    // Check if area is part of followedAreas array already
+    // If area already followed.. send warning
+
     if (!user) {
       return res.json({
         status: "error",
@@ -134,7 +151,6 @@ router
       });
     }
 
-    // Retreiving previously followed areas and updating database to include new followed area
     const followed = user.followedAreas;
     const updatedFollowedAreas = [...followed, area];
 
@@ -145,13 +161,15 @@ router
 
     res.json({ status: "ok" });
   })
-
-  // Updating user profile ------------------------------------
-  // .put("/:email", async (req, res) => {
+  // .put("/:email/:area", async (req, res) => {
   //   const { area, email } = req.params;
-  //   // JWT Auth ---------------- add some validation
+
+  //   if (!area) {
+  //     res.json({ status: "error", error: "No area followed" });
+  //   }
+
   //   const user = await User.findOne({ email: email });
-  //   // Check if area is part of followedAreas array already
+  //   // If area already followed.. send warning
   //   if (!user) {
   //     return res.json({
   //       status: "error",
@@ -159,7 +177,6 @@ router
   //     });
   //   }
 
-  // Retreiving previously followed areas and updating database to include new followed area
   //   const followed = user.followedAreas;
   //   const updatedFollowedAreas = [...followed, area];
 
@@ -171,7 +188,7 @@ router
   //   res.json({ status: "ok" });
   // })
 
-  // CHANGE PASSWORD ------------------------------------
+  // CHANGE PASSWORD ------------------------------------ Add if time allows
   .post("/change-password", async (req, res) => {
     const { token, newpassword: incomingPassword } = req.body;
     //if i keep this - add double password check & match before proceeding

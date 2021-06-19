@@ -3,8 +3,7 @@ import FollowedAreaCard from "../FollowedAreaCard/FollowedAreaCard";
 
 const FollowedAreasList = ({ followedAreas }) => {
   return (
-    <div>
-      <h1>Followed areas</h1>
+    <div className='area-list'>
       {followedAreas.map((area) => (
         <FollowedAreaCard
           key={area.id}

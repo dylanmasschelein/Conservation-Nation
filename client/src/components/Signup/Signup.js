@@ -1,117 +1,110 @@
 import "./Signup.scss";
 import axios from "axios";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 
-const Signup = (props) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
-  const [about, setAbout] = useState("");
-  const [volunteer, setVolunteer] = useState(null);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
+const Signup = ({ setToggleModal, setModalText, history }) => {
   const successAlert = () => {
     alert("Signup Successful!");
-    props.history.push("/user/login");
+    history.push("/profile");
   };
 
   const failedAlert = () => {
-    alert("Please fill out all required fields");
+    setToggleModal(true);
+    setModalText("Passwords must match!");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (data) => {
+    console.log(data);
     axios
       .post(`http://localhost:8080/user/register`, {
-        firstName: firstName,
-        lastName: lastName,
-        address: address,
-        city: city,
-        country: country,
-        volunteer: volunteer,
-        about: about,
-        email: email,
-        password: password,
-        confirmPassword: confirmPassword,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        address: data.address,
+        city: data.city,
+        country: data.country,
+        volunteer: data.volunteer,
+        about: data.about,
+        email: data.email,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
       })
       .then((res) => {
+        console.log(res);
         res.data.status === "ok" ? successAlert() : failedAlert();
       })
       .catch((err) => console.error(err));
   };
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  console.log(errors);
+
   return (
     <div className='signup'>
       <h2 className='signup__name'>Register here!</h2>
-      <form onSubmit={handleSubmit} className='signup__form'>
+      <form onSubmit={handleSubmit(onSubmit)} className='signup__form'>
         <div className='signup__left'>
           <label htmlFor='firstName' className='signup__label'>
             First name
             <input
-              type='text'
-              name='firstName'
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              {...register("firstName", { required: true })}
+              id='firstName'
               className='signup__input'
-            ></input>
+            />
+            {errors.firstName && <p>First name is required</p>}
           </label>
           <label htmlFor='lastName' className='signup__label'>
             Last Name
             <input
-              type='text'
-              name='lastName'
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              {...register("lastName", { required: true })}
               className='signup__input'
-            ></input>
+            />
+            {errors.lastName && <p>Last name is required</p>}
           </label>
           <label htmlFor='address' className='signup__label'>
             Address
             <input
-              type='text'
-              name='address'
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              {...register("address", { required: true })}
+              id='address'
               className='signup__input'
-            ></input>
+            />
+            {errors.address && <p>address is required</p>}
           </label>
           <label htmlFor='city' className='signup__label'>
             City
             <input
-              type='text'
-              name='city'
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
+              {...register("city", { required: true })}
+              id='city'
               className='signup__input'
-            ></input>
+            />
+            {errors.city && <p>city is required</p>}
           </label>
           <label htmlFor='country' className='signup__label'>
             Country
             <input
-              type='text'
-              name='country'
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
+              {...register("country", { required: true })}
+              id='country'
               className='signup__input'
-            ></input>
+            />
+            {errors.country && <p>country is required</p>}
           </label>
-        </div>
-        <div className='signup__right'>
+
           <label htmlFor='about' className='signup__label'>
             About you...
             <input
-              type='text'
-              name='about'
-              value={about}
-              onChange={(e) => setAbout(e.target.value)}
+              type='textarea'
+              {...register("about", { required: true })}
+              id='about'
               className='signup__input signup__input--about'
-            ></input>
+            />
+            {errors.about && <p>about you is required</p>}
           </label>
-
+        </div>
+        <div className='signup__right'>
           <label
             htmlFor='volunteer'
             className='signup__label signup__label--radio'
@@ -122,20 +115,21 @@ const Signup = (props) => {
             <label>
               <input
                 type='radio'
-                name='volunteer'
                 value={true}
-                onChange={(e) => setVolunteer(e.target.value)}
-              ></input>
+                {...register("volunteer", { required: true })}
+                id='volunteer'
+              />
               Yes
             </label>
             <label>
               <input
                 type='radio'
-                name='volunteer'
                 value={false}
-                onChange={(e) => setVolunteer(e.target.value)}
-              ></input>
+                {...register("volunteer", { required: true })}
+                id='volunteer'
+              />
               No
+              {errors.volunteer && <p>Volunteer availabilty is required</p>}
             </label>
           </div>
 
@@ -143,31 +137,31 @@ const Signup = (props) => {
             Email
             <input
               type='email'
-              name='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email", { required: true })}
+              id='email'
               className='signup__input'
-            ></input>
+            />
+            {errors.email && <p>Email is required</p>}
           </label>
           <label htmlFor='password' className='signup__label'>
             Password
             <input
               type='password'
-              name='password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password", { required: true })}
+              id='password'
               className='signup__input'
-            ></input>
+            />
+            {errors.password && <p>Password is required</p>}
           </label>
           <label htmlFor='password' className='signup__label'>
             Confirm Password
             <input
               type='password'
-              name='confirmPassword'
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              {...register("confirmPassword", { required: true })}
+              id='confirmPassword'
               className='signup__input'
-            ></input>
+            />
+            {errors.confirmPassword && <p>Password confirmation is required</p>}
           </label>
 
           <button type='submit' className='signup__submit'>

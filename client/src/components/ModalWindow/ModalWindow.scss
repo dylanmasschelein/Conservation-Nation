@@ -1,0 +1,39 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.modal {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(35, 41, 64, 0.7);
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+
+  &__window {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 20rem;
+    height: 12rem;
+    background: white;
+    border-radius: $border-radius;
+    background: $color-secondary;
+  }
+
+  &__message {
+    padding: 2rem 1rem 0 1rem;
+    text-align: center;
+    color: white;
+  }
+
+  &__button {
+    @include accent-button;
+    width: 7rem;
+    margin-top: 1rem;
+    padding: 1rem;
+  }
+}

@@ -1,22 +1,11 @@
 @use './partials/mixins' as *;
 @use './partials/variables' as *;
+@use './partials/typography';
 
 html,
 body {
   @include margin-reset;
-  font-family: Arial, Helvetica, sans-serif;
-  // background: rgb(252, 253, 45);
-  // background: radial-gradient(
-  //   circle,
-  //   rgba(252, 253, 45, 1) 11%,
-  //   rgba(34, 193, 195, 1) 99%
-  // );
-  background: rgb(253, 190, 45);
-  background: radial-gradient(
-    circle,
-    rgba(253, 190, 45, 1) 24%,
-    rgba(0, 77, 153, 1) 81%
-  );
+  font-family: "AvenirNext LT Pro";
 }
 
 *,

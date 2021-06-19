@@ -1,0 +1,36 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.profile {
+  display: flex;
+  background: $color-black;
+
+  &__user {
+    padding: 2rem;
+    background: $color-primary;
+    height: 88vh;
+  }
+
+  &__followed {
+    width: 100%;
+  }
+
+  &__title {
+    text-align: center;
+    padding-top: 2rem;
+    color: white;
+  }
+
+  &__logout {
+    @include secondary-button;
+    width: 100%;
+  }
+  &__areas {
+    // display: flex;
+    // justify-content: space-between;
+    // border: 2px solid blue;
+    // width: 12rem;
+    // height: 10rem;
+    // margin: 2rem;
+  }
+}

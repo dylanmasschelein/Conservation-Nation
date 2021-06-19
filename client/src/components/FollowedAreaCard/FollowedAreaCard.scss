@@ -1,0 +1,22 @@
+@use '../../partials/variables' as *;
+@use '../../partials/mixins' as *;
+
+.area-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: $border-secondary;
+  background: $color-secondary;
+  border-radius: 50px 15px 50px 15px;
+  margin: 2rem;
+  height: 12rem;
+  width: 12rem;
+  &__name {
+    text-align: center;
+  }
+
+  &__country {
+    text-align: center;
+  }
+}

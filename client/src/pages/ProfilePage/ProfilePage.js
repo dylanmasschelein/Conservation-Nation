@@ -5,17 +5,9 @@ import FollowedAreasList from "../../components/FollowedAreasList/FollowedAreasL
 import axios from "axios";
 
 const ProfilePage = (props) => {
-  const { setUser, user } = props;
+  const { setUser, user, setToggleModal, setModalText } = props;
   const [failedAuth, setFailedAuth] = useState(false);
   const [followedAreas, setFollowedAreas] = useState(null);
-  const [followedAreasArr, setFollowedAreasArr] = useState(null);
-
-  const getFollowedAreas = () => {
-    axios
-      .get(`http://localhost:8080/areas/area/following/${followedAreas}`)
-      .then((areas) => setFollowedAreasArr(areas.data))
-      .catch((err) => console.error(err));
-  };
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -23,7 +15,6 @@ const ProfilePage = (props) => {
     if (!token) {
       setFailedAuth(true);
     }
-
     axios
       .get("http://localhost:8080/user/current", {
         headers: {
@@ -35,33 +26,45 @@ const ProfilePage = (props) => {
         setFollowedAreas(user.data.followedAreas);
       })
       .catch(() => setFailedAuth(true));
-  }, []);
+  }, [user]);
+
+  const editProfileInfo = (key, value) => {
+    axios
+      .put(`http://localhost:8080/user/edit/${user.email}`, {
+        value,
+        key,
+      })
+      .then((res) => console.log("res sent", res))
+      .catch((err) => console.error(err));
+  };
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     setUser(null);
     setFailedAuth(true);
-    alert("You've been logged out!");
+    setToggleModal(true);
+    setModalText("You have been logged out!");
     props.history.push("/");
   };
-
-  useEffect(() => {
-    followedAreas && getFollowedAreas();
-  }, [user, followedAreas]);
 
   {
     !failedAuth && <h1>You must be logged in to view your profile</h1>;
   }
 
   return (
-    <div>
-      {user && <ProfileInfo user={user} />}
-      {followedAreasArr && (
-        <FollowedAreasList followedAreas={followedAreasArr} />
-      )}
-      <button onClick={handleLogout} className='logout'>
-        Log out
-      </button>
+    <div className='profile'>
+      <div className='profile__user'>
+        {user && <ProfileInfo user={user} editProfileInfo={editProfileInfo} />}
+        <button onClick={handleLogout} className='profile__logout'>
+          Log out
+        </button>
+      </div>
+      <div className='profile__followed'>
+        <h1 className='profile__title'>Followed areas</h1>
+        <div className='profile__areas'>
+          {followedAreas && <FollowedAreasList followedAreas={followedAreas} />}
+        </div>
+      </div>
     </div>
   );
 };

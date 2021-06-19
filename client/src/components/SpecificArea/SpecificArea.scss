@@ -4,12 +4,18 @@
 .area {
   display: flex;
   flex-direction: column;
-  box-shadow: 0 0 5px 5px coral;
   border-radius: 0.5rem;
-  margin: 1rem;
-  margin-top: 1.5rem;
-  padding: 1rem;
+  background: $color-secondary;
+  text-align: center;
+  // margin: 1rem;
+  // margin-top: 1.5rem;
+  // padding: 1rem;
+
+  &__name {
+    background: $color-primary;
+  }
 
   &__info {
+    font-size: 1rem;
   }
 }
