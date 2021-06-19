@@ -18,7 +18,7 @@ mongoose.connect(uri, {
 
 function validateInput(input) {
   if (!input || typeof input !== "string") {
-    return res.json({ status: "error", error: "Invalid entry" });
+    return res.status(400).json({ status: "error", error: `Invalid ${input}` });
   }
 }
 
@@ -29,7 +29,9 @@ router
       delete user.password;
       res.json(user);
     } catch (err) {
-      return res.status(400).json({ status: "error" });
+      return res
+        .status(400)
+        .json({ status: "error", error: "Could not authorize user" });
     }
   })
 
@@ -59,21 +61,25 @@ router
     validateInput(about);
 
     if (!email || typeof email !== "string") {
-      return res.json({ status: "error", error: "Invalid email" });
+      return res.status(400).json({ status: "error", error: "Invalid email" });
     }
 
     if (incomingPassword !== confirmPassword) {
-      return res.json({ status: "error", error: "Passwords must match" });
+      return res
+        .status(400)
+        .json({ status: "error", error: "Passwords must match" });
     }
 
     // Check if password exists and is a string
     if (!incomingPassword || typeof incomingPassword !== "string") {
-      return res.json({ status: "error", error: "Invalid password" });
+      return res
+        .status(400)
+        .json({ status: "error", error: "Invalid password" });
     }
 
     // Check to ensure password is 8+ charachters
     if (incomingPassword.length < 8) {
-      return res.json({
+      return res.status(400).json({
         status: "error",
         error: "Password too short. Should be at least 8 characters",
       });
@@ -98,7 +104,9 @@ router
       });
       console.log("created user", result);
     } catch (err) {
-      return res.json({ status: "error", error: "Issues creating new user" });
+      return res
+        .status(400)
+        .json({ status: "error", error: "Issues creating new user" });
     }
 
     res.json({ status: "ok" });

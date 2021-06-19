@@ -1,6 +1,5 @@
 import "./Login.scss";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Login = ({
@@ -13,7 +12,8 @@ const Login = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const successAlert = () => {
+  const successAlert = (token) => {
+    sessionStorage.setItem("token", token);
     setRedirect("/profile");
     setToggleModal(true);
     setModalText("Successfully logged in! Welcome!");
@@ -21,9 +21,9 @@ const Login = ({
     setOpen(false);
   };
 
-  const failedAlert = () => {
+  const failedAlert = (alert) => {
     setToggleModal(true);
-    setModalText("Please enter valid username and password");
+    setModalText(alert);
   };
 
   const handleSubmit = (e) => {
@@ -35,8 +35,9 @@ const Login = ({
       })
       .then((res) => {
         console.log(res);
-        res.data.status === "ok" ? successAlert() : failedAlert();
-        sessionStorage.setItem("token", res.data.data);
+        res.data.status === "ok"
+          ? successAlert(res.data.data)
+          : failedAlert(res.data.error);
       })
       .catch((err) => console.error(err));
   };

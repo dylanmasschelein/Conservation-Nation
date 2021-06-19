@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import "./HomePage.scss";
 import AreaMap from "../../components/AreaMap/AreaMap";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Observation from "../../components/Observation/Observation";
-import Tutorial from "../../components/Tutorial/Tutorial";
 import axios from "axios";
 import L from "leaflet";
 import tree from "../../assets/Images/tree.png";
@@ -18,19 +15,17 @@ const HomePage = ({ user, setToggleModal, setModalText, setRedirect }) => {
   const [observations, setObservations] = useState(null);
   const [clickedObservation, setClickedObservation] = useState(null);
   const [clickedArea, setClickedArea] = useState(null);
-  const [userLocation, setUserLocation] = useState(null);
+  // const [userLocation, setUserLocation] = useState(null);
   const [center, setCenter] = useState(null);
 
   // Getting userlocation on initial load and setting to map center -- needs work
 
-  const getUserLocation = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
-      setUserLocation([latitude, longitude]);
-    });
-  };
-
-  useEffect(() => {});
+  // const getUserLocation = () => {
+  //   navigator.geolocation.getCurrentPosition((position) => {
+  //     const { latitude, longitude } = position.coords;
+  //     setUserLocation([latitude, longitude]);
+  //   });
+  // };
 
   useEffect(() => {}, [
     areas,
@@ -190,7 +185,6 @@ const HomePage = ({ user, setToggleModal, setModalText, setRedirect }) => {
           onEachArea={onEachArea}
           PlotObservations={PlotObservations}
           setClickedArea={setClickedArea}
-          userLocation={userLocation}
           center={center}
           observations={observations}
         />

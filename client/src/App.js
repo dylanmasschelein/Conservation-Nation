@@ -4,12 +4,10 @@ import "leaflet/dist/leaflet.css";
 import "./partials/_typography.scss";
 import "./App.scss";
 import Signup from "./components/Signup/Signup";
-import Login from "./components/Login/Login";
 import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ModalWindow from "./components/ModalWindow/ModalWindow";
-import Footer from "./components/Footer/Footer";
 
 const App = () => {
   const [user, setUser] = useState(null);

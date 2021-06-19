@@ -9,7 +9,7 @@ import "./Header.scss";
 const Header = ({ setRedirect, history, setToggleModal, setModalText }) => {
   const [open, setOpen] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
-  const [animate, setAnimate] = useState(false);
+  // const [animate, setAnimate] = useState(false);
 
   const profileNavigation = () => {
     if (typeof sessionStorage.getItem("token") !== "string") {
@@ -30,6 +30,7 @@ const Header = ({ setRedirect, history, setToggleModal, setModalText }) => {
       {/* <Link to='/user/login' className='header__link'> */}
       <img
         src={whereTo}
+        alt='Where to navigation text'
         className='header__drop'
         onClick={() => {
           setOpen(!open);

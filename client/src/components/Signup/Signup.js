@@ -2,12 +2,12 @@ import "./Signup.scss";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
-const Signup = ({ setToggleModal, setModalText, history }) => {
+const Signup = ({ setRedirect, setToggleModal, setModalText, history }) => {
   console.log(history);
   const successAlert = () => {
     setModalText("Signup successful! Welcome!");
     setToggleModal(true);
-    history.push("/profile"); // redirect to profile using modal once JWT sorted on register
+    setRedirect("/profile"); // redirect to profile using modal once JWT sorted on register
   };
 
   const failedAlert = () => {
@@ -31,7 +31,6 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
         confirmPassword: data.confirmPassword,
       })
       .then((res) => {
-        console.log(res);
         res.data.status === "ok" ? successAlert() : failedAlert();
       })
       .catch((err) => console.error(err));
@@ -42,8 +41,6 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  console.log(errors);
 
   return (
     <div className='signup'>
@@ -74,7 +71,7 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
               id='address'
               className='signup__input'
             />
-            {errors.address && <p>address is required</p>}
+            {errors.address && <p>Address is required</p>}
           </label>
           <label htmlFor='city' className='signup__label'>
             City
@@ -83,7 +80,7 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
               id='city'
               className='signup__input'
             />
-            {errors.city && <p>city is required</p>}
+            {errors.city && <p>City is required</p>}
           </label>
           <label htmlFor='country' className='signup__label'>
             Country
@@ -92,7 +89,7 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
               id='country'
               className='signup__input'
             />
-            {errors.country && <p>country is required</p>}
+            {errors.country && <p>Country is required</p>}
           </label>
 
           <label htmlFor='about' className='signup__label'>
@@ -103,7 +100,7 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
               id='about'
               className='signup__input signup__input--about'
             />
-            {errors.about && <p>about you is required</p>}
+            {errors.about && <p>About you is required</p>}
           </label>
         </div>
         <div className='signup__right'>
@@ -131,7 +128,7 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
                 id='volunteer'
               />
               No
-              {errors.volunteer && <p>Volunteer availabilty is required</p>}
+              {errors.volunteer && <p>Availabilty is required</p>}
             </label>
           </div>
 
@@ -163,7 +160,7 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
               id='confirmPassword'
               className='signup__input'
             />
-            {errors.confirmPassword && <p>Password confirmation is required</p>}
+            {errors.confirmPassword && <p>Confirm password is required</p>}
           </label>
 
           <button type='submit' className='signup__submit'>
