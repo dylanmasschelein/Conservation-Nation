@@ -1,27 +1,29 @@
 import "./Login.scss";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Login = ({
-  history,
   setOpen,
   setOpenLogin,
   setModalText,
   setToggleModal,
+  setRedirect,
 }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const successAlert = () => {
-    history.push("/profile");
+  const successAlert = (token) => {
+    sessionStorage.setItem("token", token);
+    setRedirect("/profile");
+    setToggleModal(true);
+    setModalText("Successfully logged in! Welcome!");
     setOpenLogin(false);
     setOpen(false);
   };
 
-  const failedAlert = () => {
+  const failedAlert = (alert) => {
     setToggleModal(true);
-    setModalText("Please enter valid username and password");
+    setModalText(alert);
   };
 
   const handleSubmit = (e) => {
@@ -32,9 +34,9 @@ const Login = ({
         password,
       })
       .then((res) => {
-        console.log(res);
-        res.data.status === "ok" ? successAlert() : failedAlert();
-        sessionStorage.setItem("token", res.data.data);
+        res.data.status === "ok"
+          ? successAlert(res.data.data)
+          : failedAlert(res.data.error);
       })
       .catch((err) => console.error(err));
   };

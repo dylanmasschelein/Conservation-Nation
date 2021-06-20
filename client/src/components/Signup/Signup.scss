@@ -3,7 +3,7 @@
 
 .signup {
   background: $color-black;
-  height: 87vh;
+  height: 100vh;
 
   &__name {
     text-align: center;
@@ -19,7 +19,8 @@
 
   &__left {
     @include flex-column;
-    @include min-max-height(30rem);
+    // @include min-max-height(30rem);
+    min-height: 31rem;
     background: $color-secondary;
     border-radius: $border-radius;
     padding: 1rem;
@@ -29,7 +30,7 @@
 
   &__right {
     @include flex-column;
-    @include min-max-height(30rem);
+    min-height: 31rem;
     background: $color-secondary;
     border-radius: $border-radius;
     padding: 1rem;
@@ -50,9 +51,30 @@
     @include form-input;
     margin: 0.5rem 0;
 
+    &:active {
+      outline: none;
+      border: $border-input-active;
+      border-radius: $border-radius;
+    }
+
+    &:focus {
+      outline: none;
+      border: $border-input-active;
+      border-radius: $border-radius;
+    }
+
     &--about {
       height: 4rem;
     }
+  }
+
+  &__error {
+    margin: 0;
+    padding: 0;
+    font-size: 0.75rem;
+    color: firebrick;
+    font-weight: bold;
+    text-align: right;
   }
 
   &__submit {

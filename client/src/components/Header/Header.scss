@@ -3,20 +3,24 @@
 
 @keyframes slidein {
   from {
+    opacity: 0;
     transform: translate(100%);
   }
 
   to {
+    opacity: 1;
     transform: translate(0%);
   }
 }
 
 @keyframes slideout {
   from {
+    opacity: 1;
     transform: translate(0%);
   }
 
   to {
+    opacity: 0;
     transform: translate(100%);
   }
 }
@@ -29,8 +33,8 @@
   border-bottom: $border-primary;
 
   &__logo {
-    height: 17rem;
-    margin-left: 1.5rem;
+    height: 6rem;
+    margin-left: 2rem;
   }
 
   &__link {
@@ -39,7 +43,6 @@
 
   &__drop {
     color: black;
-    // position: absolute;
     height: 10rem;
     margin: 5.5rem 2rem 0 0;
     top: 0;
@@ -62,15 +65,16 @@
   background: $color-secondary;
   border: $border-secondary;
   z-index: 999999;
+  transition: 1s;
 
+  &:hover {
+  }
   &--slidein {
-    animation-duration: 1s;
-    animation-name: slidein;
+    animation: slidein 1s ease both;
   }
 
   &--slideout {
-    animation-duration: 1s;
-    animation-name: slideout;
+    animation: slideout 1s ease forwards;
   }
 
   &__link {

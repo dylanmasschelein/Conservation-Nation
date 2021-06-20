@@ -1,36 +1,32 @@
 import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import "./HomePage.scss";
 import AreaMap from "../../components/AreaMap/AreaMap";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Observation from "../../components/Observation/Observation";
-import Tutorial from "../../components/Tutorial/Tutorial";
 import axios from "axios";
 import L from "leaflet";
 import tree from "../../assets/Images/tree.png";
+import coral from "../../assets/Images/coral.png";
 import { Marker } from "react-leaflet";
 
-const HomePage = ({ user, setToggleModal, setModalText }) => {
+const HomePage = ({ user, setToggleModal, setModalText, setRedirect }) => {
   const [search, setSearch] = useState("");
   const [areas, setAreas] = useState(null);
   const [areaBounds, setAreaBounds] = useState(null);
   const [observations, setObservations] = useState(null);
   const [clickedObservation, setClickedObservation] = useState(null);
   const [clickedArea, setClickedArea] = useState(null);
-  const [userLocation, setUserLocation] = useState(null);
+  // const [userLocation, setUserLocation] = useState(null);
   const [center, setCenter] = useState(null);
 
   // Getting userlocation on initial load and setting to map center -- needs work
 
-  const getUserLocation = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
-      setUserLocation([latitude, longitude]);
-    });
-  };
-
-  useEffect(() => {});
+  // const getUserLocation = () => {
+  //   navigator.geolocation.getCurrentPosition((position) => {
+  //     const { latitude, longitude } = position.coords;
+  //     setUserLocation([latitude, longitude]);
+  //   });
+  // };
 
   useEffect(() => {}, [
     areas,
@@ -72,6 +68,7 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
 
   const exploreArea = () => {
     if (!clickedArea) {
+      setRedirect("/");
       setToggleModal(true);
       setModalText("You must click an area to explore it!");
     }
@@ -97,12 +94,12 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
     } else {
       return observations.map((observation) => (
         <Marker
-          key={observation._id}
+          key={observation.id}
           position={[
             observation.geojson.coordinates[1],
             observation.geojson.coordinates[0],
           ]}
-          icon={icon}
+          icon={clickedArea.marine ? treeIcon : coralIcon}
           eventHandlers={{
             click: () => {
               setClickedObservation(observation);
@@ -112,11 +109,17 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
       ));
     }
   };
+  // why didnt if guards work??
   //user.update is not a function (backend)
   const followArea = () => {
     if (!user) {
       setToggleModal(true);
       setModalText("Please sign in to follow an area!");
+      setRedirect("/");
+    } else if (!clickedArea) {
+      setToggleModal(true);
+      setModalText("You must inspect an area to follow it!");
+      setRedirect("/");
     } else {
       const { email } = user;
       console.log("clicked");
@@ -125,14 +128,25 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
         .put(`http://localhost:8080/user/${email}`, {
           clickedArea,
         })
-        .then((res) => console.log(res))
+        .then(() => {
+          setToggleModal(true);
+          setModalText("Area followed!");
+          setRedirect("/");
+        })
         .catch((err) => console.error(err));
     }
   };
-  // Custom Icon
-  const icon = L.icon({
-    iconUrl: tree,
 
+  // Custom Icon
+  const treeIcon = L.icon({
+    iconUrl: tree,
+    iconSize: [25, 41],
+    iconAnchor: [12.5, 41],
+    popupAnchor: [0, -41],
+  });
+
+  const coralIcon = L.icon({
+    iconUrl: coral,
     iconSize: [25, 41],
     iconAnchor: [12.5, 41],
     popupAnchor: [0, -41],
@@ -162,7 +176,14 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
         {/* {!clickedObservation ? (
           <Tutorial />
         ) : ( */}
-        {clickedObservation && <Observation observation={clickedObservation} />}
+        {clickedObservation && (
+          <Observation
+            setToggleModal={setToggleModal}
+            setModalText={setModalText}
+            observation={clickedObservation}
+            setClickedObservation={setClickedObservation}
+          />
+        )}
         {/* )} */}
       </div>
       <div className='home__right'>
@@ -172,7 +193,6 @@ const HomePage = ({ user, setToggleModal, setModalText }) => {
           onEachArea={onEachArea}
           PlotObservations={PlotObservations}
           setClickedArea={setClickedArea}
-          userLocation={userLocation}
           center={center}
           observations={observations}
         />

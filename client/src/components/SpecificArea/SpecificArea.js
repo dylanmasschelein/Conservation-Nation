@@ -9,12 +9,12 @@ export default function SpecificArea({ area }) {
         <strong>Country:</strong> {area.countries[0].name}
       </span>
       <span className='area__info'>
-        <strong>Total Area:</strong> {area.reported_area}
+        <strong>Total Area:</strong> {area.reported_area}km<sup>2</sup>
       </span>
-      {area.marine && <span className='area__info'>Protected marine area</span>}
       {area.marine && (
         <span className='area__info'>
-          <strong>Total marine area:</strong> {area.reported_marine_area}
+          <strong>Total marine area:</strong> {area.reported_marine_area}km
+          <sup>2</sup>
         </span>
       )}
       <span className='area__info'>

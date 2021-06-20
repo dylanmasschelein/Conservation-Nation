@@ -18,7 +18,7 @@ mongoose.connect(uri, {
 
 function validateInput(input) {
   if (!input || typeof input !== "string") {
-    return res.json({ status: "error", error: "Invalid entry" });
+    return res.status(400).json({ status: "error", error: `Invalid ${input}` });
   }
 }
 
@@ -29,7 +29,9 @@ router
       delete user.password;
       res.json(user);
     } catch (err) {
-      return res.status(400).json({ status: "error" });
+      return res
+        .status(400)
+        .json({ status: "error", error: "Could not authorize user" });
     }
   })
 
@@ -59,21 +61,25 @@ router
     validateInput(about);
 
     if (!email || typeof email !== "string") {
-      return res.json({ status: "error", error: "Invalid email" });
+      return res.status(400).json({ status: "error", error: "Invalid email" });
     }
 
     if (incomingPassword !== confirmPassword) {
-      return res.json({ status: "error", error: "Passwords must match" });
+      return res
+        .status(400)
+        .json({ status: "error", error: "Passwords must match" });
     }
 
     // Check if password exists and is a string
     if (!incomingPassword || typeof incomingPassword !== "string") {
-      return res.json({ status: "error", error: "Invalid password" });
+      return res
+        .status(400)
+        .json({ status: "error", error: "Invalid password" });
     }
 
     // Check to ensure password is 8+ charachters
     if (incomingPassword.length < 8) {
-      return res.json({
+      return res.status(400).json({
         status: "error",
         error: "Password too short. Should be at least 8 characters",
       });
@@ -81,9 +87,8 @@ router
 
     // Hashing password
     const password = await bcrypt.hash(incomingPassword, 8);
-
     try {
-      const result = await User.create({
+      const newUser = await User.create({
         email,
         username: email,
         password,
@@ -96,12 +101,23 @@ router
         volunteer,
         followedAreas,
       });
-      console.log("created user", result);
-    } catch (err) {
-      return res.json({ status: "error", error: "Issues creating new user" });
-    }
 
-    res.json({ status: "ok" });
+      // if (password === user.password) {
+      //   const token = jwt.sign({ id: user.id, email: user.email }, secret);
+      //   return res.json({ status: "ok", data: token });
+      // }
+    } catch (err) {
+      return res
+        .status(400)
+        .json({ status: "error", error: "Issues creating new user" });
+    }
+    // const user = await User.findOne({ id: req.decoded.id });
+    // console.log(user);
+    // if (await bcrypt.compare(password, user.password)) {
+    //   const token = jwt.sign({ id: user.id, email: user.email }, secret);
+    //   return res.json({ status: "ok", data: token });
+    // }
+    res.status(200).json({ status: "ok" });
   })
 
   // LOGIN --------------------------------------
@@ -150,8 +166,21 @@ router
         error: "Must be logged in to follow areas",
       });
     }
-
     const followed = user.followedAreas;
+
+    const match = followed.find((followedArea) => {
+      if (followedArea.id === area.id) {
+        return followedArea;
+      }
+    });
+
+    if (match) {
+      return res.json({
+        status: "error",
+        error: `You are already following ${area.name} area!`,
+      });
+    }
+
     const updatedFollowedAreas = [...followed, area];
 
     await User.updateOne(
@@ -161,32 +190,6 @@ router
 
     res.json({ status: "ok" });
   })
-  // .put("/:email/:area", async (req, res) => {
-  //   const { area, email } = req.params;
-
-  //   if (!area) {
-  //     res.json({ status: "error", error: "No area followed" });
-  //   }
-
-  //   const user = await User.findOne({ email: email });
-  //   // If area already followed.. send warning
-  //   if (!user) {
-  //     return res.json({
-  //       status: "error",
-  //       error: "Must be logged in to follow areas",
-  //     });
-  //   }
-
-  //   const followed = user.followedAreas;
-  //   const updatedFollowedAreas = [...followed, area];
-
-  //   await User.updateOne(
-  //     { email: email },
-  //     { $set: { followedAreas: updatedFollowedAreas } }
-  //   );
-
-  //   res.json({ status: "ok" });
-  // })
 
   // CHANGE PASSWORD ------------------------------------ Add if time allows
   .post("/change-password", async (req, res) => {

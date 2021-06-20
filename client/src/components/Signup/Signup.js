@@ -2,10 +2,12 @@ import "./Signup.scss";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
-const Signup = ({ setToggleModal, setModalText, history }) => {
-  const successAlert = () => {
-    alert("Signup Successful!");
-    history.push("/profile");
+const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
+  const successAlert = (token) => {
+    // sessionStorage.setItem("token", token);
+    setRedirect("/profile");
+    setToggleModal(true);
+    setModalText("Signup successful! Welcome!");
   };
 
   const failedAlert = () => {
@@ -14,7 +16,6 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     axios
       .post(`http://localhost:8080/user/register`, {
         firstName: data.firstName,
@@ -22,6 +23,7 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
         address: data.address,
         city: data.city,
         country: data.country,
+        // avatar: data.avatar,
         volunteer: data.volunteer,
         about: data.about,
         email: data.email,
@@ -29,8 +31,7 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
         confirmPassword: data.confirmPassword,
       })
       .then((res) => {
-        console.log(res);
-        res.data.status === "ok" ? successAlert() : failedAlert();
+        res.data.status === "ok" ? successAlert(res.data.data) : failedAlert();
       })
       .catch((err) => console.error(err));
   };
@@ -41,6 +42,7 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
     formState: { errors },
   } = useForm();
 
+  console.log(register);
   console.log(errors);
 
   return (
@@ -55,7 +57,9 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
               id='firstName'
               className='signup__input'
             />
-            {errors.firstName && <p>First name is required</p>}
+            {errors.firstName && (
+              <p className='signup__error'>First name is required</p>
+            )}
           </label>
           <label htmlFor='lastName' className='signup__label'>
             Last Name
@@ -63,7 +67,9 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
               {...register("lastName", { required: true })}
               className='signup__input'
             />
-            {errors.lastName && <p>Last name is required</p>}
+            {errors.lastName && (
+              <p className='signup__error'>Last name is required</p>
+            )}
           </label>
           <label htmlFor='address' className='signup__label'>
             Address
@@ -72,7 +78,9 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
               id='address'
               className='signup__input'
             />
-            {errors.address && <p>address is required</p>}
+            {errors.address && (
+              <p className='signup__error'>Address is required</p>
+            )}
           </label>
           <label htmlFor='city' className='signup__label'>
             City
@@ -81,7 +89,7 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
               id='city'
               className='signup__input'
             />
-            {errors.city && <p>city is required</p>}
+            {errors.city && <p className='signup__error'>City is required</p>}
           </label>
           <label htmlFor='country' className='signup__label'>
             Country
@@ -90,7 +98,9 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
               id='country'
               className='signup__input'
             />
-            {errors.country && <p>country is required</p>}
+            {errors.country && (
+              <p className='signup__error'>Country is required</p>
+            )}
           </label>
 
           <label htmlFor='about' className='signup__label'>
@@ -101,10 +111,21 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
               id='about'
               className='signup__input signup__input--about'
             />
-            {errors.about && <p>about you is required</p>}
+            {errors.about && (
+              <p className='signup__error'>About you is required</p>
+            )}
           </label>
         </div>
         <div className='signup__right'>
+          {/* <label htmlFor='avatar' className='signup__label'>
+            Avatar
+            <input
+              type='file'
+              {...register("avatar")}
+              id='avatar'
+              className='signup__input'
+            />
+          </label> */}
           <label
             htmlFor='volunteer'
             className='signup__label signup__label--radio'
@@ -129,7 +150,9 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
                 id='volunteer'
               />
               No
-              {errors.volunteer && <p>Volunteer availabilty is required</p>}
+              {errors.volunteer && (
+                <p className='signup__error'>Availabilty is required</p>
+              )}
             </label>
           </div>
 
@@ -141,7 +164,7 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
               id='email'
               className='signup__input'
             />
-            {errors.email && <p>Email is required</p>}
+            {errors.email && <p className='signup__error'>Email is required</p>}
           </label>
           <label htmlFor='password' className='signup__label'>
             Password
@@ -151,7 +174,9 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
               id='password'
               className='signup__input'
             />
-            {errors.password && <p>Password is required</p>}
+            {errors.password && (
+              <p className='signup__error'>Password is required</p>
+            )}
           </label>
           <label htmlFor='password' className='signup__label'>
             Confirm Password
@@ -161,7 +186,9 @@ const Signup = ({ setToggleModal, setModalText, history }) => {
               id='confirmPassword'
               className='signup__input'
             />
-            {errors.confirmPassword && <p>Password confirmation is required</p>}
+            {errors.confirmPassword && (
+              <p className='signup__error'>Confirm password is required</p>
+            )}
           </label>
 
           <button type='submit' className='signup__submit'>

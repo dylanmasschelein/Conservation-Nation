@@ -5,13 +5,13 @@ import FollowedAreasList from "../../components/FollowedAreasList/FollowedAreasL
 import axios from "axios";
 
 const ProfilePage = (props) => {
-  const { setUser, user, setToggleModal, setModalText } = props;
+  const { setUser, user, setToggleModal, setModalText, setRedirect } = props;
   const [failedAuth, setFailedAuth] = useState(false);
   const [followedAreas, setFollowedAreas] = useState(null);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
-
+    console.log(token);
     if (!token) {
       setFailedAuth(true);
     }
@@ -22,11 +22,12 @@ const ProfilePage = (props) => {
         },
       })
       .then((user) => {
+        console.log(user);
         setUser(user.data);
         setFollowedAreas(user.data.followedAreas);
       })
       .catch(() => setFailedAuth(true));
-  }, [user]);
+  }, []);
 
   const editProfileInfo = (key, value) => {
     axios
@@ -44,7 +45,7 @@ const ProfilePage = (props) => {
     setFailedAuth(true);
     setToggleModal(true);
     setModalText("You have been logged out!");
-    props.history.push("/");
+    setRedirect("/");
   };
 
   {

@@ -2,7 +2,15 @@ import React from "react";
 import "./Observation.scss";
 
 export default function Observation(props) {
+  const { setModalText, setToggleModal, setClickedObservation } = props;
+  if (!props.observation.taxon) {
+    setToggleModal(true);
+    setModalText("Taxon information corrupt, please select another");
+    setClickedObservation(null);
+    return null;
+  }
   const { medium_url: photo } = props.observation.taxon.default_photo;
+
   const {
     name: latinName,
     is_active: isActive,

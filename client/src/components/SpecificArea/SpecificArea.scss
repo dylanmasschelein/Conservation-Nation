@@ -4,18 +4,24 @@
 .area {
   display: flex;
   flex-direction: column;
-  border-radius: 0.5rem;
+  border-radius: 20px;
   background: $color-secondary;
   text-align: center;
-  // margin: 1rem;
-  // margin-top: 1.5rem;
-  // padding: 1rem;
+  margin: 0;
 
   &__name {
     background: $color-primary;
+    border-radius: 20px 20px 0 0;
+    padding: 0.25rem 0;
   }
 
   &__info {
+    padding: 0.1rem 1rem;
     font-size: 1rem;
   }
+}
+.leaflet-tooltip {
+  padding: 0;
+  border-radius: 20px;
+  border: 3px solid $color-accent;
 }
