@@ -6,8 +6,8 @@ import Observation from "../../components/Observation/Observation";
 import axios from "axios";
 import L from "leaflet";
 import tree from "../../assets/Images/tree.png";
+import coral from "../../assets/Images/coral.png";
 import { Marker } from "react-leaflet";
-import { Redirect } from "react-router-dom";
 
 const HomePage = ({ user, setToggleModal, setModalText, setRedirect }) => {
   const [search, setSearch] = useState("");
@@ -99,7 +99,7 @@ const HomePage = ({ user, setToggleModal, setModalText, setRedirect }) => {
             observation.geojson.coordinates[1],
             observation.geojson.coordinates[0],
           ]}
-          icon={icon}
+          icon={clickedArea.marine ? treeIcon : coralIcon}
           eventHandlers={{
             click: () => {
               setClickedObservation(observation);
@@ -138,9 +138,15 @@ const HomePage = ({ user, setToggleModal, setModalText, setRedirect }) => {
   };
 
   // Custom Icon
-  const icon = L.icon({
+  const treeIcon = L.icon({
     iconUrl: tree,
+    iconSize: [25, 41],
+    iconAnchor: [12.5, 41],
+    popupAnchor: [0, -41],
+  });
 
+  const coralIcon = L.icon({
+    iconUrl: coral,
     iconSize: [25, 41],
     iconAnchor: [12.5, 41],
     popupAnchor: [0, -41],

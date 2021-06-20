@@ -4,15 +4,18 @@
 .user-info {
   display: flex;
   flex-direction: column;
+
   &__name {
+    margin-bottom: 1rem;
   }
 
   &__details {
-    display: inline-flex;
-    margin-right: 0.5rem;
+    margin-bottom: 1rem;
   }
 
-  &__edit {
-    margin-left: 0.5rem;
+  &__subtitle {
+    margin-bottom: 0.5rem;
+    border-top: 1px solid $color-accent;
+    padding-top: 0.25rem;
   }
 }
