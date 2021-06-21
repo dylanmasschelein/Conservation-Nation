@@ -16,21 +16,36 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
   };
 
   const onSubmit = (data) => {
+    console.log(data.avatar[0]);
+    console.log(data.firstName);
+    const formData = new FormData();
+    formData.append("firstName", data.firstName);
+    formData.append("lastName", data.lastName);
+    formData.append("address", data.address);
+    formData.append("city", data.city);
+    formData.append("country", data.country);
+    formData.append("file", data.avatar[0]);
+    formData.append("volunteer", data.volunteer);
+    formData.append("about", data.about);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    formData.append("confirmPassword", data.confirmPassword);
+    console.log(Array.from(formData));
+    const fd = Array.from(formData);
     axios
-      .post(`http://localhost:8080/user/register`, {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        address: data.address,
-        city: data.city,
-        country: data.country,
-        // avatar: data.avatar,
-        volunteer: data.volunteer,
-        about: data.about,
-        email: data.email,
-        password: data.password,
-        confirmPassword: data.confirmPassword,
-      })
+      .post(
+        `http://localhost:8080/user/register`,
+        {
+          fd,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
+        console.log(res);
         res.data.status === "ok" ? successAlert(res.data.data) : failedAlert();
       })
       .catch((err) => console.error(err));
@@ -117,7 +132,7 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
           </label>
         </div>
         <div className='signup__right'>
-          {/* <label htmlFor='avatar' className='signup__label'>
+          <label htmlFor='avatar' className='signup__label'>
             Avatar
             <input
               type='file'
@@ -125,7 +140,7 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
               id='avatar'
               className='signup__input'
             />
-          </label> */}
+          </label>
           <label
             htmlFor='volunteer'
             className='signup__label signup__label--radio'

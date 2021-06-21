@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema(
     country: { type: String, required: true },
     about: { type: String, required: true },
     followedAreas: { type: Array, default: [] },
+    avatar: { type: String },
     volunteer: { type: Boolean },
   },
   { collection: "OneEarth_Users" }

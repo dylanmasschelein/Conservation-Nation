@@ -1,7 +1,8 @@
 import "./ProfileInfo.scss";
 
 const ProfileInfo = ({ user }) => {
-  const { firstName, address, city, country, about, volunteer } = user;
+  const { firstName, address, city, country, about, volunteer, avatar } = user;
+  console.log(avatar);
 
   return (
     <div className='user-info'>
@@ -19,6 +20,7 @@ const ProfileInfo = ({ user }) => {
         <h5 className='user-info__subtitle'>Volunteer:</h5>
         {volunteer ? "Available" : "Unavailable"}
       </p>
+      <img src={avatar} alt='hey its me' />
     </div>
   );
 };
