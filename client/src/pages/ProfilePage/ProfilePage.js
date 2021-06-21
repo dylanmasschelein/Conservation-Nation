@@ -31,8 +31,6 @@ const ProfilePage = (props) => {
     getData(token);
   }, []);
 
-  // useEffect(() => {}, [followedAreas]);
-
   const editProfileInfo = (key, value) => {
     axios
       .put(`http://localhost:8080/user/edit/${user.email}`, {

@@ -1,36 +1,13 @@
 @use '../../partials/variables' as *;
 @use '../../partials/mixins' as *;
-
-@keyframes slidein {
-  from {
-    opacity: 0;
-    transform: translate(100%);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate(0%);
-  }
-}
-
-@keyframes slideout {
-  from {
-    opacity: 1;
-    transform: translate(0%);
-  }
-
-  to {
-    opacity: 0;
-    transform: translate(100%);
-  }
-}
+@use '../../partials/keyframes';
 
 .header {
   @include flex-justify-align(space-between, center);
   position: relative;
   background: $color-primary;
-  height: 7rem;
   border-bottom: $border-primary;
+  height: 7rem;
 
   &__logo {
     height: 6rem;
@@ -43,9 +20,9 @@
 
   &__drop {
     color: black;
-    height: 10rem;
-    margin: 5.5rem 2rem 0 0;
     top: 0;
+    height: 10rem;
+    margin: 5.5rem 4rem 0 0;
     z-index: 402;
   }
 
@@ -67,8 +44,6 @@
   z-index: 999999;
   transition: 1s;
 
-  &:hover {
-  }
   &--slidein {
     animation: slidein 1s ease both;
   }
@@ -81,10 +56,10 @@
     @include link-reset;
     background: $color-secondary;
     box-shadow: 0 0 5px 5px $color-secondary;
-    border-top: $border-accent;
+    border-top: 1px solid $color-accent;
+    color: black;
     text-align: right;
     width: 85%;
-    color: black;
     padding: 0.5rem;
     margin: 1rem;
 

@@ -1,51 +1,39 @@
 @use '../../partials/mixins' as *;
 @use '../../partials/variables' as *;
-@keyframes moveInBottom {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
+@use '../../partials/keyframes';
 
-  100% {
-    opacity: 1;
-    transform: translateY(0px);
-  }
-}
 .search {
-  display: flex;
-  align-items: center;
+  @include flex-justify-align(unset, center);
+  @include moveInBottom-animation;
   background: $color-secondary;
-  padding: 1rem;
   border: $border-secondary;
-  margin: 1rem 0 1rem 0;
   border-radius: 50px;
-  animation: moveInBottom 1s ease-out;
-  animation-fill-mode: backwards;
+  padding: 1rem;
+  margin: 1rem 0 1rem 0;
+
   &__label {
     display: flex;
   }
 
   &__input {
     @include form-input;
+    width: 70%;
     padding-left: 1rem;
     margin: 0 1rem 0 0.5rem;
-    width: 70%;
 
     &:focus {
-      outline: none;
-      border: 1px solid $color-hover;
+      @include form-input-active-border;
     }
 
     &:active {
-      outline: none;
-      border: 1px solid $color-hover;
+      @include form-input-active-border;
     }
   }
 
   &__btn {
     background: $color-accent;
-    border: 1px solid $color-accent;
-    border-radius: 1.25rem;
+    border: $border-accent;
+    border-radius: $border-radius;
     padding: 0.5rem;
     width: 4rem;
     margin-left: 0.25rem;
@@ -53,13 +41,9 @@
 
     &:hover {
       background: firebrick;
-      border: 1px solid $color-hover;
+      border: $border-accent;
     }
   }
-  // thirdary
-
-  // FFCF00 **
-  // F8333C
 
   &__icon {
     font-size: 1rem;

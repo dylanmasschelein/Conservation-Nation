@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import "./partials/_typography.scss";
 import "./App.scss";
@@ -66,6 +71,7 @@ const App = () => {
             />
           )}
         />
+        <Redirect path='/' />{" "}
       </Switch>
       {/* <Footer /> */}
     </Router>

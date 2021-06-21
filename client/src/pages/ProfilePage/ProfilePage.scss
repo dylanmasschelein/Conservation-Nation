@@ -3,14 +3,14 @@
 
 .profile {
   display: flex;
-  background: $color-black;
   text-align: center;
+  background: $color-black;
 
   &__user {
-    padding: 2rem;
     background: $color-primary;
     height: 100vh;
     width: 25rem;
+    padding: 2rem;
   }
 
   &__followed {
@@ -19,8 +19,8 @@
 
   &__title {
     text-align: center;
-    padding-top: 2rem;
     color: white;
+    padding-top: 2rem;
   }
 
   &__logout {
@@ -29,8 +29,7 @@
     transition: all 0.2s;
 
     &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      @include translateY;
     }
   }
 }

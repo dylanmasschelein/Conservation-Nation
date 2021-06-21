@@ -2,8 +2,6 @@
 @use '../../partials/mixins' as *;
 
 .area-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-justify-align(center, center);
   flex-wrap: wrap;
 }

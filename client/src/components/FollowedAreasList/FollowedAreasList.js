@@ -2,6 +2,7 @@ import "./FollowedAreasList.scss";
 import FollowedAreaCard from "../FollowedAreaCard/FollowedAreaCard";
 
 const FollowedAreasList = ({ followedAreas, handleDelete }) => {
+  console.log(followedAreas);
   return (
     <div className='area-list'>
       {followedAreas.map((area) => (

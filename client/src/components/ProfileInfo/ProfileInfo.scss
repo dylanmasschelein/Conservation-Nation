@@ -2,20 +2,29 @@
 @use '../../partials/variables' as *;
 
 .user-info {
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
+  align-items: center;
 
   &__name {
     margin-bottom: 1rem;
   }
 
   &__details {
-    margin-bottom: 1rem;
+    @extend .user-info__name;
   }
 
   &__subtitle {
-    margin-bottom: 0.5rem;
     border-top: 1px solid $color-accent;
+    margin-bottom: 0.5rem;
     padding-top: 0.25rem;
+    width: 100%;
+  }
+
+  &__avatar {
+    object-fit: cover;
+    border-radius: 50%;
+    height: 8rem;
+    width: 8rem;
+    border: 1px solid $color-accent;
   }
 }

@@ -2,9 +2,8 @@
 @use '../../partials/variables' as *;
 
 .area {
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
+  @include flex-column;
+  border-radius: $border-radius;
   background: $color-secondary;
   text-align: center;
   margin: 0;
@@ -17,11 +16,10 @@
 
   &__info {
     padding: 0.1rem 1rem;
-    font-size: 1rem;
   }
 }
 .leaflet-tooltip {
   padding: 0;
   border-radius: 20px;
-  border: 3px solid $color-accent;
+  border: $border-accent;
 }

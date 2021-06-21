@@ -7,9 +7,9 @@
 
   &__name {
     text-align: center;
-    padding-top: 2rem;
     font-size: 2rem;
     color: white;
+    padding-top: 2rem;
   }
 
   &__form {
@@ -19,22 +19,21 @@
 
   &__left {
     @include flex-column;
-    // @include min-max-height(30rem);
-    min-height: 31rem;
     background: $color-secondary;
     border-radius: $border-radius;
+    min-height: 31rem;
+    min-width: 15rem;
     padding: 1rem;
     margin-right: 4rem;
-    min-width: 15rem;
   }
 
   &__right {
     @include flex-column;
-    min-height: 31rem;
-    background: $color-secondary;
     border-radius: $border-radius;
-    padding: 1rem;
+    background: $color-secondary;
+    min-height: 31rem;
     min-width: 15rem;
+    padding: 1rem;
   }
 
   &__label {
@@ -42,8 +41,7 @@
   }
 
   &__radio {
-    display: flex;
-    justify-content: space-evenly;
+    @include flex-justify-align(space-evenly);
     padding: 0.5rem;
   }
 
@@ -52,15 +50,11 @@
     margin: 0.5rem 0;
 
     &:active {
-      outline: none;
-      border: $border-input-active;
-      border-radius: $border-radius;
+      @include form-input-active-border;
     }
 
     &:focus {
-      outline: none;
-      border: $border-input-active;
-      border-radius: $border-radius;
+      @include form-input-active-border;
     }
 
     &--about {
@@ -69,8 +63,7 @@
   }
 
   &__error {
-    margin: 0;
-    padding: 0;
+    @include margin-reset;
     font-size: 0.75rem;
     color: firebrick;
     font-weight: bold;
@@ -81,7 +74,6 @@
     border-radius: $border-radius;
     border: $border-primary;
     background: $color-primary;
-    padding: 1rem;
     font-weight: bold;
     padding: 0.75rem;
     margin-top: 1rem;

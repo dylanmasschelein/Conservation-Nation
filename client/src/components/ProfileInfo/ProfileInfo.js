@@ -1,12 +1,12 @@
 import "./ProfileInfo.scss";
-
+import avatar from "../../assets/Images/avatar.jpg";
 const ProfileInfo = ({ user }) => {
-  const { firstName, address, city, country, about, volunteer, avatar } = user;
-  console.log(avatar);
+  const { firstName, address, city, country, about, volunteer } = user;
 
   return (
     <div className='user-info'>
       <h2 className='user-info__name'>Welcome back {firstName}!</h2>
+      <img src={avatar} alt='hey its me' className='user-info__avatar' />
       <p className='user-info__details'>
         <h5 className='user-info__subtitle'>Address:</h5>
         {address}, {city}, {country}
@@ -20,7 +20,6 @@ const ProfileInfo = ({ user }) => {
         <h5 className='user-info__subtitle'>Volunteer:</h5>
         {volunteer ? "Available" : "Unavailable"}
       </p>
-      <img src={avatar} alt='hey its me' />
     </div>
   );
 };
