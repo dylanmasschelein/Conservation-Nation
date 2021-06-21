@@ -66,3 +66,22 @@
   min-height: $height;
   max-height: $height;
 }
+
+@mixin translateY {
+  transform: translateY(-3px);
+  box-shadow: $box-shadow;
+}
+
+@mixin form-input-active-border {
+  outline: none;
+  border: $border-input-active;
+  border-radius: $border-radius;
+}
+
+@mixin transition {
+  transition: all 0.2s;
+}
+
+@mixin moveInBottom-animation {
+  animation: moveInBottom 1s ease-out backwards;
+}

@@ -2,39 +2,35 @@
 @use '../../partials/variables' as *;
 
 .modal {
-  width: 100vw;
-  height: 100vh;
-  background: rgba(35, 41, 64, 0.7);
+  @include flex-justify-align(center, center);
   position: fixed;
+  background: rgba(35, 41, 64, 0.7);
   top: 0px;
   right: 0px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100vw;
+  height: 100vh;
   z-index: 99999999;
 
   &__window {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 20rem;
-    height: 12rem;
-    background: white;
+    @include flex-column;
     border-radius: $border-radius;
     background: $color-secondary;
+    align-items: center;
+    width: 20rem;
+    height: 12rem;
     z-index: 9999999;
   }
 
   &__message {
-    padding: 2rem 1rem 0 1rem;
     text-align: center;
     color: white;
+    padding: 2rem 1rem 0 1rem;
   }
 
   &__button {
     @include accent-button;
-    width: 7rem;
     margin-top: 1rem;
     padding: 1rem;
+    width: 7rem;
   }
 }

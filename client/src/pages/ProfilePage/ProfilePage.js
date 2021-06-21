@@ -8,13 +8,9 @@ const ProfilePage = (props) => {
   const { setUser, user, setToggleModal, setModalText, setRedirect } = props;
   const [failedAuth, setFailedAuth] = useState(false);
   const [followedAreas, setFollowedAreas] = useState(null);
+  const token = sessionStorage.getItem("token");
 
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    console.log(token);
-    if (!token) {
-      setFailedAuth(true);
-    }
+  const getData = (token) => {
     axios
       .get("http://localhost:8080/user/current", {
         headers: {
@@ -22,11 +18,17 @@ const ProfilePage = (props) => {
         },
       })
       .then((user) => {
-        console.log(user);
         setUser(user.data);
         setFollowedAreas(user.data.followedAreas);
       })
       .catch(() => setFailedAuth(true));
+  };
+
+  useEffect(() => {
+    if (!token) {
+      setFailedAuth(true);
+    }
+    getData(token);
   }, []);
 
   const editProfileInfo = (key, value) => {
@@ -48,6 +50,14 @@ const ProfilePage = (props) => {
     setRedirect("/");
   };
 
+  const handleDelete = (id) => {
+    console.log(user.email);
+    axios
+      .delete(`http://localhost:8080/user/${user.email}/area/${id}`)
+      .then(() => getData(token))
+      .catch((err) => console.error(err));
+  };
+
   {
     !failedAuth && <h1>You must be logged in to view your profile</h1>;
   }
@@ -63,7 +73,12 @@ const ProfilePage = (props) => {
       <div className='profile__followed'>
         <h1 className='profile__title'>Followed areas</h1>
         <div className='profile__areas'>
-          {followedAreas && <FollowedAreasList followedAreas={followedAreas} />}
+          {followedAreas && (
+            <FollowedAreasList
+              handleDelete={handleDelete}
+              followedAreas={followedAreas}
+            />
+          )}
         </div>
       </div>
     </div>

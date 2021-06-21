@@ -14,11 +14,11 @@ const Login = ({
 
   const successAlert = (token) => {
     sessionStorage.setItem("token", token);
-    setRedirect("/profile");
+    setRedirect("/user/register");
     setToggleModal(true);
     setModalText("Successfully logged in! Welcome!");
-    setOpenLogin(false);
-    setOpen(false);
+    setOpenLogin(true); // switched from false to true if I dont provide token on registration
+    setOpen(true); // same same
   };
 
   const failedAlert = (alert) => {

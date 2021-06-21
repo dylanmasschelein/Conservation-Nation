@@ -3,17 +3,14 @@
 
 .observation {
   @include flex-column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
+  @include flex-justify-align(center, center);
   background: $color-secondary;
   border-radius: $border-radius-card;
   border: $border-secondary;
+  margin-top: 1rem;
 
   &__photo-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-justify-align(center, center);
     width: 100%;
     overflow: hidden;
   }
@@ -24,8 +21,7 @@
   }
 
   &__details {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     text-align: center;
   }
 

@@ -99,7 +99,7 @@ const HomePage = ({ user, setToggleModal, setModalText, setRedirect }) => {
             observation.geojson.coordinates[1],
             observation.geojson.coordinates[0],
           ]}
-          icon={clickedArea.marine ? treeIcon : coralIcon}
+          icon={clickedArea.marine ? coralIcon : treeIcon}
           eventHandlers={{
             click: () => {
               setClickedObservation(observation);

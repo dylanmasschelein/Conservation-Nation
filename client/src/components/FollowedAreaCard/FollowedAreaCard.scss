@@ -1,29 +1,22 @@
 @use '../../partials/variables' as *;
 @use '../../partials/mixins' as *;
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 100;
-  }
-}
+@use '../../partials/keyframes' as *;
+
 .area-card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include link-reset;
+  @include flex-justify-align(center, center);
   flex-direction: column;
+  color: black;
   border: $border-secondary;
   background: $color-secondary;
   border-radius: 50px 15px 50px 15px;
-  margin: 1rem;
   height: 12rem;
   width: 12rem;
-  transition: all 0.2s;
+  margin: 1rem;
+  transition: $transition;
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    @include translateY;
   }
   &__name {
     text-align: center;

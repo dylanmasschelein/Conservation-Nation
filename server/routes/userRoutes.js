@@ -8,13 +8,38 @@ require("dotenv").config();
 const authorize = require("../middleware/authorize");
 const User = require("../model/user");
 const secret = process.env.JWT_SECRET;
-// Mongo
 const mongoose = require("mongoose");
+
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
 });
+// multer
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  // limits: { fileSize: 1024 * 1024 * 5 },
+  fileFilter: fileFilter,
+});
+// Mongo
 
 function validateInput(input) {
   if (!input || typeof input !== "string") {
@@ -28,6 +53,7 @@ router
       const user = await User.findOne({ id: req.decoded.id });
       delete user.password;
       res.json(user);
+      console.log(user);
     } catch (err) {
       return res
         .status(400)
@@ -38,7 +64,7 @@ router
   // create token on reguister? -- or login after register?
 
   // REGISTER ---------------------------------------------
-  .post("/register", async (req, res) => {
+  .post("/register", upload.single("avatar"), async (req, res) => {
     const {
       email,
       password: incomingPassword,
@@ -98,6 +124,7 @@ router
         city,
         country,
         about,
+        avatar: req.file.path,
         volunteer,
         followedAreas,
       });
@@ -107,7 +134,7 @@ router
       //   return res.json({ status: "ok", data: token });
       // }
     } catch (err) {
-      return res
+      res
         .status(400)
         .json({ status: "error", error: "Issues creating new user" });
     }
@@ -189,6 +216,48 @@ router
     );
 
     res.json({ status: "ok" });
+  })
+
+  .delete("/:email/area/:area", async (req, res) => {
+    const { email, area } = req.params;
+
+    const convertedArea = Number(area);
+    console.log(convertedArea);
+    const user = await User.findOne({ email }).lean();
+    console.log(user);
+
+    if (!user) {
+      return res.status(400).json({
+        status: "error",
+        error: "Must be logged in to follow areas",
+      });
+    }
+
+    const followed = user.followedAreas;
+
+    if (!followed) {
+      return res.status(400).json({
+        status: "error",
+        error: "You are not following any areas yet",
+      });
+    }
+
+    const matchIndex = followed.findIndex(
+      (followedArea) => followedArea.id === convertedArea
+    );
+    console.log(matchIndex);
+
+    if (matchIndex === -1) {
+      return res.status(400).json({ status: "error", error: "Area not found" });
+    }
+    followed.splice(matchIndex, 1);
+
+    await User.updateOne(
+      { email: email },
+      { $set: { followedAreas: followed } }
+    );
+
+    res.status(200).json({ status: "Area delelete from following list" });
   })
 
   // CHANGE PASSWORD ------------------------------------ Add if time allows
