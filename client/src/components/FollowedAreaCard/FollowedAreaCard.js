@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import "./FollowedAreaCard.scss";
 
 const FollowedAreaCard = ({ name, country, id, handleDelete }) => {
@@ -6,7 +8,11 @@ const FollowedAreaCard = ({ name, country, id, handleDelete }) => {
     <Link className='area-card'>
       <h2 className='area-card__name'>{name}</h2>
       <h3 className='area-card__country'>{country}</h3>
-      <button onClick={() => handleDelete(id)}>UNFOLLOW</button>
+      <FontAwesomeIcon
+        icon={faTimesCircle}
+        onClick={() => handleDelete(id)}
+        className='area-card__unfollow'
+      />
     </Link>
   );
 };

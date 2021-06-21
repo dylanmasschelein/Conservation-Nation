@@ -59,7 +59,8 @@
   border: $border-accent;
   background: $color-accent;
   cursor: pointer;
-  padding: 1rem;
+  padding: 0.5rem;
+  max-width: 5rem;
 }
 
 @mixin min-max-height($height) {

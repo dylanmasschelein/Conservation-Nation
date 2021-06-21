@@ -65,6 +65,7 @@ router
 
   // REGISTER ---------------------------------------------
   .post("/register", upload.single("avatar"), async (req, res) => {
+    console.log(req.file);
     const {
       email,
       password: incomingPassword,

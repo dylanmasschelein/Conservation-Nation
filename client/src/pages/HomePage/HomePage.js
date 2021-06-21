@@ -173,9 +173,6 @@ const HomePage = ({ user, setToggleModal, setModalText, setRedirect }) => {
           </button>
         </div>
 
-        {/* {!clickedObservation ? (
-          <Tutorial />
-        ) : ( */}
         {clickedObservation && (
           <Observation
             setToggleModal={setToggleModal}
@@ -184,10 +181,8 @@ const HomePage = ({ user, setToggleModal, setModalText, setRedirect }) => {
             setClickedObservation={setClickedObservation}
           />
         )}
-        {/* )} */}
       </div>
       <div className='home__right'>
-        {/* <ExploreBtn PlotObservations={PlotObservations} /> */}
         <AreaMap
           areas={areas}
           onEachArea={onEachArea}

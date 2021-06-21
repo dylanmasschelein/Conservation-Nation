@@ -10,14 +10,17 @@
   }
 
   &__details {
-    @extend .user-info__name;
+    @include margin-reset;
+    width: 100%;
+    margin-top: 1rem;
   }
 
   &__subtitle {
+    margin: 0;
+    padding: 0;
     border-top: 1px solid $color-accent;
     margin-bottom: 0.5rem;
-    padding-top: 0.25rem;
-    width: 100%;
+    padding-top: 0.5rem;
   }
 
   &__avatar {

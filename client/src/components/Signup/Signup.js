@@ -16,8 +16,6 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
   };
 
   const onSubmit = (data) => {
-    console.log(data.avatar[0]);
-    console.log(data.firstName);
     const formData = new FormData();
     formData.append("firstName", data.firstName);
     formData.append("lastName", data.lastName);
@@ -30,13 +28,16 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("confirmPassword", data.confirmPassword);
-    console.log(Array.from(formData));
-    const fd = Array.from(formData);
+
+    for (let key of formData.keys()) {
+      console.log(key, formData.get(key));
+    }
+    console.log(formData);
     axios
       .post(
         `http://localhost:8080/user/register`,
         {
-          fd,
+          formData,
         },
         {
           headers: {
@@ -70,6 +71,7 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
             <input
               {...register("firstName", { required: true })}
               id='firstName'
+              name='firstName'
               className='signup__input'
             />
             {errors.firstName && (
@@ -81,6 +83,8 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
             <input
               {...register("lastName", { required: true })}
               className='signup__input'
+              id='lastName'
+              name='lastName'
             />
             {errors.lastName && (
               <p className='signup__error'>Last name is required</p>
@@ -91,6 +95,7 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
             <input
               {...register("address", { required: true })}
               id='address'
+              name='address'
               className='signup__input'
             />
             {errors.address && (
@@ -102,6 +107,7 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
             <input
               {...register("city", { required: true })}
               id='city'
+              name='city'
               className='signup__input'
             />
             {errors.city && <p className='signup__error'>City is required</p>}
@@ -111,6 +117,7 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
             <input
               {...register("country", { required: true })}
               id='country'
+              name='country'
               className='signup__input'
             />
             {errors.country && (
@@ -124,6 +131,7 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
               type='textarea'
               {...register("about", { required: true })}
               id='about'
+              name='about'
               className='signup__input signup__input--about'
             />
             {errors.about && (
@@ -138,6 +146,7 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
               type='file'
               {...register("avatar")}
               id='avatar'
+              name='avatar'
               className='signup__input'
             />
           </label>
@@ -153,7 +162,8 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
                 type='radio'
                 value={true}
                 {...register("volunteer", { required: true })}
-                id='volunteer'
+                id='volunteer-yes'
+                name='volunteer-yes'
               />
               Yes
             </label>
@@ -162,7 +172,8 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
                 type='radio'
                 value={false}
                 {...register("volunteer", { required: true })}
-                id='volunteer'
+                id='volunteer-no'
+                name='volunteer-no'
               />
               No
               {errors.volunteer && (
@@ -177,6 +188,7 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
               type='email'
               {...register("email", { required: true })}
               id='email'
+              name='email'
               className='signup__input'
             />
             {errors.email && <p className='signup__error'>Email is required</p>}
@@ -187,6 +199,7 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
               type='password'
               {...register("password", { required: true })}
               id='password'
+              name='password'
               className='signup__input'
             />
             {errors.password && (
@@ -199,6 +212,7 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
               type='password'
               {...register("confirmPassword", { required: true })}
               id='confirmPassword'
+              name='confirmPassword'
               className='signup__input'
             />
             {errors.confirmPassword && (

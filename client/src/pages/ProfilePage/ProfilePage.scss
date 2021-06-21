@@ -20,13 +20,15 @@
   &__title {
     text-align: center;
     color: white;
-    padding-top: 2rem;
+    padding: 2rem 0 1rem 0;
   }
 
   &__logout {
     @include accent-button;
+    margin-top: 2rem;
     width: 100%;
     transition: all 0.2s;
+    color: white;
 
     &:hover {
       @include translateY;

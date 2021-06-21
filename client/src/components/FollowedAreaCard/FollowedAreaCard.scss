@@ -6,6 +6,7 @@
   @include link-reset;
   @include flex-justify-align(center, center);
   flex-direction: column;
+  position: relative;
   color: black;
   border: $border-secondary;
   background: $color-secondary;
@@ -20,9 +21,19 @@
   }
   &__name {
     text-align: center;
+    padding-bottom: 1rem;
   }
 
   &__country {
     text-align: center;
+  }
+
+  &__unfollow {
+    color: black;
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
   }
 }
