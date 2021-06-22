@@ -9,6 +9,8 @@ const authorize = require("../middleware/authorize");
 const User = require("../model/user");
 const secret = process.env.JWT_SECRET;
 const mongoose = require("mongoose");
+const {registerValidation, loginValidation} = require('../validation');
+
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
@@ -63,8 +65,7 @@ router
   // create token on reguister? -- or login after register?
 
   // REGISTER ---------------------------------------------
-  .post("/register", upload.single("avatar"), async (req, res) => {
-    console.log(req.body);
+  .post("/register", async (req, res) => {
     const {
       email,
       password: incomingPassword,
@@ -79,87 +80,60 @@ router
       followedAreas,
     } = req.body;
 
-    // validateInput(firstName);
-    // validateInput(lastName);
-    // validateInput(address);
-    // validateInput(city);
-    // validateInput(country);
-    // validateInput(about);
+    // Validate
+    const {error} = registerValidation(req.body)
+    if (error) return res.status(400).json({status: 'error', error: error.details[0].message}) 
 
-    if (!email || typeof email !== "string") {
-      return res.status(400).json({ status: "error", error: "Invalid email" });
+
+    const emailExists = await User.findOne({email})
+    if(emailExists) return res.status(400).json({status: 'error', error: 'Email already in use'})
+
+    if(incomingPassword !== confirmPassword) {
+      return res.status(400).json({status: 'error', error: 'Passwords must match'})
     }
-
-    if (incomingPassword !== confirmPassword) {
-      return res
-        .status(400)
-        .json({ status: "error", error: "Passwords must match" });
-    }
-
-    // Check if password exists and is a string
-    if (!incomingPassword || typeof incomingPassword !== "string") {
-      return res
-        .status(400)
-        .json({ status: "error", error: "Invalid password" });
-    }
-
-    // Check to ensure password is 8+ charachters
-    if (incomingPassword.length < 8) {
-      return res.status(400).json({
-        status: "error",
-        error: "Password too short. Should be at least 8 characters",
-      });
-    }
-
     // Hashing password
-    const password = await bcrypt.hash(incomingPassword, 8);
-    try {
-      const newUser = await User.create({
-        email,
-        username: email,
-        password,
-        firstName,
-        lastName,
-        address,
-        city,
-        country,
-        about,
-        avatar: req.file.path,
-        volunteer,
-        followedAreas,
-      });
+    const password = await bcrypt.hash(incomingPassword, 10);
 
-      // if (password === user.password) {
-      //   const token = jwt.sign({ id: user.id, email: user.email }, secret);
-      //   return res.json({ status: "ok", data: token });
-      // }
+    // Create new user
+    const user = new User({
+          email,
+          username: email,
+          password,
+          firstName,
+          lastName,
+          address,
+          city,
+          country,
+          about,
+          volunteer,
+          followedAreas,
+    })
+    try{
+      // Save new user
+      const savedUser = await user.save()
+      res.status(200).json({status: 'ok', message: 'user created successfully'})
+
     } catch (err) {
-      res
-        .status(400)
-        .json({ status: "error", error: "Issues creating new user" });
+      res.status(400).json({status: 'error', error: 'Unable to create new user'})
     }
-    // const user = await User.findOne({ id: req.decoded.id });
-    // console.log(user);
-    // if (await bcrypt.compare(password, user.password)) {
-    //   const token = jwt.sign({ id: user.id, email: user.email }, secret);
-    //   return res.json({ status: "ok", data: token });
-    // }
-    res.status(200).json({ status: "ok" });
   })
 
   // LOGIN --------------------------------------
   .post("/login", async (req, res) => {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email }).lean();
+    // Validate
+    const {error} = loginValidation(req.body)
+    if (error) return res.status(400).json({status: 'error', error: error.details[0].message}) 
+        
+    // User exists
+    const user = await User.findOne({email})
+    if(!user) return res.status(400).json({status: 'error', error: 'User does not exist'})
 
-    if (!user) {
-      return res.json({ status: "error", error: "Invalid email/password" });
-    }
     // Check that the hashed password matches
     if (await bcrypt.compare(password, user.password)) {
-      const token = jwt.sign({ id: user.id, email: user.email }, secret);
-      return res.json({ status: "ok", data: token });
+      const token = jwt.sign({ _id: user._id }, secret);
+      return res.json({ status: "ok", message: 'Logged in!', data: token });
     }
 
     res.json({ status: "error", error: "Invalid email/password" });

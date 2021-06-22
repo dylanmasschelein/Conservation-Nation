@@ -29,20 +29,15 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
     formData.append("password", data.password);
     formData.append("confirmPassword", data.confirmPassword);
 
+    console.dir(formData);
     for (let key of formData.entries()) {
       console.log(key, formData.get(key));
     }
 
     axios
-      .post(
-        `http://localhost:8080/user/register`,
-        {
-          formData,
-        },
-        {
-          "Content-type": "application/json",
-        }
-      )
+      .post(`http://localhost:8080/user/register`, {
+        formData: formData,
+      })
       .then((res) => {
         console.log(res);
         res.data.status === "ok" ? successAlert(res.data.data) : failedAlert();
