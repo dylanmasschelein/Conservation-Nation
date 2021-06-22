@@ -12,7 +12,8 @@ module.exports = (req, res, next) => {
       return res.status(401).send("Invalid auth token");
     }
 
-    req.decoded = decoded;
-    next();
+   req.decoded = decoded;
+   next();
+  
   });
 };

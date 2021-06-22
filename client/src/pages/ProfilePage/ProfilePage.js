@@ -9,7 +9,7 @@ const ProfilePage = (props) => {
   const [failedAuth, setFailedAuth] = useState(false);
   const [followedAreas, setFollowedAreas] = useState(null);
   const token = sessionStorage.getItem("token");
-
+ 
   const getData = (token) => {
     axios
       .get("http://localhost:8080/user/current", {
@@ -51,7 +51,6 @@ const ProfilePage = (props) => {
   };
 
   const handleDelete = (id) => {
-    console.log(user.email);
     axios
       .delete(`http://localhost:8080/user/${user.email}/area/${id}`)
       .then(() => getData(token))

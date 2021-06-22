@@ -5,7 +5,7 @@ const uri = process.env.NODE_MONGO_URI;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const authorize = require("../middleware/authorize");
+const authorize = require('../middleware/authorize');
 const User = require("../model/user");
 const secret = process.env.JWT_SECRET;
 const mongoose = require("mongoose");
@@ -40,7 +40,6 @@ const upload = multer({
   storage: storage,
   fileFilter: fileFilter,
 });
-// Mongo
 
 function validateInput(input) {
   if (!input || typeof input !== "string") {
@@ -51,10 +50,9 @@ function validateInput(input) {
 router
   .get("/current", authorize, async (req, res) => {
     try {
-      const user = await User.findOne({ id: req.decoded.id });
-      delete user.password;
-      res.json(user);
-      console.log(user);
+      const user = await User.findOne({ _id: req.decoded._id });
+      res.send(user);
+
     } catch (err) {
       return res
         .status(400)
@@ -62,10 +60,9 @@ router
     }
   })
 
-  // create token on reguister? -- or login after register?
-
   // REGISTER ---------------------------------------------
   .post("/register", async (req, res) => {
+
     const {
       email,
       password: incomingPassword,
@@ -80,17 +77,17 @@ router
       followedAreas,
     } = req.body;
 
-    // Validate
-    const {error} = registerValidation(req.body)
-    if (error) return res.status(400).json({status: 'error', error: error.details[0].message}) 
 
+console.log(confirmPassword, incomingPassword)
+    // const {error} = registerValidation(req.body)
+    // if (error) return res.status(400).json({status: 'error', error: error.details[0].message}) 
 
     const emailExists = await User.findOne({email})
     if(emailExists) return res.status(400).json({status: 'error', error: 'Email already in use'})
 
-    if(incomingPassword !== confirmPassword) {
-      return res.status(400).json({status: 'error', error: 'Passwords must match'})
-    }
+    // if(incomingPassword === confirmPassword) 
+    //   return res.json({status: 'error', error: 'Passwords must match'})
+    
     // Hashing password
     const password = await bcrypt.hash(incomingPassword, 10);
 
@@ -108,6 +105,7 @@ router
           volunteer,
           followedAreas,
     })
+
     try{
       // Save new user
       const savedUser = await user.save()
@@ -133,7 +131,7 @@ router
     // Check that the hashed password matches
     if (await bcrypt.compare(password, user.password)) {
       const token = jwt.sign({ _id: user._id }, secret);
-      return res.json({ status: "ok", message: 'Logged in!', data: token });
+      return res.status(200).json({ status: "ok", message: 'Logged in!', data: token });
     }
 
     res.json({ status: "error", error: "Invalid email/password" });

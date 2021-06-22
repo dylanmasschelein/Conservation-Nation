@@ -4,17 +4,15 @@ const Joi = require('joi');
 const registerValidation = (data) => {
 
     const schema = Joi.object({
-      email: Joi.string().min(6).required().email(),
-      username: Joi.string().min(6).required(),
-      password: Joi.string().min(6).max(255).required(),
-      firstName: Joi.string().required(),
-      lastName: Joi.string().required(),
-      address: Joi.string().required(),
-      city: Joi.string().required(),
-      country: Joi.string().required(),
-      about: Joi.string(),
-      volunteer: Joi.boolean(),
-      followedArea: Joi.array(),
+    //   email: Joi.string().min(6).required().email(),
+    //   username: Joi.string().min(6).required(),
+    //   password: Joi.string().min(6).max(255).required(),
+    //   firstName: Joi.string().required(),
+    //   lastName: Joi.string().required(),
+    //   address: Joi.string().required(),
+    //   city: Joi.string().required(),
+    //   country: Joi.string().required(),
+    //   about: Joi.string(),
     })
 
     return schema.validate(data)

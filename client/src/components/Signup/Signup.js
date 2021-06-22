@@ -3,11 +3,10 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 
 const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
-  const successAlert = (token) => {
-    // sessionStorage.setItem("token", token);
-    setRedirect("/profile");
-    setToggleModal(true);
-    setModalText("Signup successful! Welcome!");
+  const successAlert = (message) => {
+    setRedirect("/");
+    setToggleModal(true); // open login modal nav
+    setModalText(message);
   };
 
   const failedAlert = () => {
@@ -15,34 +14,26 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
     setModalText("Passwords must match!");
   };
 
-  const onSubmit = (data) => {
-    const formData = new FormData();
-    formData.append("firstName", "Dylan");
-    formData.append("lastName", data.lastName);
-    formData.append("address", data.address);
-    formData.append("city", data.city);
-    formData.append("country", data.country);
-    formData.append("avatar", data.avatar[0]);
-    formData.append("volunteer", data.volunteer);
-    formData.append("about", data.about);
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-    formData.append("confirmPassword", data.confirmPassword);
-
-    console.dir(formData);
-    for (let key of formData.entries()) {
-      console.log(key, formData.get(key));
-    }
-
+  const onSubmit = (data) => {   
     axios
       .post(`http://localhost:8080/user/register`, {
-        formData: formData,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        address: data.address,
+        city: data.city,
+        country: data.country,
+        volunteer: data.volunteer,
+        about: data.about,
+        email: data.email,
+        username: data.email,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
       })
       .then((res) => {
         console.log(res);
-        res.data.status === "ok" ? successAlert(res.data.data) : failedAlert();
+        res.data.status === "ok" ? successAlert(res.data.message) : failedAlert();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error('err'));
   };
 
   const {
@@ -50,10 +41,7 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  console.log(register);
-  console.log(errors);
-
+ console.log(errors)
   return (
     <div className='signup'>
       <h2 className='signup__name'>Register here!</h2>
