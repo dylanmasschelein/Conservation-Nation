@@ -1,17 +1,20 @@
+@use '../../partials/variables' as *;
+
 .map {
   height: 90vh;
   width: 100vw;
 
-  &__zoom {
-    margin: 1rem;
-  }
-
   &__toggle {
     z-index: 9999999;
     position: absolute;
-    bottom: 2rem;
+    bottom: 5rem;
+    right: 2rem;
     color: white;
     font-size: 3rem;
     transform: rotate(90deg);
+
+    &--off {
+      color: $color-black;
+    }
   }
 }
