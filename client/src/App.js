@@ -15,6 +15,8 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ModalWindow from "./components/ModalWindow/ModalWindow";
 
 const App = () => {
+  const [open, setOpen] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
   const [user, setUser] = useState(null);
   const [toggleModal, setToggleModal] = useState(false);
   const [modalText, setModalText] = useState("");
@@ -26,6 +28,10 @@ const App = () => {
         setToggleModal={setToggleModal}
         setModalText={setModalText}
         setRedirect={setRedirect}
+        open={open}
+        setOpen={setOpen}
+        openLogin={openLogin}
+        setOpenLogin={setOpenLogin}
       />
       {toggleModal && (
         <ModalWindow
@@ -44,6 +50,8 @@ const App = () => {
               setToggleModal={setToggleModal}
               setModalText={setModalText}
               setRedirect={setRedirect}
+              setOpenLogin={setOpenLogin}
+              setOpen={setOpen}
             />
           )}
         />

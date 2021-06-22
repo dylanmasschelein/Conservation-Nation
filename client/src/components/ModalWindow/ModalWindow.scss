@@ -29,6 +29,7 @@
 
   &__button {
     @include accent-button;
+    color: white;
     margin-top: 1rem;
     padding: 1rem;
     width: 7rem;

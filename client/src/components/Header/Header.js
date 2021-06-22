@@ -1,15 +1,22 @@
 import whereTo from "../../assets/Images/Where-to.png";
-import { useState } from "react";
+
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import Login from "../Login/Login";
 import logo from "../../assets/Images/conservation-nation-logo.png";
 import "./Header.scss";
 
-const Header = ({ setRedirect, history, setToggleModal, setModalText }) => {
-  const [open, setOpen] = useState(false);
-  const [openLogin, setOpenLogin] = useState(false);
-  // const [animate, setAnimate] = useState(false);
+const Header = (props) => {
+  const {
+    setRedirect,
+    history,
+    setToggleModal,
+    setModalText,
+    open,
+    setOpen,
+    openLogin,
+    setOpenLogin,
+  } = props;
 
   const profileNavigation = () => {
     if (typeof sessionStorage.getItem("token") !== "string") {

@@ -22,7 +22,7 @@
     color: black;
     top: 0;
     height: 10rem;
-    margin: 5.5rem 4rem 0 0;
+    margin: 5.5rem 2rem 0 0;
     z-index: 402;
   }
 
@@ -45,11 +45,15 @@
   transition: 1s;
 
   &--slidein {
-    animation: slidein 1s ease both;
+    opacity: 1;
+    transform: translate(0%)
+
   }
 
   &--slideout {
-    animation: slideout 1s ease forwards;
+    opacity: 0;
+    transform: translate(100%)
+
   }
 
   &__link {
