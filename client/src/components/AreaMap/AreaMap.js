@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -8,6 +8,8 @@ import {
   useMap,
   useMapEvents,
 } from "react-leaflet";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faToggleOn } from "@fortawesome/free-solid-svg-icons";
 import "leaflet-defaulticon-compatibility";
 import "../AreaMap/AreaMap.scss";
 import SpecificArea from "../../components/SpecificArea/SpecificArea";
@@ -22,6 +24,7 @@ const AreaMap = (props) => {
     center,
     observations,
   } = props;
+  const [toggleMap, setToggleMap] = useState(true);
 
   useEffect(() => {}, [areas, userLocation]);
 
@@ -86,19 +89,24 @@ const AreaMap = (props) => {
         className='map'
         center={[52, -122]}
         zoom={2.5}
-        scrollWheelZoom={true}
+        scrollWheelZoom={false}
         zoomControl={false}
       >
-        <ZoomControl position='bottomright' />
         {!observations && center ? <CenterMap center={center} /> : null}
         {observations && <PlotObservations />}
-        <TileLayer
-          attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
-          url='https://api.mapbox.com/styles/v1/dylanmasschelein/ckq1qqqes17n517ju45xlaqfq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZHlsYW5tYXNzY2hlbGVpbiIsImEiOiJja3B5dmlyZXUwaG55Mm9xc3RsNzBybWV2In0.NJDvx0UbxYYMpvuQsamo6w'
-          // attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
-          // url='https://api.mapbox.com/styles/v1/dylanmasschelein/ckq1tjf5b0jig17n785z67zv4/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZHlsYW5tYXNzY2hlbGVpbiIsImEiOiJja3B5dmlyZXUwaG55Mm9xc3RsNzBybWV2In0.NJDvx0UbxYYMpvuQsamo6w'
-        />
+        {toggleMap ? (
+          <TileLayer
+            attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
+            url='https://api.mapbox.com/styles/v1/dylanmasschelein/ckq1qqqes17n517ju45xlaqfq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZHlsYW5tYXNzY2hlbGVpbiIsImEiOiJja3B5dmlyZXUwaG55Mm9xc3RsNzBybWV2In0.NJDvx0UbxYYMpvuQsamo6w'
+          />
+        ) : (
+          <TileLayer
+            attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
+            url='https://api.mapbox.com/styles/v1/dylanmasschelein/ckq1tjf5b0jig17n785z67zv4/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZHlsYW5tYXNzY2hlbGVpbiIsImEiOiJja3B5dmlyZXUwaG55Mm9xc3RsNzBybWV2In0.NJDvx0UbxYYMpvuQsamo6w'
+          />
+        )}
         {areas && <AreaPolygons />}
+        <FontAwesomeIcon icon={faToggleOn} className='map__toggle' />
       </MapContainer>
     </div>
   );

@@ -36,7 +36,6 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({
   storage: storage,
-  // limits: { fileSize: 1024 * 1024 * 5 },
   fileFilter: fileFilter,
 });
 // Mongo
@@ -65,7 +64,7 @@ router
 
   // REGISTER ---------------------------------------------
   .post("/register", upload.single("avatar"), async (req, res) => {
-    console.log(req.file);
+    console.log(req.body);
     const {
       email,
       password: incomingPassword,
@@ -80,12 +79,12 @@ router
       followedAreas,
     } = req.body;
 
-    validateInput(firstName);
-    validateInput(lastName);
-    validateInput(address);
-    validateInput(city);
-    validateInput(country);
-    validateInput(about);
+    // validateInput(firstName);
+    // validateInput(lastName);
+    // validateInput(address);
+    // validateInput(city);
+    // validateInput(country);
+    // validateInput(about);
 
     if (!email || typeof email !== "string") {
       return res.status(400).json({ status: "error", error: "Invalid email" });

@@ -9,7 +9,15 @@ import tree from "../../assets/Images/tree.png";
 import coral from "../../assets/Images/coral.png";
 import { Marker } from "react-leaflet";
 
-const HomePage = ({ user, setToggleModal, setModalText, setRedirect }) => {
+const HomePage = (props) => {
+  const {
+    user,
+    setToggleModal,
+    setModalText,
+    setRedirect,
+    setOpen,
+    setOpenLogin,
+  } = props;
   const [search, setSearch] = useState("");
   const [areas, setAreas] = useState(null);
   const [areaBounds, setAreaBounds] = useState(null);
@@ -116,6 +124,8 @@ const HomePage = ({ user, setToggleModal, setModalText, setRedirect }) => {
       setToggleModal(true);
       setModalText("Please sign in to follow an area!");
       setRedirect("/");
+      setOpen(true);
+      setOpenLogin(true);
     } else if (!clickedArea) {
       setToggleModal(true);
       setModalText("You must inspect an area to follow it!");

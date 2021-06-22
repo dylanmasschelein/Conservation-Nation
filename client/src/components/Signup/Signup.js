@@ -17,22 +17,22 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
 
   const onSubmit = (data) => {
     const formData = new FormData();
-    formData.append("firstName", data.firstName);
+    formData.append("firstName", "Dylan");
     formData.append("lastName", data.lastName);
     formData.append("address", data.address);
     formData.append("city", data.city);
     formData.append("country", data.country);
-    formData.append("file", data.avatar[0]);
+    formData.append("avatar", data.avatar[0]);
     formData.append("volunteer", data.volunteer);
     formData.append("about", data.about);
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("confirmPassword", data.confirmPassword);
 
-    for (let key of formData.keys()) {
+    for (let key of formData.entries()) {
       console.log(key, formData.get(key));
     }
-    console.log(formData);
+
     axios
       .post(
         `http://localhost:8080/user/register`,
@@ -40,9 +40,7 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
           formData,
         },
         {
-          headers: {
-            "Content-Type": "application/json",
-          },
+          "Content-type": "application/json",
         }
       )
       .then((res) => {
@@ -147,7 +145,7 @@ const Signup = ({ setRedirect, setToggleModal, setModalText }) => {
               {...register("avatar")}
               id='avatar'
               name='avatar'
-              className='signup__input'
+              className='signup__avatar'
             />
           </label>
           <label
