@@ -5,40 +5,15 @@ const uri = process.env.NODE_MONGO_URI;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const authorize = require('../middleware/authorize');
+const authorize = require("../middleware/authorize");
 const User = require("../model/user");
 const secret = process.env.JWT_SECRET;
+// Mongo
 const mongoose = require("mongoose");
-const {registerValidation, loginValidation} = require('../validation');
-
-
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-});
-// multer
-const multer = require("multer");
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
-
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-
-const upload = multer({
-  storage: storage,
-  fileFilter: fileFilter,
 });
 
 function validateInput(input) {
@@ -49,10 +24,11 @@ function validateInput(input) {
 
 router
   .get("/current", authorize, async (req, res) => {
+    console.log(req.decoded.email)
     try {
-      const user = await User.findOne({ _id: req.decoded._id });
-      res.send(user);
+      const user = await User.findOne({ email: req.decoded.email });
 
+      res.json(user);
     } catch (err) {
       return res
         .status(400)
@@ -62,7 +38,6 @@ router
 
   // REGISTER ---------------------------------------------
   .post("/register", async (req, res) => {
-
     const {
       email,
       password: incomingPassword,
@@ -77,61 +52,77 @@ router
       followedAreas,
     } = req.body;
 
+    // validateInput(firstName);
+    // validateInput(lastName);
+    // validateInput(address);
+    // validateInput(city);
+    // validateInput(country);
+    // validateInput(about);
 
-console.log(confirmPassword, incomingPassword)
-    // const {error} = registerValidation(req.body)
-    // if (error) return res.status(400).json({status: 'error', error: error.details[0].message}) 
+    if (!email || typeof email !== "string") {
+      return res.status(400).json({ status: "error", error: "Invalid email" });
+    }
 
-    const emailExists = await User.findOne({email})
-    if(emailExists) return res.status(400).json({status: 'error', error: 'Email already in use'})
+    if (incomingPassword !== confirmPassword) {
+      return res
+        .status(400)
+        .json({ status: "error", error: "Passwords must match" });
+    }
 
-    // if(incomingPassword === confirmPassword) 
-    //   return res.json({status: 'error', error: 'Passwords must match'})
-    
+    // Check if password exists and is a string
+    if (!incomingPassword || typeof incomingPassword !== "string") {
+      return res
+        .status(400)
+        .json({ status: "error", error: "Invalid password" });
+    }
+
+    // Check to ensure password is 8+ charachters
+    if (incomingPassword.length < 8) {
+      return res.status(400).json({
+        status: "error",
+        error: "Password too short. Should be at least 8 characters",
+      });
+    }
+
     // Hashing password
-    const password = await bcrypt.hash(incomingPassword, 10);
-
-    // Create new user
-    const user = new User({
-          email,
-          username: email,
-          password,
-          firstName,
-          lastName,
-          address,
-          city,
-          country,
-          about,
-          volunteer,
-          followedAreas,
-    })
-
-    try{
-      // Save new user
-      const savedUser = await user.save()
-      res.status(200).json({status: 'ok', message: 'user created successfully'})
+    const password = await bcrypt.hash(incomingPassword, 8);
+    try {
+      const newUser = await User.create({
+        email,
+        username: email,
+        password,
+        firstName,
+        lastName,
+        address,
+        city,
+        country,
+        about,
+        volunteer,
+        followedAreas,
+      });
 
     } catch (err) {
-      res.status(400).json({status: 'error', error: 'Unable to create new user'})
+      return res
+        .status(400)
+        .json({ status: "error", error: "Issues creating new user" });
     }
+
+    res.status(200).json({ status: "ok" });
   })
 
   // LOGIN --------------------------------------
   .post("/login", async (req, res) => {
     const { email, password } = req.body;
 
-    // Validate
-    const {error} = loginValidation(req.body)
-    if (error) return res.status(400).json({status: 'error', error: error.details[0].message}) 
-        
-    // User exists
-    const user = await User.findOne({email})
-    if(!user) return res.status(400).json({status: 'error', error: 'User does not exist'})
+    const user = await User.findOne({ email }).lean();
 
+    if (!user) {
+      return res.json({ status: "error", error: "Invalid email/password" });
+    }
     // Check that the hashed password matches
     if (await bcrypt.compare(password, user.password)) {
-      const token = jwt.sign({ _id: user._id }, secret);
-      return res.status(200).json({ status: "ok", message: 'Logged in!', data: token });
+      const token = jwt.sign({ id: user.id, email: user.email }, secret);
+      return res.json({ status: "ok", data: token });
     }
 
     res.json({ status: "error", error: "Invalid email/password" });
@@ -188,48 +179,6 @@ console.log(confirmPassword, incomingPassword)
     );
 
     res.json({ status: "ok" });
-  })
-
-  .delete("/:email/area/:area", async (req, res) => {
-    const { email, area } = req.params;
-
-    const convertedArea = Number(area);
-    console.log(convertedArea);
-    const user = await User.findOne({ email }).lean();
-    console.log(user);
-
-    if (!user) {
-      return res.status(400).json({
-        status: "error",
-        error: "Must be logged in to follow areas",
-      });
-    }
-
-    const followed = user.followedAreas;
-
-    if (!followed) {
-      return res.status(400).json({
-        status: "error",
-        error: "You are not following any areas yet",
-      });
-    }
-
-    const matchIndex = followed.findIndex(
-      (followedArea) => followedArea.id === convertedArea
-    );
-    console.log(matchIndex);
-
-    if (matchIndex === -1) {
-      return res.status(400).json({ status: "error", error: "Area not found" });
-    }
-    followed.splice(matchIndex, 1);
-
-    await User.updateOne(
-      { email: email },
-      { $set: { followedAreas: followed } }
-    );
-
-    res.status(200).json({ status: "Area delelete from following list" });
   })
 
   // CHANGE PASSWORD ------------------------------------ Add if time allows
