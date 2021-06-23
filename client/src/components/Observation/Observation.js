@@ -3,6 +3,8 @@ import "./Observation.scss";
 
 export default function Observation(props) {
   const { setModalText, setToggleModal, setClickedObservation } = props;
+
+  // Protecting against observations that are null
   if (!props.observation.taxon) {
     setToggleModal(true);
     setModalText("Taxon information corrupt, please select another");

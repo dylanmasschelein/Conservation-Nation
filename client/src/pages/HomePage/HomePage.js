@@ -24,17 +24,7 @@ const HomePage = (props) => {
   const [observations, setObservations] = useState(null);
   const [clickedObservation, setClickedObservation] = useState(null);
   const [clickedArea, setClickedArea] = useState(null);
-  // const [userLocation, setUserLocation] = useState(null);
   const [center, setCenter] = useState(null);
-
-  // Getting userlocation on initial load and setting to map center -- needs work
-
-  // const getUserLocation = () => {
-  //   navigator.geolocation.getCurrentPosition((position) => {
-  //     const { latitude, longitude } = position.coords;
-  //     setUserLocation([latitude, longitude]);
-  //   });
-  // };
 
   useEffect(() => {}, [
     areas,
@@ -50,7 +40,6 @@ const HomePage = (props) => {
     axios
       .get(`http://localhost:8080/areas/country/${search}`)
       .then((areas) => {
-        //should re-render and recenter??
         setCenter([
           areas.data[0].geojson.geometry.coordinates[0][0][1],
           areas.data[0].geojson.geometry.coordinates[0][0][0],
@@ -74,6 +63,7 @@ const HomePage = (props) => {
     });
   };
 
+  // Retrieving Observations data on btn click
   const exploreArea = () => {
     if (!clickedArea) {
       setRedirect("/");
@@ -83,8 +73,8 @@ const HomePage = (props) => {
     if (areaBounds) getINaturalistData();
   };
 
+  // Calling API for obervation data
   const getINaturalistData = () => {
-    console.log("getINaturalistData");
     const { neLat, neLng, swLat, swLng } = areaBounds;
     axios
       .get(
@@ -117,8 +107,7 @@ const HomePage = (props) => {
       ));
     }
   };
-  // why didnt if guards work??
-  //user.update is not a function (backend)
+
   const followArea = () => {
     if (!user) {
       setToggleModal(true);
@@ -132,8 +121,6 @@ const HomePage = (props) => {
       setRedirect("/");
     } else {
       const { email } = user;
-      console.log("clicked");
-      //grab whoever is logged in id/username or something so i can find them on the backend and update
       axios
         .put(`http://localhost:8080/user/${email}`, {
           clickedArea,

@@ -21,6 +21,7 @@ const App = () => {
   const [toggleModal, setToggleModal] = useState(false);
   const [modalText, setModalText] = useState("");
   const [redirect, setRedirect] = useState("");
+
   return (
     <Router>
       <Header
@@ -75,13 +76,14 @@ const App = () => {
               setToggleModal={setToggleModal}
               setModalText={setModalText}
               setRedirect={setRedirect}
+              setOpenLogin={setOpenLogin}
+              setOpen={setOpen}
               {...routerProps}
             />
           )}
         />
-        <Redirect path='/' />{" "}
+        <Redirect to='/' />
       </Switch>
-      {/* <Footer /> */}
     </Router>
   );
 };

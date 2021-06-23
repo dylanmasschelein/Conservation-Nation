@@ -1,5 +1,4 @@
 import whereTo from "../../assets/Images/Where-to.png";
-
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import Login from "../Login/Login";
@@ -34,7 +33,6 @@ const Header = (props) => {
       <Link to='/' className='header__link'>
         <img src={logo} alt='Logo' className='header__logo' />
       </Link>
-      {/* <Link to='/user/login' className='header__link'> */}
       <img
         src={whereTo}
         alt='Where to navigation text'
@@ -43,7 +41,6 @@ const Header = (props) => {
           setOpen(!open);
         }}
       />
-
       <nav
         className={
           open ? "dropdown dropdown--slidein" : "dropdown dropdown--slideout"
@@ -53,6 +50,7 @@ const Header = (props) => {
           Home
         </Link>
         <Link
+          to='/'
           onClick={() => setOpenLogin(!openLogin)}
           className='dropdown__link'
         >
