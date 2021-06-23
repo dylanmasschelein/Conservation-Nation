@@ -2,13 +2,9 @@ import "./Login.scss";
 import { useState } from "react";
 import axios from "axios";
 
-const Login = ({
-  setOpen,
-  setOpenLogin,
-  setModalText,
-  setToggleModal,
-  setRedirect,
-}) => {
+const Login = (props) => {
+  const { setOpen, setOpenLogin, setModalText, setToggleModal, setRedirect } =
+    props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,8 +13,8 @@ const Login = ({
     setRedirect("/profile");
     setToggleModal(true);
     setModalText("Successfully logged in! Welcome!");
-    setOpenLogin(false); // switched from false to true if I dont provide token on registration
-    setOpen(false); // same same
+    setOpenLogin(false);
+    setOpen(false);
   };
 
   const failedAlert = (alert) => {

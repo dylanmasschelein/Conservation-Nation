@@ -8,6 +8,7 @@ require("dotenv").config();
 const authorize = require("../middleware/authorize");
 const User = require("../model/user");
 const secret = process.env.JWT_SECRET;
+// const upload = require('../../client/public/uploads')
 // Mongo
 const mongoose = require("mongoose");
 mongoose.connect(uri, {
@@ -24,7 +25,7 @@ function validateInput(input) {
 
 router
   .get("/current", authorize, async (req, res) => {
-    console.log(req.decoded.email)
+    console.log(req.decoded.email);
     try {
       const user = await User.findOne({ email: req.decoded.email });
 
@@ -100,7 +101,6 @@ router
         volunteer,
         followedAreas,
       });
-
     } catch (err) {
       return res
         .status(400)
@@ -181,6 +181,24 @@ router
     res.json({ status: "ok" });
   })
 
+  .post("/upload", (req, res) => {
+    if (req.files === null) {
+      return res
+        .status(400)
+        .json({ status: "error", error: "No file uploaded" });
+    }
+    const file = req.files.file;
+    console.log(file);
+    console.log(file.mv);
+    file.mv("../../client/public/uploads", (err) => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ status: "error", error: "Path not found" });
+      }
+      res.json({ filename: file.name, filePath: `/uploads/${file.name}` });
+    });
+  })
   // CHANGE PASSWORD ------------------------------------ Add if time allows
   .post("/change-password", async (req, res) => {
     const { token, newpassword: incomingPassword } = req.body;

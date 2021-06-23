@@ -11,7 +11,6 @@ function SearchBar({ setSearch, handleSearch, search, setClickedObservation }) {
       }}
       className='search'
     >
-      {/* <label className='search__label'>Discover</label> */}
       <input
         type='text'
         placeholder='Discover'

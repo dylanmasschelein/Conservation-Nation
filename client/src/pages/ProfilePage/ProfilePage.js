@@ -9,7 +9,8 @@ const ProfilePage = (props) => {
   const [failedAuth, setFailedAuth] = useState(false);
   const [followedAreas, setFollowedAreas] = useState(null);
   const token = sessionStorage.getItem("token");
- 
+
+  // Getting user data from database
   const getData = (token) => {
     axios
       .get("http://localhost:8080/user/current", {
@@ -27,19 +28,10 @@ const ProfilePage = (props) => {
   useEffect(() => {
     if (!token) {
       setFailedAuth(true);
+    } else {
+      getData(token);
     }
-    getData(token);
   }, []);
-
-  const editProfileInfo = (key, value) => {
-    axios
-      .put(`http://localhost:8080/user/edit/${user.email}`, {
-        value,
-        key,
-      })
-      .then((res) => console.log("res sent", res))
-      .catch((err) => console.error(err));
-  };
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
@@ -57,14 +49,14 @@ const ProfilePage = (props) => {
       .catch((err) => console.error(err));
   };
 
-  {
-    !failedAuth && <h1>You must be logged in to view your profile</h1>;
+  if (failedAuth) {
+    return <h1>You must be logged in to view your profile</h1>;
   }
 
   return (
     <div className='profile'>
       <div className='profile__user'>
-        {user && <ProfileInfo user={user} editProfileInfo={editProfileInfo} />}
+        {user && <ProfileInfo user={user} />}
         <button onClick={handleLogout} className='profile__logout'>
           Log out
         </button>

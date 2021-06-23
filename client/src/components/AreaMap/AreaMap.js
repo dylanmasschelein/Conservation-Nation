@@ -4,7 +4,6 @@ import {
   TileLayer,
   GeoJSON,
   Tooltip,
-  ZoomControl,
   useMap,
   useMapEvents,
 } from "react-leaflet";
@@ -34,6 +33,7 @@ const AreaMap = (props) => {
     map.flyTo(center.center, 6);
     return null;
   };
+
   // Plotting designated areas on map
   const AreaPolygons = () => {
     const map = useMapEvents({
@@ -90,7 +90,7 @@ const AreaMap = (props) => {
         className='map'
         center={[52, -122]}
         zoom={2.5}
-        scrollWheelZoom={false}
+        scrollWheelZoom={true}
         zoomControl={false}
       >
         {!observations && center ? <CenterMap center={center} /> : null}
