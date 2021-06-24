@@ -1,11 +1,7 @@
-// EXPRESS
-const { default: axios } = require("axios");
 const express = require("express");
 const router = express.Router();
-// MONGO
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
-// ADMIN
 const uri = process.env.NODE_MONGO_URI;
 const client = new MongoClient(uri, { useUnifiedTopology: true });
 
@@ -27,7 +23,7 @@ router
     }
   })
 
-  // Will need filtering for country and marine -- phase 2
+  // Filtering for marine areas only -- Future implementation
   .get("/area/country/:country/marine/:marine", async (req, res) => {
     const { marine } = req.params;
     try {
@@ -44,7 +40,7 @@ router
     }
   })
 
-  // will need formatting --- try any words > 3 letters capitalize -- phase 2
+  // Getting area by name -- Future implementation
   .get("/area/:name", async (req, res) => {
     const { name } = req.params;
     try {
@@ -68,37 +64,3 @@ function capitalize(str) {
 }
 
 module.exports = router;
-
-// const badWords = ['and', 'the', 'of', 'du']
-
-// function capitalizeAllBut(str) {
-//   const lower = str.toLowerCase()
-
-//   const splitStr = lower.split(' ')
-//   for (let i=0; i < splitStr.length; i++) {
-
-//       switch (splitStr[i]) {
-//         case (badWords[0]):
-//           break;
-//         case (badWords[1]):
-//               break;
-//         case(badWords[2]):
-//               break;
-//         case(badWords[3]):
-//               break;
-//         default:
-//           const capitalLetter = splitStr[i][0].toUpperCase();
-//           splitStr[i] = splitStr[i][0].toUpperCase() + splitStr[i].slice(1)
-//           break;
-//   }
-
-//   }
-//       return splitStr;
-
-// }
-
-// /*
-// str[i] = str[i][0].toUpperCase() + str[i].slice(1);
-// */
-
-// console.log(capitalizeAllBut('parc national du diawaling'));

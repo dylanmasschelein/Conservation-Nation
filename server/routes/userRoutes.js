@@ -8,7 +8,7 @@ require("dotenv").config();
 const authorize = require("../middleware/authorize");
 const User = require("../model/user");
 const secret = process.env.JWT_SECRET;
-// const upload = require('../../client/public/uploads')
+
 // Mongo
 const mongoose = require("mongoose");
 mongoose.connect(uri, {
@@ -17,7 +17,8 @@ mongoose.connect(uri, {
   useCreateIndex: true,
 });
 
-function validateInput(input) {
+// Helpers
+function validateInput(input, res) {
   if (!input || typeof input !== "string") {
     return res.status(400).json({ status: "error", error: `Invalid ${input}` });
   }
@@ -25,7 +26,6 @@ function validateInput(input) {
 
 router
   .get("/current", authorize, async (req, res) => {
-    console.log(req.decoded.email);
     try {
       const user = await User.findOne({ email: req.decoded.email });
 
@@ -37,7 +37,7 @@ router
     }
   })
 
-  // REGISTER ---------------------------------------------
+  // REGISTER
   .post("/register", async (req, res) => {
     const {
       email,
@@ -53,12 +53,13 @@ router
       followedAreas,
     } = req.body;
 
-    // validateInput(firstName);
-    // validateInput(lastName);
-    // validateInput(address);
-    // validateInput(city);
-    // validateInput(country);
-    // validateInput(about);
+    // Validation
+    validateInput(firstName, res);
+    validateInput(lastName, res);
+    validateInput(address, res);
+    validateInput(city, res);
+    validateInput(country, res);
+    validateInput(about, res);
 
     if (!email || typeof email !== "string") {
       return res.status(400).json({ status: "error", error: "Invalid email" });
@@ -70,14 +71,12 @@ router
         .json({ status: "error", error: "Passwords must match" });
     }
 
-    // Check if password exists and is a string
     if (!incomingPassword || typeof incomingPassword !== "string") {
       return res
         .status(400)
         .json({ status: "error", error: "Invalid password" });
     }
 
-    // Check to ensure password is 8+ charachters
     if (incomingPassword.length < 8) {
       return res.status(400).json({
         status: "error",
@@ -119,6 +118,7 @@ router
     if (!user) {
       return res.json({ status: "error", error: "Invalid email/password" });
     }
+
     // Check that the hashed password matches
     if (await bcrypt.compare(password, user.password)) {
       const token = jwt.sign({ id: user.id, email: user.email }, secret);
@@ -128,7 +128,7 @@ router
     res.json({ status: "error", error: "Invalid email/password" });
   })
 
-  // Updating user profile ------------------------------------ Needs completion
+  // Updating user profile -- Post program task
   .put("/edit/:email", async (req, res) => {
     const { email } = req.params;
     const { value, key } = req.body;
@@ -138,17 +138,16 @@ router
     res.json({ status: "ok" });
   })
 
-  // Updating liked followed areas ------------------------------------
+  // Adding followed areas
   .put("/:email", async (req, res) => {
     const { email } = req.params;
     const { clickedArea: area } = req.body;
 
     if (!area) {
-      res.json({ status: "error", error: "No area followed" });
+      return res.json({ status: "error", error: "No area followed" });
     }
 
-    const user = await User.findOne({ email: email });
-    // If area already followed.. send warning
+    const user = await User.findOne({ email });
 
     if (!user) {
       return res.json({
@@ -156,9 +155,8 @@ router
         error: "Must be logged in to follow areas",
       });
     }
-    const followed = user.followedAreas;
 
-    const match = followed.find((followedArea) => {
+    const match = user.followedAreas.find((followedArea) => {
       if (followedArea.id === area.id) {
         return followedArea;
       }
@@ -167,20 +165,59 @@ router
     if (match) {
       return res.json({
         status: "error",
-        error: `You are already following ${area.name} area!`,
+        error: `You're already following ${area.name} area!`,
       });
     }
 
     const updatedFollowedAreas = [...followed, area];
 
     await User.updateOne(
-      { email: email },
+      { email },
       { $set: { followedAreas: updatedFollowedAreas } }
     );
 
     res.json({ status: "ok" });
   })
 
+  // Deleteing followed area
+  .delete("/:email/area/:area", async (req, res) => {
+    const { email, area } = req.params;
+
+    const convertedArea = Number(area);
+
+    const user = await User.findOne({ email }).lean();
+
+    if (!user) {
+      return res.status(400).json({
+        status: "error",
+        error: "Must be logged in to follow areas",
+      });
+    }
+
+    const followed = user.followedAreas;
+
+    if (!followed) {
+      return res.status(400).json({
+        status: "error",
+        error: "You are not following any areas yet",
+      });
+    }
+
+    const matchIndex = followed.findIndex(
+      (followedArea) => followedArea.id === convertedArea
+    );
+
+    if (matchIndex === -1) {
+      return res.status(400).json({ status: "error", error: "Area not found" });
+    }
+    followed.splice(matchIndex, 1);
+
+    await User.updateOne({ email }, { $set: { followedAreas: followed } });
+
+    res.status(200).json({ status: "Area delelete from following list" });
+  })
+
+  // Uploading avatar
   .post("/upload", (req, res) => {
     if (req.files === null) {
       return res
@@ -199,6 +236,7 @@ router
       res.json({ filename: file.name, filePath: `/uploads/${file.name}` });
     });
   })
+
   // CHANGE PASSWORD ------------------------------------ Add if time allows
   .post("/change-password", async (req, res) => {
     const { token, newpassword: incomingPassword } = req.body;

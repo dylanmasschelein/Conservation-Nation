@@ -78,7 +78,7 @@ const HomePage = (props) => {
     const { neLat, neLng, swLat, swLng } = areaBounds;
     axios
       .get(
-        `https://api.inaturalist.org/v1/observations?geo=true&mappable=true&photos=true&nelat=${neLat}&nelng=${neLng}&swlat=${swLat}&swlng=${swLng}&per_page=100`
+        `https://api.inaturalist.org/v1/observations?geo=true&mappable=true&photos=true&nelat=${neLat}&nelng=${neLng}&swlat=${swLat}&swlng=${swLng}&per_page=200`
       )
       .then((observations) => {
         setObservations(observations.data.results);
