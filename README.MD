@@ -9,6 +9,7 @@
 ** Notes about project **
 
 => File upload functionality not completed when submitted, may be there once you look at it in github though
+=> There are some dependencies left in for future implementation
 => There are some server side routes that are not yet completed
 
 === areasDB ===
