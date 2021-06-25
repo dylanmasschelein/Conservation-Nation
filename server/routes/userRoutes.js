@@ -155,6 +155,7 @@ router
         error: "Must be logged in to follow areas",
       });
     }
+    const followed = user.followedAreas;
 
     const match = user.followedAreas.find((followedArea) => {
       if (followedArea.id === area.id) {
