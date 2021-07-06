@@ -8,6 +8,6 @@ Click here to watch my demo!: https://lnkd.in/dGzF7H8
 
 ![capstone pic](https://user-images.githubusercontent.com/71863937/124669998-33aef080-de68-11eb-9ba1-818b70324451.jpg)
 
-#Installation
+# Installation
 
 
