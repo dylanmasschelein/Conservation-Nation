@@ -3,7 +3,7 @@ import "./HomePage.scss";
 import AreaMap from "../../components/AreaMap/AreaMap";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Observation from "../../components/Observation/Observation";
-import { treeIcon, coralIcon } from "../../helperFunctions";
+import { treeIcon, coralIcon, findCenter } from "../../helperFunctions";
 import axios from "axios";
 import { Marker } from "react-leaflet";
 
@@ -32,7 +32,6 @@ const HomePage = (props) => {
     clickedArea,
     center,
   ]);
-  console.log(terrestrial);
 
   // Handling search
   const handleSearch = async (e) => {
@@ -42,36 +41,21 @@ const HomePage = (props) => {
         const areas = await axios.get(
           `http://localhost:8080/areas/marine/${search}`
         );
-        const center = areas.data[0].geojson.geometry.coordinates.find(
-          (area) => {
-            return area;
-          }
-        );
-        setCenter([center[0][1], center[0][0]]);
+        setCenter(findCenter(areas));
         setAreas(areas.data);
         setObservations(null);
       } else if (terrestrial === "land") {
         const areas = await axios.get(
           `http://localhost:8080/areas/land/${search}`
         );
-        const center = areas.data[0].geojson.geometry.coordinates.find(
-          (area) => {
-            return area;
-          }
-        );
-        setCenter([center[0][1], center[0][0]]);
+        setCenter(findCenter(areas));
         setAreas(areas.data);
         setObservations(null);
       } else {
         const areas = await axios.get(
           `http://localhost:8080/areas/country/${search}`
         );
-        const center = areas.data[0].geojson.geometry.coordinates.find(
-          (area) => {
-            return area;
-          }
-        );
-        setCenter([center[0][1], center[0][0]]);
+        setCenter(findCenter(areas));
         setAreas(areas.data);
         setObservations(null);
       }

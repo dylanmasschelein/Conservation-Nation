@@ -22,6 +22,18 @@ export const iucnCategories = (category) => {
   }
 };
 
+// Find and set center according to polygon type
+export const findCenter = (areas) => {
+  const center = areas.data[0].geojson.geometry.coordinates.find((area) => {
+    return area;
+  });
+  if (areas.data[0].geojson.geometry.type === "MultiPolygon") {
+    return [center[0][0][1], center[0][0][0]];
+  } else {
+    return [center[0][1], center[0][0]];
+  }
+};
+
 // Area styles based on land or marine
 export const marineStyle = {
   fillColor: "#044F67",
