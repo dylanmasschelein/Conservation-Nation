@@ -1,6 +1,15 @@
 # Conservation Nation
 
-🌳 Conservation Nation provides users the ability to learn about designated protected areas across the globe in a simple and interactive way 🌳  
+🌳 Conservation Nation provides users the ability to learn about designated protected areas across the globe 🌳  
+
+This project is the final capstone project for BrainStations Full Stack Web Development Bootcamp.  The goal was to conceptualize, propose, plan and execute a full stack application within 2 weeks. Conservation Nation was built using React, SASS, and Leaflet (mapping API) for the front end, Node/Express for the backend, along with JWT token for Auth. MongoDB/Mongoose was used as my NoSQL database to manage over 175,000 area objects and users data.
+
+Click here to watch my demo!: https://lnkd.in/dGzF7H8
+
+![capstone pic](https://user-images.githubusercontent.com/71863937/124669998-33aef080-de68-11eb-9ba1-818b70324451.jpg)
+
+#Installation
+
 
 
 - For simple project setup, download the repository and npm install dependencies on both client and server \*
