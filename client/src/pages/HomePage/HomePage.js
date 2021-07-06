@@ -40,11 +40,11 @@ const HomePage = (props) => {
       const areas = await axios.get(
         `http://localhost:8080/areas/country/${search}`
       );
+      const center = areas.data[0].geojson.geometry.coordinates.find((area) => {
+        return area;
+      });
 
-      setCenter([
-        areas.data[0].geojson.geometry.coordinates[0][0][1],
-        areas.data[0].geojson.geometry.coordinates[0][0][0],
-      ]);
+      setCenter([center[0][1], center[0][0]]);
       setAreas(areas.data);
       setObservations(null);
     } catch (err) {
