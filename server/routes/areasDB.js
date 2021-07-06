@@ -23,23 +23,42 @@ router
     }
   })
 
-  // Filtering for marine areas only -- Future implementation
-  .get("/area/country/:country/marine/:marine", async (req, res) => {
-    const { marine } = req.params;
+  // Filtering for marine areas
+  .get("/marine/:country", async (req, res) => {
+    const { country } = req.params;
     try {
       await client.connect();
       const cursor = await client
         .db("OneEarth")
         .collection("OneEarth_areas")
-        .findOne({ marine: marine });
+        .find({ "countries.0.name": country });
 
       const areas = await cursor.toArray();
-      res.json(areas);
+
+      const marine = await areas.filter((area) => area.marine !== false);
+      res.json(marine);
     } catch (e) {
       console.error(e);
     }
   })
+  // Filtering for land areas
+  .get("/land/:country", async (req, res) => {
+    const { country } = req.params;
+    try {
+      await client.connect();
+      const cursor = await client
+        .db("OneEarth")
+        .collection("OneEarth_areas")
+        .find({ "countries.0.name": country });
 
+      const areas = await cursor.toArray();
+
+      const land = await areas.filter((area) => area.marine === false);
+      res.json(land);
+    } catch (e) {
+      console.error(e);
+    }
+  })
   // Getting area by name -- Future implementation
   .get("/area/:name", async (req, res) => {
     const { name } = req.params;
