@@ -24,7 +24,7 @@ const HomePage = (props) => {
   const [clickedObservation, setClickedObservation] = useState(null);
   const [clickedArea, setClickedArea] = useState(null);
   const [center, setCenter] = useState(null);
-
+  const [terrestrial, setTerrestrial] = useState("all");
   useEffect(() => {}, [
     areas,
     observations,
@@ -32,21 +32,49 @@ const HomePage = (props) => {
     clickedArea,
     center,
   ]);
+  console.log(terrestrial);
 
   // Handling search
   const handleSearch = async (e) => {
     e.preventDefault(e);
     try {
-      const areas = await axios.get(
-        `http://localhost:8080/areas/country/${search}`
-      );
-      const center = areas.data[0].geojson.geometry.coordinates.find((area) => {
-        return area;
-      });
-
-      setCenter([center[0][1], center[0][0]]);
-      setAreas(areas.data);
-      setObservations(null);
+      if (terrestrial === "marine") {
+        const areas = await axios.get(
+          `http://localhost:8080/areas/marine/${search}`
+        );
+        const center = areas.data[0].geojson.geometry.coordinates.find(
+          (area) => {
+            return area;
+          }
+        );
+        setCenter([center[0][1], center[0][0]]);
+        setAreas(areas.data);
+        setObservations(null);
+      } else if (terrestrial === "land") {
+        const areas = await axios.get(
+          `http://localhost:8080/areas/land/${search}`
+        );
+        const center = areas.data[0].geojson.geometry.coordinates.find(
+          (area) => {
+            return area;
+          }
+        );
+        setCenter([center[0][1], center[0][0]]);
+        setAreas(areas.data);
+        setObservations(null);
+      } else {
+        const areas = await axios.get(
+          `http://localhost:8080/areas/country/${search}`
+        );
+        const center = areas.data[0].geojson.geometry.coordinates.find(
+          (area) => {
+            return area;
+          }
+        );
+        setCenter([center[0][1], center[0][0]]);
+        setAreas(areas.data);
+        setObservations(null);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -141,6 +169,7 @@ const HomePage = (props) => {
     <div className='home'>
       <div className='home__left'>
         <SearchBar
+          setTerrestrial={setTerrestrial}
           setSearch={setSearch}
           handleSearch={handleSearch}
           search={search}
