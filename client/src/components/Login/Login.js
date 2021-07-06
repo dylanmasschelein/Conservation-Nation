@@ -22,19 +22,21 @@ const Login = (props) => {
     setModalText(alert);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post(`http://localhost:8080/user/login`, {
-        email,
-        password,
-      })
-      .then((res) => {
-        res.data.status === "ok"
-          ? successAlert(res.data.data)
-          : failedAlert(res.data.error);
-      })
-      .catch((err) => console.error(err));
+    const login = {
+      email,
+      password,
+    };
+    try {
+      const res = await axios.post(`http://localhost:8080/user/login`, login);
+
+      res.data.status === "ok"
+        ? successAlert(res.data.data)
+        : failedAlert(res.data.error);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

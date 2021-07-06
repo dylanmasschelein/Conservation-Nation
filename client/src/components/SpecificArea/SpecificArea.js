@@ -1,4 +1,4 @@
-import iucnCategories from "../../helperFunctions";
+import { iucnCategories } from "../../helperFunctions";
 import "./SpecificArea.scss";
 
 export default function SpecificArea({ area }) {

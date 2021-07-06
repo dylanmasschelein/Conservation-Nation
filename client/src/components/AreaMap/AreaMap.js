@@ -11,6 +11,7 @@ import "leaflet-defaulticon-compatibility";
 import "../AreaMap/AreaMap.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faToggleOn } from "@fortawesome/free-solid-svg-icons";
+import { marineStyle, landStyle } from "../../helperFunctions";
 import SpecificArea from "../../components/SpecificArea/SpecificArea";
 
 const AreaMap = (props) => {
@@ -54,7 +55,6 @@ const AreaMap = (props) => {
               eventHandlers={{
                 click: () => {
                   setClickedArea(area);
-                  console.log(area);
                 },
               }}
             >
@@ -68,20 +68,6 @@ const AreaMap = (props) => {
         })}
       </>
     );
-  };
-
-  // Area styles based on land or marine
-  const marineStyle = {
-    fillColor: "#044F67",
-    weight: 2,
-    color: "#044F67",
-    fillOpacity: 0.3,
-  };
-  const landStyle = {
-    fillColor: "#679267",
-    weight: 2,
-    color: "#679267",
-    fillOpacity: 0.3,
   };
 
   return (

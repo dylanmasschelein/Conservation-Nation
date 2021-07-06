@@ -1,48 +1,10 @@
 import "./Signup.scss";
 import axios from "axios";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const Signup = (props) => {
   const { setOpen, setOpenLogin, setRedirect, setToggleModal, setModalText } =
     props;
-  // const [file, setFile] = useState("");
-  // const [fileName, setFileName] = useState("Choose File");
-  // const [uploadedFile, setUploadedFile] = useState({});
-
-  // const onFileChange = (e) => {
-  //   setFile(e.target.files[0]);
-  //   setFileName(e.target.files[0].name);
-  // };
-
-  // const submitFile = async (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-
-  //   try {
-  //     const res = await axios.post(
-  //       "http://localhost:8080/user/upload",
-  //       formData,
-  //       {
-  //         headers: {
-  //           "Content-type": "multipart/form-data",
-  //         },
-  //       }
-  //     );
-
-  //     const { fileName, filePath } = res.data;
-  //     console.log(fileName, filePath);
-  //     setUploadedFile({ fileName, filePath });
-  //   } catch (err) {
-  //     if (err.response.status === 500) {
-  //       console.log("problem with the server");
-  //     } else {
-  //       console.log("here");
-  //       console.log(err.response.data.error);
-  //     }
-  //   }
-  // };
 
   const successAlert = () => {
     setRedirect("/user/register");
@@ -58,24 +20,30 @@ const Signup = (props) => {
     setModalText("Passwords must match!");
   };
 
-  const onSubmit = (data) => {
-    axios
-      .post(`http://localhost:8080/user/register`, {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        address: data.address,
-        city: data.city,
-        country: data.country,
-        volunteer: data.volunteer,
-        about: data.about,
-        email: data.email,
-        password: data.password,
-        confirmPassword: data.confirmPassword,
-      })
-      .then((res) => {
-        res.data.status === "ok" ? successAlert(res.data.data) : failedAlert();
-      })
-      .catch((err) => console.error(err));
+  // Used React--hooks-form library for form validation
+  const onSubmit = async (data) => {
+    const signup = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      address: data.address,
+      city: data.city,
+      country: data.country,
+      volunteer: data.volunteer,
+      about: data.about,
+      email: data.email,
+      password: data.password,
+      confirmPassword: data.confirmPassword,
+    };
+    try {
+      const res = await axios.post(
+        `http://localhost:8080/user/register`,
+        signup
+      );
+
+      res.data.status === "ok" ? successAlert(res.data.data) : failedAlert();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const {
@@ -158,12 +126,7 @@ const Signup = (props) => {
         <div className='signup__right'>
           <label htmlFor='avatar' className='signup__label'>
             Avatar
-            <input
-              type='file'
-              // onChange={onFileChange}
-              id='avatar'
-              className='signup__avatar'
-            />
+            <input type='file' id='avatar' className='signup__avatar' />
           </label>
           <label
             htmlFor='volunteer'
