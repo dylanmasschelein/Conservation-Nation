@@ -1,6 +1,7 @@
 # Conservation Nation
 
-- Conservation Nation provides users the ability to learn about designated protected areas across the globe in a simple and interactive way \*
+🌳 Conservation Nation provides users the ability to learn about designated protected areas across the globe in a simple and interactive way 🌳  
+
 
 - For simple project setup, download the repository and npm install dependencies on both client and server \*
 - I have added you to my MongoDB cluster as Admin so you should have no problem connecting the project to the DB from your computer \*
