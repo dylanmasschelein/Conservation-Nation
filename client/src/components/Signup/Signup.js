@@ -21,24 +21,29 @@ const Signup = (props) => {
   };
 
   // Used React--hooks-form library for form validation
-  const onSubmit = (data) => {
-    axios
-      .post(`http://localhost:8080/user/register`, {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        address: data.address,
-        city: data.city,
-        country: data.country,
-        volunteer: data.volunteer,
-        about: data.about,
-        email: data.email,
-        password: data.password,
-        confirmPassword: data.confirmPassword,
-      })
-      .then((res) => {
-        res.data.status === "ok" ? successAlert(res.data.data) : failedAlert();
-      })
-      .catch((err) => console.error(err));
+  const onSubmit = async (data) => {
+    const signup = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      address: data.address,
+      city: data.city,
+      country: data.country,
+      volunteer: data.volunteer,
+      about: data.about,
+      email: data.email,
+      password: data.password,
+      confirmPassword: data.confirmPassword,
+    };
+    try {
+      const res = await axios.post(
+        `http://localhost:8080/user/register`,
+        signup
+      );
+
+      res.data.status === "ok" ? successAlert(res.data.data) : failedAlert();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const {

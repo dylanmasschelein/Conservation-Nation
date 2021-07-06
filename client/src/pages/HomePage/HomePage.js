@@ -3,10 +3,8 @@ import "./HomePage.scss";
 import AreaMap from "../../components/AreaMap/AreaMap";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Observation from "../../components/Observation/Observation";
+import { treeIcon, coralIcon } from "../../helperFunctions";
 import axios from "axios";
-import L from "leaflet";
-import tree from "../../assets/Images/tree.png";
-import coral from "../../assets/Images/coral.png";
 import { Marker } from "react-leaflet";
 
 const HomePage = (props) => {
@@ -18,6 +16,7 @@ const HomePage = (props) => {
     setOpen,
     setOpenLogin,
   } = props;
+
   const [search, setSearch] = useState("");
   const [areas, setAreas] = useState(null);
   const [areaBounds, setAreaBounds] = useState(null);
@@ -35,19 +34,22 @@ const HomePage = (props) => {
   ]);
 
   // Handling search
-  const handleSearch = (e) => {
-    e.preventDefault();
-    axios
-      .get(`http://localhost:8080/areas/country/${search}`)
-      .then((areas) => {
-        setCenter([
-          areas.data[0].geojson.geometry.coordinates[0][0][1],
-          areas.data[0].geojson.geometry.coordinates[0][0][0],
-        ]);
-        setAreas(areas.data);
-        setObservations(null);
-      })
-      .catch((err) => console.error(err));
+  const handleSearch = async (e) => {
+    e.preventDefault(e);
+    try {
+      const areas = await axios.get(
+        `http://localhost:8080/areas/country/${search}`
+      );
+
+      setCenter([
+        areas.data[0].geojson.geometry.coordinates[0][0][1],
+        areas.data[0].geojson.geometry.coordinates[0][0][0],
+      ]);
+      setAreas(areas.data);
+      setObservations(null);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // Setting bounds for clicked areas and retrieving observation data
@@ -74,16 +76,16 @@ const HomePage = (props) => {
   };
 
   // Calling API for obervation data
-  const getINaturalistData = () => {
+  const getINaturalistData = async () => {
     const { neLat, neLng, swLat, swLng } = areaBounds;
-    axios
-      .get(
+    try {
+      const observations = await axios.get(
         `https://api.inaturalist.org/v1/observations?geo=true&mappable=true&photos=true&nelat=${neLat}&nelng=${neLng}&swlat=${swLat}&swlng=${swLng}&per_page=200`
-      )
-      .then((observations) => {
-        setObservations(observations.data.results);
-      })
-      .catch((err) => console.error(err));
+      );
+      setObservations(observations.data.results);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const PlotObservations = () => {
@@ -108,7 +110,7 @@ const HomePage = (props) => {
     }
   };
 
-  const followArea = () => {
+  const followArea = async () => {
     if (!user) {
       setToggleModal(true);
       setModalText("Please sign in to follow an area!");
@@ -121,33 +123,19 @@ const HomePage = (props) => {
       setRedirect("/");
     } else {
       const { email } = user;
-      axios
-        .put(`http://localhost:8080/user/${email}`, {
+      try {
+        await axios.put(`http://localhost:8080/user/${email}`, {
           clickedArea,
-        })
-        .then(() => {
-          setToggleModal(true);
-          setModalText("Area followed!");
-          setRedirect("/");
-        })
-        .catch((err) => console.error(err));
+        });
+
+        setToggleModal(true);
+        setModalText("Area followed!");
+        setRedirect("/");
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
-
-  // Custom Icon
-  const treeIcon = L.icon({
-    iconUrl: tree,
-    iconSize: [25, 41],
-    iconAnchor: [12.5, 41],
-    popupAnchor: [0, -41],
-  });
-
-  const coralIcon = L.icon({
-    iconUrl: coral,
-    iconSize: [25, 41],
-    iconAnchor: [12.5, 41],
-    popupAnchor: [0, -41],
-  });
 
   return (
     <div className='home'>

@@ -11,18 +11,23 @@ const ProfilePage = (props) => {
   const token = sessionStorage.getItem("token");
 
   // Getting user data from database
-  const getData = (token) => {
-    axios
-      .get("http://localhost:8080/user/current", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((user) => {
-        setUser(user.data);
-        setFollowedAreas(user.data.followedAreas);
-      })
-      .catch(() => setFailedAuth(true));
+  const getData = async (token) => {
+    const headers = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      const user = await axios.get(
+        "http://localhost:8080/user/current",
+        headers
+      );
+
+      setUser(user.data);
+      setFollowedAreas(user.data.followedAreas);
+    } catch (err) {
+      setFailedAuth(true);
+    }
   };
 
   useEffect(() => {
@@ -42,11 +47,13 @@ const ProfilePage = (props) => {
     setRedirect("/");
   };
 
-  const handleDelete = (id) => {
-    axios
-      .delete(`http://localhost:8080/user/${user.email}/area/${id}`)
-      .then(() => getData(token))
-      .catch((err) => console.error(err));
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8080/user/${user.email}/area/${id}`);
+      getData(token);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   if (failedAuth) {
