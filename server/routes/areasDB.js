@@ -8,8 +8,9 @@ const client = new MongoClient(uri, { useUnifiedTopology: true });
 router
   // Get all areas
   .get("/country/:country", async (req, res) => {
-    const { country } = req.params;
-    capitalize(country);
+    const { country: searchedCountry } = req.params;
+    const country = capitalize(searchedCountry);
+
     try {
       await client.connect();
       const cursor = await client
@@ -82,6 +83,6 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + lower.slice(1);
 }
 
-console.log(capitalize("portugal"));
+// console.log(capitalize("portugal"));
 
 module.exports = router;
