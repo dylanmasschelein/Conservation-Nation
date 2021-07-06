@@ -10,4 +10,25 @@ Click here to watch my demo!: https://lnkd.in/dGzF7H8
 
 # Installation
 
+Follow these instructions to run a local instance of Conservation Nation
+(You'll need node, npm, and mondodb installed)
+
+1. Clone this repo
+2. cd into both client and server seperately and <npm install> dependencies for each
+3. npm start project to open
+
+* Project will not work as intended *
+- I am working on implementing a mongodump to allow users to access the database
+- Also working towards deployment in the near future!!
+- If you are eager too run the app with the database, please contact me and I will allow access to the database for viewing!
+  
+4. Rename .env_sample to .env and replace placeholders with your own
+PORT=<PORT>
+JWT_SECRET=<JWT_SECRET>
+NODE_MONGO_URI=<MONGODB_URI>
+
+
+⭐ Please let me know if have any questions at all! I will surely be at my computer! :)
+⭐ Thank you to for your interest and happy exploring!
+
 
