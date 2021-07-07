@@ -1,39 +1,33 @@
 const express = require("express");
+const fileUpload = require("express-fileUpload");
 const app = express();
 require("dotenv").config();
 const cors = require("cors");
-// const userRoutes = require("./routes/userRoutes.js");
-// const observationRoutes = require("./routes/observationRoutes");
+const userRoutes = require("./routes/userRoutes");
 const databaseAreas = require("./routes/areasDB");
+const uri = process.env.NODE_MONGO_URI;
+const path = require("path");
 
-const port = 8080;
+const mongoose = require("mongoose");
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+});
 
+const PORT = process.env.PORT || 5000;
+
+app.use(express.static(path.resolve(__dirname, "./client/build")));
+
+app.get("*", function (request, response) {
+  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+});
+
+app.use(fileUpload());
 app.use(cors());
-app.use("/static", express.static("public"));
 app.use(express.json());
 
 app.use("/areas", databaseAreas);
-// app.use("/area", observationRoutes);
-// app.use("/user", userRoutes);
+app.use("/user", userRoutes);
 
-app.listen(port, () => console.log(`Server is listening on port ${port}...`));
-
-// const express = require("express");
-// const app = express();
-// require("dotenv").config();
-// const cors = require("cors");
-// const userRoutes = require("./routes/userRoutes.js");
-// const observationRoutes = require("./routes/observationRoutes");
-// const databaseAreas = require("./areasDB");
-
-// const port = 8080;
-
-// app.use(cors());
-// app.use("/static", express.static("public"));
-// app.use(express.json());
-
-// app.use("/areas", databaseAreas);
-// app.use("/area", observationRoutes);
-// app.use("/user", userRoutes);
-
-// app.listen(port, () => console.log(`Server is listening on port ${port}...`));
+app.listen(PORT, () => console.log(`Server is listening on port ${PORT}...`));

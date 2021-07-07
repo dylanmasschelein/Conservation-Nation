@@ -1,162 +1,112 @@
-import React, { Component } from "react";
-import { MapContainer, TileLayer, GeoJSON, Tooltip } from "react-leaflet";
-import "./AreaMap.scss";
-import axios from "axios";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
+import React, { useEffect, useState } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  GeoJSON,
+  Tooltip,
+  useMap,
+  useMapEvents,
+} from "react-leaflet";
+import "leaflet-defaulticon-compatibility";
+import "../AreaMap/AreaMap.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faToggleOn } from "@fortawesome/free-solid-svg-icons";
+import { marineStyle, landStyle } from "../../helperFunctions";
+import SpecificArea from "../../components/SpecificArea/SpecificArea";
 
-class AreaMap extends Component {
-  state = {
-    areas: null,
-    lng: null,
-    lat: null,
-    bounds: null,
-    naturalistData: null,
+const AreaMap = (props) => {
+  const {
+    areas,
+    onEachArea,
+    PlotObservations,
+    setClickedArea,
+    userLocation,
+    center,
+    observations,
+  } = props;
+
+  const [toggleMap, setToggleMap] = useState(true);
+
+  useEffect(() => {}, [areas, userLocation, toggleMap]);
+
+  const CenterMap = (center) => {
+    const map = useMap();
+    map.flyTo(center.center, 6);
+    return null;
   };
 
-  GetINaturalistData = () => {
-    axios
-      .get(
-        `https://api.inaturalist.org/v1/observations?geo=true&mappable=true&photos=true&per_page=1`
-      )
-      .then((data) => {
-        console.log(data.data);
-      });
-  };
-
-  onEachArea = (feature, layer) => {
-    //in this function I will set the layer.options.fillColor
-    // layer.options.fillColor = feature.properties.fill; Gives me ability to access polygon coords and properties -- HUGE
-
-    layer.on("click", (e) => {
-      const { coordinates } = feature.geometry;
-      const areaBounds = L.latLngBounds(coordinates);
-      // L.fitBounds(areaBounds);
-      console.log(areaBounds);
-      console.log(MapContainer);
-      // feature.fitBounds(areaBounds);
-      console.log(layer); // layer also exists
-      console.log(feature); // layer also exists
+  // Plotting designated areas on map
+  const AreaPolygons = () => {
+    const map = useMapEvents({
+      click: (e) => {
+        map.flyTo(e.latlng, 9);
+      },
     });
-  };
-  // onEachArea = (name, country) => {
-  //   const area = `${name}, ${country}`;
-  // };
-
-  zoomToArea = (e) => {
-    console.log(e.target);
-  };
-
-  getAreas() {
-    axios.get("http://localhost:8080/areas/country").then((response) => {
-      const areas = response.data;
-      this.setState({
-        areas: areas,
-      });
-    });
-  }
-  // Add to helper function folder
-
-  // think the object options are overiding this option?
-  fillColor(option) {
-    console.log(option, "optioning");
-
-    if (option === true) {
-      console.log("if");
-      return {
-        fillOpacity: 0.5,
-        fillColor: "blue",
-        color: "blue",
-        markerStroke: "blue",
-        marker: "blue",
-        opacity: 0.4,
-      };
-    } else if (option === false) {
-      console.log("else if");
-      return {
-        fillColor: "green",
-        color: "green",
-        marker: "green",
-        markerStroke: "green",
-        fillOpacity: 0.5,
-      };
-    } else {
-      console.log("else");
-      return {
-        fillColor: "green",
-        color: "green",
-        stroke: "green",
-        markerStroke: "green",
-        fillOpacity: 0.4,
-      };
-    }
-  }
-
-  componentDidMount() {
-    this.GetINaturalistData();
-    this.getAreas();
-    this.getUserLocation();
-  }
-
-  getUserLocation = () => {
-    console.log("Im working");
-    navigator.geolocation.getCurrentPosition(this.centerLocationOnUser);
-  };
-
-  centerLocationOnUser = (position) => {
-    const { latitude, longitude } = position.coords;
-    const bounds = L.latLngBounds([latitude, longitude]);
-    this.setState({
-      lng: longitude,
-      lat: latitude,
-      bounds: bounds,
-    });
-  };
-
-  render() {
-    if (this.state.areas === null) {
-      return <h1>Loading. . .</h1>;
-    }
-    const mapStyle = {
-      fillColor: "green",
-      weight: 1,
-      color: "black",
-      fillOpacity: 0.3,
-    };
 
     return (
-      <div>
-        <MapContainer
-          className='map'
-          center={[this.state.lat, this.state.lng]}
-          zoom={5}
-          bounds={this.state.bounds}
-          scrollWheelZoom={false}
-        >
-          {/* Map Styling */}
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-          />
-          {/* Render polygons on map */}
-          {this.state.areas.map((area) => {
-            return (
-              <GeoJSON
-                style={mapStyle}
-                onEachFeature={this.onEachArea}
-                key={area.id}
-                data={area.geojson}
-              >
-                <Tooltip sticky>
-                  {area.name}, {area.countries[0].name}
+      <>
+        {areas.map((area) => {
+          return (
+            <GeoJSON
+              onEachFeature={onEachArea}
+              key={area._id}
+              data={area.geojson}
+              style={!area.marine ? landStyle : marineStyle}
+              eventHandlers={{
+                click: () => {
+                  setClickedArea(area);
+                },
+              }}
+            >
+              {!observations && (
+                <Tooltip direction='top' className='tooltips' sticky>
+                  <SpecificArea area={area} />
                 </Tooltip>
-              </GeoJSON>
-            );
-          })}
-        </MapContainer>
-      </div>
+              )}
+            </GeoJSON>
+          );
+        })}
+      </>
     );
-  }
-}
+  };
+
+  return (
+    <div>
+      <MapContainer
+        className='map'
+        center={[52, -122]}
+        zoom={2.5}
+        scrollWheelZoom={true}
+        zoomControl={false}
+      >
+        {!observations && center ? <CenterMap center={center} /> : null}
+        {observations && <PlotObservations />}
+        {toggleMap && (
+          <TileLayer
+            attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
+            url='https://api.mapbox.com/styles/v1/dylanmasschelein/ckq1qqqes17n517ju45xlaqfq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZHlsYW5tYXNzY2hlbGVpbiIsImEiOiJja3B5dmlyZXUwaG55Mm9xc3RsNzBybWV2In0.NJDvx0UbxYYMpvuQsamo6w'
+          />
+        )}
+        {!toggleMap && (
+          <TileLayer
+            attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
+            url='https://api.mapbox.com/styles/v1/dylanmasschelein/ckq1tjf5b0jig17n785z67zv4/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZHlsYW5tYXNzY2hlbGVpbiIsImEiOiJja3B5dmlyZXUwaG55Mm9xc3RsNzBybWV2In0.NJDvx0UbxYYMpvuQsamo6w'
+          />
+        )}
+
+        {areas && <AreaPolygons />}
+        <FontAwesomeIcon
+          icon={faToggleOn}
+          onClick={() => {
+            setToggleMap(!toggleMap);
+          }}
+          className={
+            toggleMap ? "map__toggle" : " map__toggle map__toggle--off"
+          }
+        />
+      </MapContainer>
+    </div>
+  );
+};
 
 export default AreaMap;

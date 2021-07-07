@@ -1,0 +1,75 @@
+@use '../../partials/variables' as *;
+@use '../../partials/mixins' as *;
+@use '../../partials/keyframes';
+
+.header {
+  @include flex-justify-align(space-between, center);
+  position: relative;
+  background: $color-primary;
+  border-bottom: $border-primary;
+  height: 7rem;
+
+  &__logo {
+    height: 6rem;
+    margin-left: 2rem;
+  }
+
+  &__link {
+    @include link-reset;
+  }
+
+  &__drop {
+    color: black;
+    top: 0;
+    height: 10rem;
+    margin: 5.5rem 2rem 0 0;
+    z-index: 402;
+  }
+
+  &__login {
+    color: white;
+  }
+}
+
+.dropdown {
+  @include flex-column;
+  align-items: flex-end;
+  position: absolute;
+  top: 6rem;
+  right: 0;
+  width: 15rem;
+  padding: 1rem 0;
+  background: $color-secondary;
+  border: $border-secondary;
+  z-index: 999999;
+  transition: 1s;
+
+  &--slidein {
+    opacity: 1;
+    transform: translate(0%)
+
+  }
+
+  &--slideout {
+    opacity: 0;
+    transform: translate(100%)
+
+  }
+
+  &__link {
+    @include link-reset;
+    background: $color-secondary;
+    box-shadow: 0 0 5px 5px $color-secondary;
+    border-top: 1px solid $color-accent;
+    color: black;
+    text-align: right;
+    width: 85%;
+    padding: 0.5rem;
+    margin: 1rem;
+
+    &:hover {
+      background-color: $color-hover;
+      color: white;
+    }
+  }
+}

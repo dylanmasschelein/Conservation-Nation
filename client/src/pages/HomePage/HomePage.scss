@@ -1,0 +1,64 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+@use '../../partials/keyframes' as *;
+
+.home {
+  @include flex-justify-align(space-between);
+  width: 100%;
+
+  &__spinner {
+    position: absolute;
+    z-index: 9999999999;
+    height: 5rem;
+    width: 5rem;
+    margin-left: 40rem;
+  }
+
+  &__left {
+    position: absolute;
+    margin: 0 2rem;
+    width: 36vw;
+    z-index: 99999;
+  }
+
+  &__right {
+  }
+
+  &__button-div {
+    display: flex;
+  }
+
+  &__button {
+    @include button;
+    @include transition;
+    @include moveInBottom-animation;
+    width: 50%;
+
+    &:hover {
+      @include translateY;
+    }
+
+    &:active {
+      background: #997e09;
+      box-shadow: $box-shadow;
+    }
+
+    &--right {
+      margin-left: 1rem;
+    }
+  }
+
+  // &__toggle {
+  //   z-index: 9999999;
+  //   position: absolute;
+  //   bottom: 3.5rem;
+  //   right: 1rem;
+  //   color: white;
+  //   font-size: 3rem;
+  //   transform: rotate(90deg);
+
+  //   &--off {
+  //     color: $color-black;
+  //   }
+  // }
+}

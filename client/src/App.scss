@@ -1,0 +1,24 @@
+@use './partials/mixins' as *;
+@use './partials/variables' as *;
+@use './partials/typography';
+
+html,
+body {
+  @include margin-reset;
+  font-family: "AvenirNext LT Pro";
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @include margin-reset;
+}

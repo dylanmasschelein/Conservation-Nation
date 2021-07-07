@@ -1,0 +1,7 @@
+@use '../../partials/variables' as *;
+@use '../../partials/mixins' as *;
+
+.area-list {
+  @include flex-justify-align(center, center);
+  flex-wrap: wrap;
+}

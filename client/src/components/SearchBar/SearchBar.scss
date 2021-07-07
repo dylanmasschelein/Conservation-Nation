@@ -1,0 +1,52 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+@use '../../partials/keyframes';
+
+.search {
+  @include flex-justify-align(unset, center);
+  @include moveInBottom-animation;
+  background: $color-secondary;
+  border: $border-secondary;
+  border-radius: 50px;
+  padding: 1rem;
+  margin: 2rem 0 1rem 0;
+
+  &__label {
+    display: flex;
+  }
+
+  &__input {
+    @include form-input;
+    width: 70%;
+    padding-left: 1rem;
+    margin: 0 1rem 0 0.5rem;
+
+    &:focus {
+      @include form-input-active-border;
+    }
+
+    &:active {
+      @include form-input-active-border;
+    }
+  }
+
+  &__btn {
+    background: $color-accent;
+    border: $border-accent;
+    border-radius: $border-radius;
+    padding: 0.5rem;
+    width: 4rem;
+    margin-left: 0.25rem;
+    transition: 0.3s ease-in;
+    cursor: pointer;
+
+    &:hover {
+      background: firebrick;
+      border: $border-accent;
+    }
+  }
+
+  &__icon {
+    font-size: 1rem;
+  }
+}

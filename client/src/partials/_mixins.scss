@@ -1,0 +1,88 @@
+@use './variables' as *;
+
+@mixin flex-justify-align($justify, $align: unset) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin margin-reset {
+  margin: 0;
+  padding: 0;
+}
+
+@mixin link-reset {
+  @include margin-reset;
+  text-decoration: none;
+}
+
+@mixin zero-auto {
+  margin: 0 auto;
+}
+
+@mixin form-input {
+  background-color: $color-form-input;
+  box-shadow: inset 0px 1px 4px rgba(153, 153, 153, 0.25);
+  border-radius: $border-radius;
+  border: $border-secondary;
+  padding: 0.5rem;
+}
+
+@mixin box-shadow {
+  box-shadow: 0 0 15px 5px #030396;
+  border-radius: 0.5rem;
+}
+
+@mixin button {
+  border-radius: $border-radius;
+  border: $border-primary;
+  background: $color-primary;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+@mixin secondary-button {
+  border-radius: $border-radius;
+  border: $border-secondary;
+  background: $color-secondary;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+@mixin accent-button {
+  border-radius: $border-radius;
+  border: $border-accent;
+  background: $color-accent;
+  cursor: pointer;
+  padding: 0.5rem;
+  max-width: 5rem;
+}
+
+@mixin min-max-height($height) {
+  min-height: $height;
+  max-height: $height;
+}
+
+@mixin translateY {
+  transform: translateY(-3px);
+  box-shadow: $box-shadow;
+}
+
+@mixin form-input-active-border {
+  outline: none;
+  border: $border-input-active;
+  border-radius: $border-radius;
+}
+
+@mixin transition {
+  transition: all 0.2s;
+}
+
+@mixin moveInBottom-animation {
+  animation: moveInBottom 1s ease-out backwards;
+}

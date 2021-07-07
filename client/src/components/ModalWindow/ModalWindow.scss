@@ -1,0 +1,37 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.modal {
+  @include flex-justify-align(center, center);
+  position: fixed;
+  background: rgba(35, 41, 64, 0.7);
+  top: 0px;
+  right: 0px;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999999;
+
+  &__window {
+    @include flex-column;
+    border-radius: $border-radius;
+    background: $color-secondary;
+    align-items: center;
+    width: 20rem;
+    height: 12rem;
+    z-index: 9999999;
+  }
+
+  &__message {
+    text-align: center;
+    color: white;
+    padding: 2rem 1rem 0 1rem;
+  }
+
+  &__button {
+    @include accent-button;
+    color: white;
+    margin-top: 1rem;
+    padding: 1rem;
+    width: 7rem;
+  }
+}

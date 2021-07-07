@@ -1,0 +1,85 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.signup {
+  background: $color-black;
+  height: 100vh;
+
+  &__name {
+    text-align: center;
+    font-size: 2rem;
+    color: white;
+    padding-top: 2rem;
+  }
+
+  &__form {
+    @include flex-justify-align(center, center);
+    margin-top: 1rem;
+  }
+
+  &__left {
+    @include flex-column;
+    background: $color-secondary;
+    border-radius: $border-radius;
+    min-height: 31rem;
+    min-width: 15rem;
+    padding: 1rem;
+    margin-right: 4rem;
+  }
+
+  &__right {
+    @include flex-column;
+    border-radius: $border-radius;
+    background: $color-secondary;
+    min-height: 31rem;
+    min-width: 15rem;
+    padding: 1rem;
+  }
+
+  &__label {
+    @include flex-column;
+  }
+
+  &__radio {
+    @include flex-justify-align(space-evenly);
+    padding: 0.5rem;
+  }
+
+  &__input {
+    @include form-input;
+    margin: 0.5rem 0;
+
+    &:active {
+      @include form-input-active-border;
+    }
+
+    &:focus {
+      @include form-input-active-border;
+    }
+
+    &--about {
+      height: 4rem;
+    }
+  }
+
+  &__avatar {
+    margin: 0.75rem 0;
+  }
+
+  &__error {
+    @include margin-reset;
+    font-size: 0.75rem;
+    color: firebrick;
+    font-weight: bold;
+    text-align: right;
+  }
+
+  &__submit {
+    border-radius: $border-radius;
+    border: $border-primary;
+    background: $color-primary;
+    font-weight: bold;
+    padding: 0.75rem;
+    margin-top: 1rem;
+  }
+}

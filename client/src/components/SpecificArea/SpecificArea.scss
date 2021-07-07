@@ -1,0 +1,26 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.area {
+  @include flex-column;
+  border-radius: $border-radius;
+  background: $color-secondary;
+  text-align: center;
+  margin: 0;
+
+  &__name {
+    background: $color-primary;
+    border-radius: 20px 20px 0 0;
+    padding: 0.25rem 0;
+  }
+
+  &__info {
+    padding: 0.1rem 1rem;
+  }
+}
+
+.leaflet-tooltip {
+  padding: 0;
+  border-radius: 20px;
+  border: $border-accent;
+}
