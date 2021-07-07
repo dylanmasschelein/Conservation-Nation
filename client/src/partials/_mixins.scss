@@ -43,7 +43,7 @@
   border: $border-primary;
   background: $color-primary;
   cursor: pointer;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 @mixin secondary-button {
@@ -85,4 +85,16 @@
 
 @mixin moveInBottom-animation {
   animation: moveInBottom 1s ease-out backwards;
+}
+
+@mixin tablet {
+  @media screen and (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: $desktop) {
+    @content;
+  }
 }

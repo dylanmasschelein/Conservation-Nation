@@ -7,11 +7,18 @@
   position: relative;
   background: $color-primary;
   border-bottom: $border-primary;
-  height: 7rem;
+  height: 4rem;
+  @include tablet {
+    height: 7rem;
+  }
 
   &__logo {
-    height: 6rem;
-    margin-left: 2rem;
+    height: 3.5rem;
+    margin-top: 0.5rem;
+    @include tablet {
+      height: 6rem;
+      margin-left: 2rem;
+    }
   }
 
   &__link {
@@ -19,11 +26,14 @@
   }
 
   &__drop {
-    color: black;
+    height: 5rem;
+    margin: 3rem 0 0 0;
     top: 0;
-    height: 10rem;
-    margin: 5.5rem 2rem 0 0;
     z-index: 402;
+    @include tablet {
+      height: 10rem;
+      margin: 5.5rem 2rem 0 0;
+    }
   }
 
   &__login {

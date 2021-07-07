@@ -16,9 +16,12 @@
 
   &__left {
     position: absolute;
-    margin: 0 2rem;
-    width: 36vw;
     z-index: 99999;
+    margin: 0.5rem;
+    @include tablet {
+      margin: 0 2rem;
+      width: 36vw;
+    }
   }
 
   &__right {
@@ -26,6 +29,10 @@
 
   &__button-div {
     display: flex;
+    margin-top: 0.5rem;
+    @include tablet {
+      margin: 0;
+    }
   }
 
   &__button {
@@ -33,6 +40,9 @@
     @include transition;
     @include moveInBottom-animation;
     width: 50%;
+    @include tablet {
+      padding: 1rem;
+    }
 
     &:hover {
       @include translateY;
@@ -44,7 +54,10 @@
     }
 
     &--right {
-      margin-left: 1rem;
+      margin-left: 0.5rem;
+      @include tablet {
+        margin-left: 1rem;
+      }
     }
   }
 
