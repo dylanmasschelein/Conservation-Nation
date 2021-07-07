@@ -6,9 +6,11 @@ const uri = process.env.NODE_MONGO_URI;
 const client = new MongoClient(uri, { useUnifiedTopology: true });
 
 router
+  // Get all areas
   .get("/country/:country", async (req, res) => {
-    const { country } = req.params;
-    capitalize(country);
+    const { country: searchedCountry } = req.params;
+    const country = capitalize(searchedCountry);
+
     try {
       await client.connect();
       const cursor = await client
@@ -22,10 +24,11 @@ router
       console.error(err);
     }
   })
-
   // Filtering for marine areas
   .get("/marine/:country", async (req, res) => {
-    const { country } = req.params;
+    const { country: searchedCountry } = req.params;
+    const country = capitalize(searchedCountry);
+
     try {
       await client.connect();
       const cursor = await client
@@ -43,7 +46,9 @@ router
   })
   // Filtering for land areas
   .get("/land/:country", async (req, res) => {
-    const { country } = req.params;
+    const { country: searchedCountry } = req.params;
+    const country = capitalize(searchedCountry);
+
     try {
       await client.connect();
       const cursor = await client
@@ -78,7 +83,7 @@ router
 
 // Helper Functions
 function capitalize(str) {
-  const lower = str.toLowerCase();
+  const lower = str.trim().toLowerCase();
   return str.charAt(0).toUpperCase() + lower.slice(1);
 }
 
