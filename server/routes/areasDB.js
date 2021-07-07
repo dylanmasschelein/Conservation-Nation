@@ -26,7 +26,9 @@ router
   })
   // Filtering for marine areas
   .get("/marine/:country", async (req, res) => {
-    const { country } = req.params;
+    const { country: searchedCountry } = req.params;
+    const country = capitalize(searchedCountry);
+
     try {
       await client.connect();
       const cursor = await client
@@ -44,7 +46,9 @@ router
   })
   // Filtering for land areas
   .get("/land/:country", async (req, res) => {
-    const { country } = req.params;
+    const { country: searchedCountry } = req.params;
+    const country = capitalize(searchedCountry);
+
     try {
       await client.connect();
       const cursor = await client
@@ -79,10 +83,8 @@ router
 
 // Helper Functions
 function capitalize(str) {
-  const lower = str.toLowerCase();
+  const lower = str.trim().toLowerCase();
   return str.charAt(0).toUpperCase() + lower.slice(1);
 }
-
-// console.log(capitalize("portugal"));
 
 module.exports = router;
