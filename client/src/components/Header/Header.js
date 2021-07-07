@@ -33,6 +33,7 @@ const Header = (props) => {
       <Link to='/' className='header__link'>
         <img src={logo} alt='Logo' className='header__logo' />
       </Link>
+
       <img
         src={whereTo}
         alt='Where to navigation text'

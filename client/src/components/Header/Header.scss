@@ -46,14 +46,12 @@
 
   &--slidein {
     opacity: 1;
-    transform: translate(0%)
-
+    transform: translate(0%);
   }
 
   &--slideout {
     opacity: 0;
-    transform: translate(100%)
-
+    transform: translate(100%);
   }
 
   &__link {

@@ -7,7 +7,7 @@ const userRoutes = require("./routes/userRoutes");
 const databaseAreas = require("./routes/areasDB");
 const uri = process.env.NODE_MONGO_URI;
 const path = require("path");
-// const path = require("../client/build/index.html");
+
 const mongoose = require("mongoose");
 mongoose.connect(uri, {
   useNewUrlParser: true,
