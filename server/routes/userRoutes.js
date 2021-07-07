@@ -1,21 +1,12 @@
 // Admin
 const express = require("express");
 const router = express.Router();
-const uri = process.env.NODE_MONGO_URI;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const authorize = require("../middleware/authorize");
 const User = require("../model/user");
 const secret = process.env.JWT_SECRET;
-
-// Mongo
-const mongoose = require("mongoose");
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-});
 
 // Helpers
 function validateInput(input, res) {

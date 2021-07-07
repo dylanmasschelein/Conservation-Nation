@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.69489cd1.chunk.css",
+    "main.js": "/static/js/main.12b47cc6.chunk.js",
+    "main.js.map": "/static/js/main.12b47cc6.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.ea1a1cba.js",
+    "runtime-main.js.map": "/static/js/runtime-main.ea1a1cba.js.map",
+    "static/css/2.1d9027a2.chunk.css": "/static/css/2.1d9027a2.chunk.css",
+    "static/js/2.fabbdd57.chunk.js": "/static/js/2.fabbdd57.chunk.js",
+    "static/js/2.fabbdd57.chunk.js.map": "/static/js/2.fabbdd57.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.1d9027a2.chunk.css.map": "/static/css/2.1d9027a2.chunk.css.map",
+    "static/css/main.69489cd1.chunk.css.map": "/static/css/main.69489cd1.chunk.css.map",
+    "static/js/2.fabbdd57.chunk.js.LICENSE.txt": "/static/js/2.fabbdd57.chunk.js.LICENSE.txt",
+    "static/media/App.scss": "/static/media/AvenirNextLTPro-Thin.9f035be0.woff",
+    "static/media/Mugshot-1.78d9c85e.jpg": "/static/media/Mugshot-1.78d9c85e.jpg",
+    "static/media/Octocat.363cb5ed.png": "/static/media/Octocat.363cb5ed.png",
+    "static/media/Where-to.49c3402a.png": "/static/media/Where-to.49c3402a.png",
+    "static/media/conservation-nation-logo.f8227b9e.png": "/static/media/conservation-nation-logo.f8227b9e.png",
+    "static/media/coral.701aa783.png": "/static/media/coral.701aa783.png",
+    "static/media/linkedin.7fd83a62.png": "/static/media/linkedin.7fd83a62.png",
+    "static/media/tree.46b02d7e.png": "/static/media/tree.46b02d7e.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ea1a1cba.js",
+    "static/css/2.1d9027a2.chunk.css",
+    "static/js/2.fabbdd57.chunk.js",
+    "static/css/main.69489cd1.chunk.css",
+    "static/js/main.12b47cc6.chunk.js"
+  ]
+}
