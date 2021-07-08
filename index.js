@@ -37,6 +37,7 @@ if (process.env.NODE_ENV === "production") {
   app.get("*", function (request, response) {
     response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
   });
+  console.log("Connected to react");
 }
 
 app.listen(PORT, () => console.log(`Server is listening on PORT ${PORT}...`));

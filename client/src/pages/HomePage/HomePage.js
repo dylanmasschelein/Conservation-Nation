@@ -40,7 +40,7 @@ const HomePage = (props) => {
       if (terrestrial === "marine") {
         const areas = await axios.get(
           // http://localhost:8080/areas/marine/${search}
-          `https://conservation-nation.herokuapp.com/areas/marine/${search}`
+          `http://localhost:8080/areas/marine/${search}`
         );
         setCenter(findCenter(areas));
         setAreas(areas.data);
@@ -48,7 +48,7 @@ const HomePage = (props) => {
       } else if (terrestrial === "land") {
         const areas = await axios.get(
           // http://localhost:8080/areas/land/${search}
-          `https://conservation-nation.herokuapp.com/areas/land/${search}`
+          `http://localhost:8080/areas/land/${search}`
         );
         setCenter(findCenter(areas));
         setAreas(areas.data);
@@ -56,7 +56,7 @@ const HomePage = (props) => {
       } else {
         const areas = await axios.get(
           // http://localhost:8080/areas/country/${search}
-          `https://conservation-nation.herokuapp.com/areas/country/${search}`
+          `http://localhost:8080/areas/country/${search}`
         );
         setCenter(findCenter(areas));
         setAreas(areas.data);
@@ -140,7 +140,7 @@ const HomePage = (props) => {
       const { email } = user;
       try {
         // http://localhost:8080/user/${email}
-        await axios.put(`http://localhost:8080/user/${email}`, {
+        await axios.put(`/user/${email}`, {
           clickedArea,
         });
 
