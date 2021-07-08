@@ -31,11 +31,12 @@ app.use("/user", userRoutes);
 //     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 //   });
 // }
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.resolve(__dirname, "./client/build")));
 
-app.use(express.static(path.resolve(__dirname, "./client/build")));
-
-app.get("*", function (request, response) {
-  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
-});
+  app.get("*", function (request, response) {
+    response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+  });
+}
 
 app.listen(PORT, () => console.log(`Server is listening on PORT ${PORT}...`));

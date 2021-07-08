@@ -20,7 +20,7 @@ const ProfilePage = (props) => {
     try {
       const user = await axios.get(
         // http://localhost:8080/user/current
-        "/user/current",
+        "http://localhost:8080/user/current",
         headers
       );
 
@@ -37,7 +37,7 @@ const ProfilePage = (props) => {
     } else {
       getData(token);
     }
-  }, []);
+  }, [token]);
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
@@ -51,7 +51,7 @@ const ProfilePage = (props) => {
   const handleDelete = async (id) => {
     try {
       // http://localhost:8080/user/${user.email}/area/${id}
-      await axios.delete(`/user/${user.email}/area/${id}`);
+      await axios.delete(`http://localhost:8080/user/${user.email}/area/${id}`);
       getData(token);
     } catch (err) {
       console.error(err);
