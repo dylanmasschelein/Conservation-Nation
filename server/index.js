@@ -24,10 +24,18 @@ app.use(express.json());
 app.use("/areas", databaseAreas);
 app.use("/user", userRoutes);
 
-app.use(express.static(path.resolve(__dirname, "./client/build")));
+if (proccess.env.NODE_ENV === production) {
+  app.use(express.static("../client/build"));
 
-app.get("*", function (request, response) {
-  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
-});
+  app.get("*", (_req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+
+// app.use(express.static(path.resolve(__dirname, "./client/build")));
+
+// app.get("*", function (request, response) {
+//   response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+// });
 
 app.listen(PORT, () => console.log(`Server is listening on PORT ${PORT}...`));
