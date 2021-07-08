@@ -1,0 +1,90 @@
+=== TODO ===
+[x] setup put route to add liked area
+[x] dropdown menu
+[x] setup following areas in profile
+[x] Complete auth (log out and when refresh still logged in/when you navigate to the profil;e page via link)
+[x] Get the map to fly to country when searched ***
+[x] make custom logo
+[x] set view on country when searched
+[x] center should cause a re-render
+[x] clean up markers when navigating somewhere else, cleanup?? useEffect maybe? -- set marker state back to null?
+[x] customize icon
+[x] function for iucn categories
+[x] style map, 
+[x] style form? 
+[x] protect against medium_url reading property of null
+[x] maybe implement a popup instead of a tooltip, but this means ill ahve to move the zoom to onto the 
+"EXPLORE" button which may become difficult.. look into this in the morning, would be cool!
+[x] form styling - use a nice gradient?
+[x] Validation -- finish up
+[x] Layout for profile
+[x] Modal window for logging in and alerts
+[x] slogan
+[x] After signin push to profile - will need to go through JWT token prcess or just prompt a sign in instead?? -- **
+[x] clean up client side componets
+[x] work on getting modal windows working properly
+[x] Make sure AUTH is all setup correctly and get it working properly
+[x] Work on animations
+[x] style profile page
+[x] header logo align baseline
+[] deployment -- working on it **** ask for help in the am
+[x] Areas populate on mount, profile
+[x] delete followed areas
+[] Read me files **
+[x] why does it zoom out on first click of a followed area ** address today
+[x] convert post route back to normal and make a second route to recieve files and post that -- pull repo and try there
+
+
+=== TIME ALLOWING ===
+[x] Auth validation Add more if time allows
+[] remove duplicates from database? ** if time allows
+[x] reorganize areasDB routes  ** if time allows
+[x] setup marine filter functionality
+[x] trim form whitespace
+[] loading time for canada --?? -- bette after deployment -- minify geojson
+[x] button to explore area once zoomed
+[x] state cleanup??
+[] Add Avatar -- **
+[x] fit to bounds? - **
+[] pagination for observations -- **
+[] API to provide description -- *
+
+=== Styling ===
+[x] Popups/tooltip for area -- ** research
+[x] observation card
+[x] buttons (bootstrap??)
+[x] dropdown
+[x] register form
+[x] profile page
+[x] tutorial
+[x] dive down on finishing touches for styling
+[x] go through css and clean up
+[x] form outlines and textarea
+
+=== Questions ===
+[] deployment - monolith deployment
+[] FormData
+[] animation - nav bar
+
+=== Future ===
+[] Management authority login 
+[] When clicked on following area, bring up detailed relevant news/info
+[] Edit profile capabilitites
+[] Change password
+[] Oauth
+[] minify geoJSON data
+[] Add responsiveness
+[] Restructure to MVC 
+[] fitBounds of polygon would be great
+[x] case sensitive
+
+=== Tomorrow ===
+[] Complete all Validation, passing custom messaged to front end and rendering on the Modal window**
+[] Get Avatar working == `Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client`
+[x] Test out retrieving more observation data// 200?
+[x] Clean up server side code
+[] Once these are complete dive in on deployment -- **
+[x] Do we need server side validation even if front end has solid validation
+[] Switch names from signup to register
+[x] Convert front end to use async/await
+[] Add the function in user routes maybe if possible?
