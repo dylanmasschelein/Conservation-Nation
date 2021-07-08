@@ -26,7 +26,7 @@ mongoose.connect(uri, {
 
 const PORT = process.env.PORT || 5000;
 
-app.use(fileUpload());
+// app.use(fileUpload());
 app.use(cors());
 app.use(express.json());
 
