@@ -9,7 +9,7 @@
   border-bottom: $border-primary;
   height: 4rem;
   @include tablet {
-    height: 7rem;
+    height: 6rem;
   }
 
   &__logo {
@@ -56,12 +56,12 @@
 
   &--slidein {
     opacity: 1;
-    transform: translate(0%);
+    // transform: translate(0%);
   }
 
   &--slideout {
     opacity: 0;
-    transform: translate(100%);
+    // transform: translate(100%);
   }
 
   &__link {

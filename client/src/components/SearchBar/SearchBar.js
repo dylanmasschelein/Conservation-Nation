@@ -32,11 +32,21 @@ function SearchBar(props) {
         className='search__input'
       ></input>
       <div>
-        <label htmlFor='terrestrial'>Filters</label>
-        <select name='terrestrial' id='terrestrial' onChange={handleChange}>
-          <option value='all'>All</option>
-          <option value='marine'>Marine</option>
-          <option value='land'>Land</option>
+        <select
+          name='terrestrial'
+          id='terrestrial'
+          onChange={handleChange}
+          className='search__select'
+        >
+          <option value='all' className='search__option'>
+            All
+          </option>
+          <option value='marine' className='search__option'>
+            Marine
+          </option>
+          <option value='land' className='search__option'>
+            Land
+          </option>
         </select>
       </div>
 

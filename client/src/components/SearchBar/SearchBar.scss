@@ -3,7 +3,7 @@
 @use '../../partials/keyframes';
 
 .search {
-  @include flex-justify-align(unset, center);
+  @include flex-justify-align(center, center);
   @include moveInBottom-animation;
   background: $color-secondary;
   border: $border-secondary;
@@ -12,7 +12,6 @@
 
   @include tablet {
     margin: 2rem 0 1rem 0;
-    padding: 1rem;
   }
 
   &__label {
@@ -25,7 +24,7 @@
     @include tablet {
       width: 70%;
       padding-left: 1rem;
-      margin: 0 1rem 0 0.5rem;
+      // margin: 0 1rem 0 0.5rem;
     }
 
     &:focus {
@@ -35,6 +34,23 @@
     &:active {
       @include form-input-active-border;
     }
+  }
+
+  &__select {
+    @include form-input;
+    margin-left: 0.25rem;
+    &:focus {
+      @include form-input-active-border;
+    }
+
+    &:active {
+      @include form-input-active-border;
+    }
+  }
+
+  &__option {
+    border-radius: $border-radius;
+    background: $color-form-input;
   }
 
   &__btn {
