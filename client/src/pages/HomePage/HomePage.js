@@ -41,7 +41,7 @@ const HomePage = (props) => {
       if (terrestrial === "marine") {
         console.log("marine hit");
         const areas = await axios.get(
-          // http://localhost:8080/areas/marine/${search}
+          // `http://localhost:8080/areas/marine/${search}`
           `/areas/marine/${search}`
         );
         setCenter(findCenter(areas));
@@ -59,8 +59,8 @@ const HomePage = (props) => {
       } else {
         console.log("all hit");
         const areas = await axios.get(
-          `/areas/country/${search}`
           // `/areas/country/${search}`
+          `/areas/country/${search}`
         );
         setCenter(findCenter(areas));
         setAreas(areas.data);

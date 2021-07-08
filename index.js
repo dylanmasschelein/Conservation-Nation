@@ -8,6 +8,16 @@ const databaseAreas = require("./routes/areasDB");
 const uri = process.env.MONGODB_URI;
 const path = require("path");
 
+// const { createProxyMiddleware } = require("http-proxy-middleware");
+// app.use(
+//   "/areas",
+//   createProxyMiddleware({ target: "localhost:5000", changeOrigin: true })
+// );
+// app.use(
+//   "/user",
+//   createProxyMiddleware({ target: "localhost:5000", changeOrigin: true })
+// );
+
 const mongoose = require("mongoose");
 mongoose.connect(uri, {
   useNewUrlParser: true,
