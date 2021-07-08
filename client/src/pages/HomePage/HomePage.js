@@ -35,8 +35,8 @@ const HomePage = (props) => {
 
   // Handling search
   const handleSearch = async (e) => {
-    console.log("button clicked");
     e.preventDefault(e);
+    console.log("button clicked");
     try {
       if (terrestrial === "marine") {
         console.log("marine hit");
@@ -59,8 +59,8 @@ const HomePage = (props) => {
       } else {
         console.log("all hit");
         const areas = await axios.get(
-          // http://localhost:8080/areas/country/${search}
           `/areas/country/${search}`
+          // `/areas/country/${search}`
         );
         setCenter(findCenter(areas));
         setAreas(areas.data);

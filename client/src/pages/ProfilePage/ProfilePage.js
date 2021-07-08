@@ -21,7 +21,7 @@ const ProfilePage = (props) => {
       console.log("current");
       const user = await axios.get(
         // http://localhost:8080/user/current
-        "http://localhost:8080/user/current",
+        "/user/current",
         headers
       );
 
