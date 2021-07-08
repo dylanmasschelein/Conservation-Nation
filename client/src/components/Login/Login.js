@@ -29,7 +29,8 @@ const Login = (props) => {
       password,
     };
     try {
-      const res = await axios.post(`http://localhost:8080/user/login`, login);
+      // http://localhost:8080/user/login
+      const res = await axios.post(`/user/login`, login);
 
       res.data.status === "ok"
         ? successAlert(res.data.data)
