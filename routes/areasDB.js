@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { MongoClient } = require("mongodb");
 require("dotenv").config();
-const uri = process.env.NODE_MONGO_URI;
+const { MongoClient } = require("mongodb");
+const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, { useUnifiedTopology: true });
 
 router

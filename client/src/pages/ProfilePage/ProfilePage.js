@@ -18,6 +18,7 @@ const ProfilePage = (props) => {
       },
     };
     try {
+      console.log("current");
       const user = await axios.get(
         // http://localhost:8080/user/current
         "http://localhost:8080/user/current",
@@ -51,7 +52,7 @@ const ProfilePage = (props) => {
   const handleDelete = async (id) => {
     try {
       // http://localhost:8080/user/${user.email}/area/${id}
-      await axios.delete(`http://localhost:8080/user/${user.email}/area/${id}`);
+      await axios.delete(`/user/${user.email}/area/${id}`);
       getData(token);
     } catch (err) {
       console.error(err);

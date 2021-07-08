@@ -35,9 +35,10 @@ const Signup = (props) => {
       confirmPassword: data.confirmPassword,
     };
     try {
+      console.log("register");
       const res = await axios.post(
         //http://localhost:8080/user/register
-        `http://localhost:8080/user/register`,
+        `/user/register`,
         signup
       );
 

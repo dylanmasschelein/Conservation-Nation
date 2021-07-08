@@ -5,7 +5,7 @@ require("dotenv").config();
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
 const databaseAreas = require("./routes/areasDB");
-const uri = process.env.NODE_MONGO_URI;
+const uri = process.env.MONGODB_URI;
 const path = require("path");
 
 const mongoose = require("mongoose");
@@ -34,8 +34,8 @@ app.use("/user", userRoutes);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.resolve(__dirname, "./client/build")));
 
-  app.get("*", function (request, response) {
-    response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+  app.get("*", (_req, res) => {
+    res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
   });
   console.log("Connected to react");
 }
