@@ -6,7 +6,7 @@
   @include flex-justify-align(space-between, center);
   position: relative;
   background: $color-primary;
-  border-bottom: $border-primary;
+  // border-bottom: $border-primary;
   height: 4rem;
   @include tablet {
     height: 6rem;
@@ -42,26 +42,28 @@
 }
 
 .dropdown {
-  @include flex-column;
-  align-items: flex-end;
-  position: absolute;
-  top: 6rem;
-  right: 0;
-  width: 15rem;
-  padding: 1rem 0;
-  background: $color-secondary;
-  border: $border-secondary;
-  z-index: 999999;
-  transition: 1s;
+  @include tablet {
+    @include flex-column;
+    align-items: flex-end;
+    position: absolute;
+    top: 6rem;
+    right: 0;
+    width: 15rem;
+    padding: 1rem 0;
+    background: $color-secondary;
+    border: $border-secondary;
+    z-index: 999999;
+    transition: 1s;
 
-  &--slidein {
-    opacity: 1;
-    // transform: translate(0%);
-  }
+    &--slidein {
+      opacity: 1;
+      transform: translateY(0%);
+    }
 
-  &--slideout {
-    opacity: 0;
-    // transform: translate(100%);
+    &--slideout {
+      opacity: 0;
+      transform: translateY(100%);
+    }
   }
 
   &__link {

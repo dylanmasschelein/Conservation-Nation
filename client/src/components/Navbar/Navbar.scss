@@ -1,0 +1,15 @@
+@use '../../partials/variables' as *;
+@use '../../partials/mixins' as *;
+
+.navbar {
+  @include flex-justify-align(space-between, center);
+  background: $color-primary;
+  border-bottom: $border-primary;
+  padding: 0.25rem;
+
+  &__link {
+    @include link-reset;
+    color: $color-black;
+    // animation
+  }
+}
