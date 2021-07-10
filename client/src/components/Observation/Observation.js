@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import "./Observation.scss";
 
 export default function Observation(props) {
@@ -24,6 +26,11 @@ export default function Observation(props) {
 
   return (
     <div className='observation'>
+      <FontAwesomeIcon
+        icon={faTimes}
+        onClick={() => setClickedObservation(null)}
+        className='observation__icon'
+      />
       <div className='observation__photo-container'>
         {photo ? (
           <img src={photo} alt={name} className='observation__photo' />

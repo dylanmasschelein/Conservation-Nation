@@ -3,7 +3,9 @@
 
 .signup {
   background: $color-black;
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   &__name {
     text-align: center;
@@ -23,8 +25,8 @@
     border-radius: $border-radius;
     min-height: 31rem;
     min-width: 15rem;
+    max-width: 15rem;
     padding: 1rem;
-    margin-right: 4rem;
   }
 
   &__right {
@@ -33,6 +35,7 @@
     background: $color-secondary;
     min-height: 31rem;
     min-width: 15rem;
+    max-width: 15rem;
     padding: 1rem;
   }
 
@@ -81,5 +84,11 @@
     font-weight: bold;
     padding: 0.75rem;
     margin-top: 1rem;
+  }
+
+  &__icon {
+    color: white;
+    margin: 1rem auto;
+    font-size: 1.5rem;
   }
 }

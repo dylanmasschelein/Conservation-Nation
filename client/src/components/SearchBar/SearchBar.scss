@@ -29,10 +29,12 @@
 
     &:focus {
       @include form-input-active-border;
+      background: $color-form-input;
     }
 
     &:active {
       @include form-input-active-border;
+      background: $color-form-input;
     }
   }
 
