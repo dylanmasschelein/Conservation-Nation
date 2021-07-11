@@ -40,28 +40,19 @@ const HomePage = (props) => {
     try {
       if (terrestrial === "marine") {
         console.log("marine hit");
-        const areas = await axios.get(
-          // `http://localhost:8080/areas/marine/${search}`
-          `/areas/marine/${search}`
-        );
+        const areas = await axios.get(`/areas/marine/${search}`);
         setCenter(findCenter(areas));
         setAreas(areas.data);
         setObservations(null);
       } else if (terrestrial === "land") {
         console.log("land hit");
-        const areas = await axios.get(
-          // http://localhost:8080/areas/land/${search}
-          `/areas/land/${search}`
-        );
+        const areas = await axios.get(`/areas/land/${search}`);
         setCenter(findCenter(areas));
         setAreas(areas.data);
         setObservations(null);
       } else {
         console.log("all hit");
-        const areas = await axios.get(
-          // `/areas/country/${search}`
-          `/areas/country/${search}`
-        );
+        const areas = await axios.get(`/areas/country/${search}`);
         setCenter(findCenter(areas));
         setAreas(areas.data);
         setObservations(null);

@@ -43,10 +43,6 @@
   &__label {
     @include flex-column;
     margin: 0.5rem 0 0.25rem 0.5rem;
-
-    // &--top {
-    //   margin-top: 1rem;
-    // }
   }
 
   &__input {

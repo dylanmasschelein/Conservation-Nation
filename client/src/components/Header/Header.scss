@@ -6,7 +6,7 @@
   @include flex-justify-align(space-between, center);
   position: relative;
   background: $color-primary;
-  // border-bottom: $border-primary;
+  border-bottom: $border-primary;
   height: 4rem;
   @include tablet {
     height: 6rem;
