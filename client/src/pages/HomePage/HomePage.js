@@ -25,7 +25,7 @@ const HomePage = (props) => {
   const [clickedArea, setClickedArea] = useState(null);
   const [center, setCenter] = useState(null);
   const [terrestrial, setTerrestrial] = useState("all");
-  const [map, setMap] = useState(null);
+
   useEffect(() => {}, [
     areas,
     observations,
@@ -186,7 +186,6 @@ const HomePage = (props) => {
           setClickedArea={setClickedArea}
           center={center}
           observations={observations}
-          setMap={setMap}
         />
       </div>
     </div>
