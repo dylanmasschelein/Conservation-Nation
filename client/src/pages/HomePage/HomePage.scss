@@ -61,7 +61,14 @@
       }
     }
   }
-
+  &__area {
+    text-align: center;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    background: $color-secondary;
+    border-radius: $border-radius;
+    border: $border-secondary;
+  }
   // &__toggle {
   //   z-index: 9999999;
   //   position: absolute;

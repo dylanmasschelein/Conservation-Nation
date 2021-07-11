@@ -24,7 +24,6 @@ const AreaMap = (props) => {
     center,
     observations,
   } = props;
-
   const [toggleMap, setToggleMap] = useState(true);
 
   useEffect(() => {}, [areas, userLocation, toggleMap]);
@@ -95,7 +94,7 @@ const AreaMap = (props) => {
         )}
 
         {areas && <AreaPolygons />}
-        {/* <FontAwesomeIcon
+        <FontAwesomeIcon
           icon={faToggleOn}
           onClick={() => {
             setToggleMap(!toggleMap);
@@ -103,7 +102,7 @@ const AreaMap = (props) => {
           className={
             toggleMap ? "map__toggle" : " map__toggle map__toggle--off"
           }
-        /> */}
+        />
       </MapContainer>
     </div>
   );

@@ -25,6 +25,7 @@ const HomePage = (props) => {
   const [clickedArea, setClickedArea] = useState(null);
   const [center, setCenter] = useState(null);
   const [terrestrial, setTerrestrial] = useState("all");
+  const [map, setMap] = useState(null);
   useEffect(() => {}, [
     areas,
     observations,
@@ -39,19 +40,16 @@ const HomePage = (props) => {
     console.log("button clicked");
     try {
       if (terrestrial === "marine") {
-        console.log("marine hit");
         const areas = await axios.get(`/areas/marine/${search}`);
         setCenter(findCenter(areas));
         setAreas(areas.data);
         setObservations(null);
       } else if (terrestrial === "land") {
-        console.log("land hit");
         const areas = await axios.get(`/areas/land/${search}`);
         setCenter(findCenter(areas));
         setAreas(areas.data);
         setObservations(null);
       } else {
-        console.log("all hit");
         const areas = await axios.get(`/areas/country/${search}`);
         setCenter(findCenter(areas));
         setAreas(areas.data);
@@ -135,7 +133,6 @@ const HomePage = (props) => {
       const { email } = user;
       try {
         console.log("user hit");
-        // http://localhost:8080/user/${email}
         await axios.put(`/user/${email}`, {
           clickedArea,
         });
@@ -170,6 +167,7 @@ const HomePage = (props) => {
             EXPLORE
           </button>
         </div>
+        {clickedArea && <h3 className='home__area'>{clickedArea.name}</h3>}
 
         {clickedObservation && (
           <Observation
@@ -188,6 +186,7 @@ const HomePage = (props) => {
           setClickedArea={setClickedArea}
           center={center}
           observations={observations}
+          setMap={setMap}
         />
       </div>
     </div>
