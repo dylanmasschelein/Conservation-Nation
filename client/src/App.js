@@ -13,6 +13,7 @@ import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ModalWindow from "./components/ModalWindow/ModalWindow";
+import Login from "./components/Login/Login";
 
 const App = () => {
   const [open, setOpen] = useState(false);
@@ -73,6 +74,19 @@ const App = () => {
           path='/user/register'
           render={(routerProps) => (
             <Signup
+              setToggleModal={setToggleModal}
+              setModalText={setModalText}
+              setRedirect={setRedirect}
+              setOpenLogin={setOpenLogin}
+              setOpen={setOpen}
+              {...routerProps}
+            />
+          )}
+        />
+        <Route
+          path='/user/login'
+          render={(routerProps) => (
+            <Login
               setToggleModal={setToggleModal}
               setModalText={setModalText}
               setRedirect={setRedirect}

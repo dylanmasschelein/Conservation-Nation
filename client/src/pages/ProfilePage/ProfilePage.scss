@@ -3,15 +3,26 @@
 
 .profile {
   display: flex;
+  flex-direction: column;
   text-align: center;
   background: $color-black;
 
+  @include tablet {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    background: $color-black;
+  }
+
   &__user {
     background: $color-primary;
-    height: 100vh;
-    width: 25rem;
     padding: 2rem;
-    border-right: $border-primary;
+
+    @include tablet {
+      border-right: $border-primary;
+      height: 100%;
+      width: 25rem;
+    }
   }
 
   &__followed {

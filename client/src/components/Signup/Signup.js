@@ -41,11 +41,7 @@ const Signup = (props) => {
     };
     try {
       console.log("register");
-      const res = await axios.post(
-        //http://localhost:8080/user/register
-        `/user/register`,
-        signup
-      );
+      const res = await axios.post(`/user/register`, signup);
 
       res.data.status === "ok" ? successAlert(res.data.data) : failedAlert();
     } catch (err) {

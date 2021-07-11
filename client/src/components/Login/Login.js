@@ -29,7 +29,6 @@ const Login = (props) => {
       password,
     };
     try {
-      // http://localhost:8080/user/login
       const res = await axios.post(`/user/login`, login);
 
       res.data.status === "ok"
@@ -42,6 +41,7 @@ const Login = (props) => {
 
   return (
     <div className='login'>
+      <h2 className='login__title'>Login</h2>
       <form onSubmit={handleSubmit} className='login__form'>
         <label htmlFor='email' className='login__label login__label--top'>
           Username

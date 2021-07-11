@@ -3,29 +3,47 @@
 
 .login {
   @include flex-column;
-  @include flex-justify-align(center, center);
+  @include flex-justify-align(unset, center);
+  background: $color-black;
+  height: 100vh;
+  &__title {
+    text-align: center;
+    font-size: 2rem;
+    color: white;
+    padding-top: 2rem;
+  }
 
   &__form {
     @include flex-column;
-    border: 1px solid $color-accent;
-    border-radius: 0.5rem;
-    margin: 0 1rem;
+    background: $color-secondary;
+    border-radius: $border-radius;
+    min-width: 15rem;
+    max-width: 15rem;
+    margin: 1rem;
+    padding: 1rem;
+
+    @include tablet {
+      border: 1px solid $color-accent;
+    }
   }
 
   &__label {
     @include flex-column;
     margin: 0.5rem 0 0.25rem 0.5rem;
 
-    &--top {
-      margin-top: 1rem;
-    }
+    // &--top {
+    //   margin-top: 1rem;
+    // }
   }
 
   &__input {
     @include form-input;
-    width: 89%;
-    margin-left: 0.5rem;
     padding: 0.5rem;
+
+    @include tablet {
+      // width: 89%;
+      // margin-left: 0.5rem;
+    }
 
     &:focus {
       outline: none;
@@ -39,9 +57,17 @@
   }
 
   &__submit {
-    @include button;
-    padding: 0.5rem;
-    margin: 1rem 0.5rem;
+    border-radius: $border-radius;
+    border: $border-primary;
+    background: $color-primary;
+    font-weight: bold;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    @include tablet {
+      @include button;
+      padding: 0.5rem;
+      margin: 1rem 0.5rem;
+    }
   }
 
   &__signup {
