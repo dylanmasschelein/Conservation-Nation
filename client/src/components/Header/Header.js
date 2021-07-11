@@ -32,61 +32,69 @@ const Header = (props) => {
 
   return (
     <>
-      <div className='header'>
-        <Link to='/' className='header__link'>
-          <img src={logo} alt='Logo' className='header__logo' />
-        </Link>
+      <Media query='(max-width: 767px)' render={() => <Navbar />} />
 
-        {/* <img
-          src={whereTo}
-          alt='Where to navigation text'
-          className='header__drop'
-          onClick={() => {
-            setOpen(!open);
-          }}
-        /> */}
-        {/* <nav
-          className={
-            open ? "dropdown dropdown--slidein" : "dropdown dropdown--slideout"
-          }
-        >
-          <Link
-            to='/'
-            className='dropdown__link'
-            onClick={() => setOpen(false)}
-          >
-            Home
-          </Link>
-          <Link
-            to='/'
-            onClick={() => setOpenLogin(!openLogin)}
-            className='dropdown__link'
-          >
-            Login
-          </Link>
-          {openLogin && (
-            <Login
-              history={history}
-              setOpen={setOpen}
-              setOpenLogin={setOpenLogin}
-              setToggleModal={setToggleModal}
-              setModalText={setModalText}
-              setRedirect={setRedirect}
+      <Media
+        query='(min-width: 768px)'
+        render={() => (
+          <div className='header'>
+            <Link to='/' className='header__link'>
+              <img src={logo} alt='Logo' className='header__logo' />
+            </Link>
+
+            <img
+              src={whereTo}
+              alt='Where to navigation text'
+              className='header__drop'
+              onClick={() => {
+                setOpen(!open);
+              }}
             />
-          )}
-          <Link className='dropdown__link' onClick={profileNavigation}>
-            Profile
-          </Link>
-          <Link
-            to='/user/register'
-            className='dropdown__link'
-            onClick={() => setOpen(false)}
-          >
-            Register
-          </Link>
-        </nav> */}
-      </div>
-      <Navbar />
+            <nav
+              className={
+                open
+                  ? "dropdown dropdown--slidein"
+                  : "dropdown dropdown--slideout"
+              }
+            >
+              <Link
+                to='/'
+                className='dropdown__link'
+                onClick={() => setOpen(false)}
+              >
+                Home
+              </Link>
+              <Link
+                to='/'
+                onClick={() => setOpenLogin(!openLogin)}
+                className='dropdown__link'
+              >
+                Login
+              </Link>
+              {openLogin && (
+                <Login
+                  history={history}
+                  setOpen={setOpen}
+                  setOpenLogin={setOpenLogin}
+                  setToggleModal={setToggleModal}
+                  setModalText={setModalText}
+                  setRedirect={setRedirect}
+                />
+              )}
+              <Link className='dropdown__link' onClick={profileNavigation}>
+                Profile
+              </Link>
+              <Link
+                to='/user/register'
+                className='dropdown__link'
+                onClick={() => setOpen(false)}
+              >
+                Register
+              </Link>
+            </nav>
+          </div>
+        )}
+      />
     </>
   );
 };

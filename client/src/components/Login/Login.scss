@@ -6,6 +6,11 @@
   @include flex-justify-align(unset, center);
   background: $color-black;
   height: 100vh;
+  @include tablet {
+    height: unset;
+    background: unset;
+  }
+
   &__title {
     text-align: center;
     font-size: 2rem;
@@ -21,6 +26,14 @@
     max-width: 15rem;
     margin: 1rem;
     padding: 1rem;
+    @include tablet {
+      min-width: unset;
+      max-width: unset;
+      margin: 0 1rem;
+      padding: 0.5rem;
+      width: 89%;
+      // padding: unset;
+    }
 
     @include tablet {
       border: 1px solid $color-accent;
