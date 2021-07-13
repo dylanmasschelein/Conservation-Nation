@@ -4,12 +4,19 @@ import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import "./Signup.scss";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import Avatar from "../Avatar/Avatar";
 
 const Signup = (props) => {
   const { setOpen, setOpenLogin, setRedirect, setToggleModal, setModalText } =
     props;
 
   const [swapForm, setSwapForm] = useState(true);
+  const [file, setFile] = useState(null);
+
+  const onChange = (e) => {
+    setFile(e.target.files[0]);
+    console.log(e.target.files[0]);
+  };
 
   const successAlert = () => {
     setRedirect("/user/register");
@@ -27,21 +34,25 @@ const Signup = (props) => {
 
   // Used React--hooks-form library for form validation
   const onSubmit = async (data) => {
+    const avatar = new FormData();
+    avatar.append("file", file);
     const signup = {
       firstName: data.firstName,
       lastName: data.lastName,
       address: data.address,
       city: data.city,
       country: data.country,
+      avatar,
       volunteer: data.volunteer,
       about: data.about,
       email: data.email,
       password: data.password,
       confirmPassword: data.confirmPassword,
     };
+
     try {
-      console.log("register");
       const res = await axios.post(`/user/register`, signup);
+      console.log(res);
 
       res.data.status === "ok" ? successAlert(res.data.data) : failedAlert();
     } catch (err) {
@@ -130,10 +141,7 @@ const Signup = (props) => {
         )}
         {!swapForm && (
           <div className='signup__right'>
-            <label htmlFor='avatar' className='signup__label'>
-              Avatar
-              <input type='file' id='avatar' className='signup__avatar' />
-            </label>
+            <Avatar onChange={onChange} />
             <label
               htmlFor='volunteer'
               className='signup__label signup__label--radio'
