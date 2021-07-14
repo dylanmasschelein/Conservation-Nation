@@ -7,13 +7,24 @@ require("dotenv").config();
 const authorize = require("../middleware/authorize");
 const User = require("../model/user");
 const secret = process.env.JWT_SECRET;
+const multer = require("multer");
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage }).single("file");
 // Helpers
-function validateInput(input, res) {
-  if (!input || typeof input !== "string") {
-    return res.status(400).json({ status: "error", error: `Invalid ${input}` });
-  }
-}
+// function validateInput(input, res) {
+//   if (!input || typeof input !== "string") {
+//     return res.status(400).json({ status: "error", error: `Invalid ${input}` });
+//   }
+// }
 
 router
   .get("/current", authorize, async (req, res) => {
@@ -43,37 +54,50 @@ router
       volunteer,
       followedAreas,
     } = req.body;
-
+    console.log(req.body);
     // Validation
-    validateInput(firstName, res);
-    validateInput(lastName, res);
-    validateInput(address, res);
-    validateInput(city, res);
-    validateInput(country, res);
-    validateInput(about, res);
+    // validateInput(firstName, res);
+    // validateInput(lastName, res);
+    // validateInput(address, res);
+    // validateInput(city, res);
+    // validateInput(country, res);
+    // validateInput(about, res);
 
-    if (!email || typeof email !== "string") {
-      return res.status(400).json({ status: "error", error: "Invalid email" });
-    }
+    // if (!email || typeof email !== "string") {
+    //   return res.status(400).json({ status: "error", error: "Invalid email" });
+    // }
 
-    if (incomingPassword !== confirmPassword) {
-      return res
-        .status(400)
-        .json({ status: "error", error: "Passwords must match" });
-    }
+    // if (incomingPassword !== confirmPassword) {
+    //   return res
+    //     .status(400)
+    //     .json({ status: "error", error: "Passwords must match" });
+    // }
 
-    if (!incomingPassword || typeof incomingPassword !== "string") {
-      return res
-        .status(400)
-        .json({ status: "error", error: "Invalid password" });
-    }
+    // if (!incomingPassword || typeof incomingPassword !== "string") {
+    //   return res
+    //     .status(400)
+    //     .json({ status: "error", error: "Invalid password" });
+    // }
 
-    if (incomingPassword.length < 8) {
-      return res.status(400).json({
-        status: "error",
-        error: "Password too short. Should be at least 8 characters",
-      });
-    }
+    // if (incomingPassword.length < 8) {
+    //   return res.status(400).json({
+    //     status: "error",
+    //     error: "Password too short. Should be at least 8 characters",
+    //   });
+    // }
+
+    let avatar = "";
+
+    upload(req, res, function (err) {
+      if (err instanceof multer.MulterError) {
+        return res.status(500).json(err);
+      } else if (err) {
+        return res.status(500).json(err);
+      }
+      avatar = req.file;
+      console.log(req.file);
+    });
+    console.log(avatar);
 
     // Hashing password
     const password = await bcrypt.hash(incomingPassword, 8);
@@ -88,6 +112,7 @@ router
         city,
         country,
         about,
+        avatar,
         volunteer,
         followedAreas,
       });
@@ -210,24 +235,24 @@ router
   })
 
   // Uploading avatar
-  .post("/upload", (req, res) => {
-    if (req.files === null) {
-      return res
-        .status(400)
-        .json({ status: "error", error: "No file uploaded" });
-    }
-    const file = req.files.file;
-    console.log(file);
-    console.log(file.mv);
-    file.mv("../../client/public/uploads", (err) => {
-      if (err) {
-        return res
-          .status(500)
-          .json({ status: "error", error: "Path not found" });
-      }
-      res.json({ filename: file.name, filePath: `/uploads/${file.name}` });
-    });
-  })
+  // .post("/upload", (req, res) => {
+  //   if (req.files === null) {
+  //     return res
+  //       .status(400)
+  //       .json({ status: "error", error: "No file uploaded" });
+  //   }
+  //   const file = req.files.file;
+  //   console.log(file);
+  //   console.log(file.mv);
+  //   file.mv("../../client/public/uploads", (err) => {
+  //     if (err) {
+  //       return res
+  //         .status(500)
+  //         .json({ status: "error", error: "Path not found" });
+  //     }
+  //     res.json({ filename: file.name, filePath: `/uploads/${file.name}` });
+  //   });
+  // })
 
   // CHANGE PASSWORD ------------------------------------ Add if time allows
   .post("/change-password", async (req, res) => {

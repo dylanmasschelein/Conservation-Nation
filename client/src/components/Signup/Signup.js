@@ -15,7 +15,6 @@ const Signup = (props) => {
 
   const onChange = (e) => {
     setFile(e.target.files[0]);
-    console.log(e.target.files[0]);
   };
 
   const successAlert = () => {
@@ -32,10 +31,24 @@ const Signup = (props) => {
     setModalText("Passwords must match!");
   };
 
+  // const onClick = () => {
+  //   console.log(file);
+  //   const avatar = new FormData();
+  //   avatar.append("file", file);
+  //   try {
+  //     const res = axios.post("/user/upload", avatar);
+
+  //     console.log(res);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  //   axios.post("/user/upload", avatar);
+  // };
   // Used React--hooks-form library for form validation
   const onSubmit = async (data) => {
     const avatar = new FormData();
     avatar.append("file", file);
+
     const signup = {
       firstName: data.firstName,
       lastName: data.lastName,
@@ -52,7 +65,6 @@ const Signup = (props) => {
 
     try {
       const res = await axios.post(`/user/register`, signup);
-      console.log(res);
 
       res.data.status === "ok" ? successAlert(res.data.data) : failedAlert();
     } catch (err) {
