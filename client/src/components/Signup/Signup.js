@@ -47,8 +47,7 @@ const Signup = (props) => {
   // Used React--hooks-form library for form validation
   const onSubmit = async (data) => {
     const avatar = new FormData();
-    avatar.append("file", file);
-
+    avatar.append("avatar", data.avatar[0]);
     const signup = {
       firstName: data.firstName,
       lastName: data.lastName,
@@ -153,7 +152,15 @@ const Signup = (props) => {
         )}
         {!swapForm && (
           <div className='signup__right'>
-            <Avatar onChange={onChange} />
+            <label htmlFor='avatar' className='signup__label'>
+              Avatar
+              <input
+                {...register("avatar")}
+                type='file'
+                id='avatar'
+                className='signup__avatar'
+              />
+            </label>
             <label
               htmlFor='volunteer'
               className='signup__label signup__label--radio'

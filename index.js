@@ -6,6 +6,8 @@ const userRoutes = require("./routes/userRoutes");
 const databaseAreas = require("./routes/areasDB");
 const uri = process.env.MONGODB_URI;
 const path = require("path");
+const fileUpload = require("express-fileupload");
+const morgan = require("morgan");
 
 const mongoose = require("mongoose");
 mongoose.connect(uri, {
@@ -15,9 +17,15 @@ mongoose.connect(uri, {
 });
 
 const PORT = process.env.PORT || 5000;
-
+app.use(
+  fileUpload({
+    createParentPath: true,
+  })
+);
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan("dev"));
 
 app.use("/areas", databaseAreas);
 app.use("/user", userRoutes);

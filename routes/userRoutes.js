@@ -20,11 +20,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }).single("file");
 // Helpers
-// function validateInput(input, res) {
-//   if (!input || typeof input !== "string") {
-//     return res.status(400).json({ status: "error", error: `Invalid ${input}` });
-//   }
-// }
+function validateInput(input, res) {
+  if (!input || typeof input !== "string") {
+    return res.status(400).json({ status: "error", error: `Invalid ${input}` });
+  }
+}
 
 router
   .get("/current", authorize, async (req, res) => {
@@ -54,7 +54,7 @@ router
       volunteer,
       followedAreas,
     } = req.body;
-    console.log(req.body);
+
     // Validation
     // validateInput(firstName, res);
     // validateInput(lastName, res);
@@ -62,16 +62,27 @@ router
     // validateInput(city, res);
     // validateInput(country, res);
     // validateInput(about, res);
+    console.log(req.body.avatar);
+    // // Confirm file exists
+    // if (!req.files) {
+    //   res.send({ status: false, message: "No files" });
+    // } else {
+    //   const { avatar } = req.files;
+    //   console.log(avatar);
+    //   avatar.mv("./uploads/" + avatar.name);
+
+    //   res.send({ status: true, message: "File uploaded" });
+    // }
 
     // if (!email || typeof email !== "string") {
     //   return res.status(400).json({ status: "error", error: "Invalid email" });
     // }
 
-    // if (incomingPassword !== confirmPassword) {
-    //   return res
-    //     .status(400)
-    //     .json({ status: "error", error: "Passwords must match" });
-    // }
+    // // if (incomingPassword !== confirmPassword) {
+    // //   return res
+    // //     .status(400)
+    // //     .json({ status: "error", error: "Passwords must match" });
+    // // }
 
     // if (!incomingPassword || typeof incomingPassword !== "string") {
     //   return res
@@ -85,19 +96,6 @@ router
     //     error: "Password too short. Should be at least 8 characters",
     //   });
     // }
-
-    let avatar = "";
-
-    upload(req, res, function (err) {
-      if (err instanceof multer.MulterError) {
-        return res.status(500).json(err);
-      } else if (err) {
-        return res.status(500).json(err);
-      }
-      avatar = req.file;
-      console.log(req.file);
-    });
-    console.log(avatar);
 
     // Hashing password
     const password = await bcrypt.hash(incomingPassword, 8);
@@ -116,12 +114,14 @@ router
         volunteer,
         followedAreas,
       });
+
+      console.log("success");
     } catch (err) {
-      return res
+      res
         .status(400)
         .json({ status: "error", error: "Issues creating new user" });
+      console.log("failure");
     }
-
     res.status(200).json({ status: "ok" });
   })
 
