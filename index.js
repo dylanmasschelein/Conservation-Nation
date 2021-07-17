@@ -17,6 +17,7 @@ mongoose.connect(uri, {
 });
 
 const PORT = process.env.PORT || 5000;
+
 app.use(
   fileUpload({
     createParentPath: true,
@@ -27,6 +28,28 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
+app.post("/avatar", async (req, res) => {
+  try {
+    if (!req.files) {
+      res.send({
+        status: false,
+        message: "No Files",
+      });
+    } else {
+      const { avatar } = req.files;
+
+      avatar.mv("./uploads" + avatar.name);
+
+      res.send({
+        status: true,
+        message: "file is uploaded",
+      });
+    }
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
 app.use("/areas", databaseAreas);
 app.use("/user", userRoutes);
 
@@ -36,7 +59,6 @@ if (process.env.NODE_ENV === "production") {
   app.get("*", (_req, res) => {
     res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
   });
-  console.log("Connected to react");
 }
 
 app.listen(PORT, () => console.log(`Server is listening on PORT ${PORT}...`));

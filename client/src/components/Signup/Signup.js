@@ -11,11 +11,6 @@ const Signup = (props) => {
     props;
 
   const [swapForm, setSwapForm] = useState(true);
-  const [file, setFile] = useState(null);
-
-  const onChange = (e) => {
-    setFile(e.target.files[0]);
-  };
 
   const successAlert = () => {
     setRedirect("/user/register");
@@ -31,30 +26,34 @@ const Signup = (props) => {
     setModalText("Passwords must match!");
   };
 
-  // const onClick = () => {
-  //   console.log(file);
+  // const onClick = (e) => {
+  //   e.preventDefault();
   //   const avatar = new FormData();
-  //   avatar.append("file", file);
+  //   avatar.append("avatar", avatar[0]);
+  //   console.log(...avatar);
   //   try {
-  //     const res = axios.post("/user/upload", avatar);
+  //     const res = axios.post("/user/upload", {
+  //       headers: { "Content-Type": "multipart/form-data" },
+  //       avatar,
+  //     });
 
   //     console.log(res);
   //   } catch (err) {
   //     console.error(err);
   //   }
-  //   axios.post("/user/upload", avatar);
   // };
+
   // Used React--hooks-form library for form validation
   const onSubmit = async (data) => {
     const avatar = new FormData();
     avatar.append("avatar", data.avatar[0]);
+
     const signup = {
       firstName: data.firstName,
       lastName: data.lastName,
       address: data.address,
       city: data.city,
       country: data.country,
-      avatar,
       volunteer: data.volunteer,
       about: data.about,
       email: data.email,
@@ -63,9 +62,12 @@ const Signup = (props) => {
     };
 
     try {
-      const res = await axios.post(`/user/register`, signup);
+      const formRes = await axios.post(`/user/register`, signup);
+      const avatarRes = await axios.post(`/avatar`, avatar);
 
-      res.data.status === "ok" ? successAlert(res.data.data) : failedAlert();
+      formRes.data.status === "ok"
+        ? successAlert(formRes.data.data)
+        : failedAlert();
     } catch (err) {
       console.error(err);
     }
@@ -155,7 +157,7 @@ const Signup = (props) => {
             <label htmlFor='avatar' className='signup__label'>
               Avatar
               <input
-                {...register("avatar")}
+                {...register("avatar", { required: true })}
                 type='file'
                 id='avatar'
                 className='signup__avatar'

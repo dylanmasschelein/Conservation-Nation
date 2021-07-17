@@ -18,7 +18,6 @@ const ProfilePage = (props) => {
       },
     };
     try {
-      console.log("current");
       const user = await axios.get("/user/current", headers);
 
       setUser(user.data);
