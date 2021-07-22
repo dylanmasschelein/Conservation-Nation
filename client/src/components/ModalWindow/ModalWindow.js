@@ -3,10 +3,7 @@ import { withRouter } from "react-router";
 import store from "../../redux/store";
 import { toggleModalOff } from "../../redux/actions";
 
-const ModalWindow = ({ setToggleModal, modalText, history }) => {
-  const pageRedirect = () => {
-    history.push(`${redirect}`);
-  };
+const ModalWindow = ({ history }) => {
   const state = store.getState();
   const { redirect, text } = state.modal;
 

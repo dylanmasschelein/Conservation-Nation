@@ -7,19 +7,12 @@ import "./Header.scss";
 import Media from "react-media";
 import Navbar from "../Navbar/Navbar";
 import store from "../../redux/store";
-import { toggleModalOn } from "../../redux/actions";
+import { toggleModalOn, toggleNavbar } from "../../redux/actions";
 
 const Header = (props) => {
-  const {
-    setRedirect,
-    history,
-    setToggleModal,
-    setModalText,
-    open,
-    setOpen,
-    openLogin,
-    setOpenLogin,
-  } = props;
+  const { history, open, setOpen, openLogin, setOpenLogin } = props;
+
+  const navbar = store.getState().navbar;
 
   const profileNavigation = () => {
     if (typeof sessionStorage.getItem("token") !== "string") {
@@ -33,7 +26,7 @@ const Header = (props) => {
       setOpenLogin(true);
     } else {
       history.push("/profile");
-      setOpen(false);
+      store.dispatch(toggleNavbar(false));
     }
   };
 
@@ -53,13 +46,11 @@ const Header = (props) => {
               src={whereTo}
               alt='Where to navigation text'
               className='header__drop'
-              onClick={() => {
-                setOpen(!open);
-              }}
+              onClick={() => store.dispatch(toggleNavbar(!navbar))}
             />
             <nav
               className={
-                open
+                navbar
                   ? "dropdown dropdown--slidein"
                   : "dropdown dropdown--slideout"
               }
@@ -67,7 +58,7 @@ const Header = (props) => {
               <Link
                 to='/'
                 className='dropdown__link'
-                onClick={() => setOpen(false)}
+                onClick={() => store.dispatch(toggleNavbar(false))}
               >
                 Home
               </Link>
@@ -83,9 +74,6 @@ const Header = (props) => {
                   history={history}
                   setOpen={setOpen}
                   setOpenLogin={setOpenLogin}
-                  setToggleModal={setToggleModal}
-                  setModalText={setModalText}
-                  setRedirect={setRedirect}
                 />
               )}
               <Link className='dropdown__link' onClick={profileNavigation}>
@@ -94,7 +82,7 @@ const Header = (props) => {
               <Link
                 to='/user/register'
                 className='dropdown__link'
-                onClick={() => setOpen(false)}
+                onClick={() => store.dispatch(toggleNavbar(false))}
               >
                 Register
               </Link>

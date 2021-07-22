@@ -6,11 +6,10 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import Avatar from "../Avatar/Avatar";
 import store from "../../redux/store";
-import { toggleModalOn } from "../../redux/actions";
+import { toggleModalOn, toggleNavbar } from "../../redux/actions";
 
 const Signup = (props) => {
-  const { setOpen, setOpenLogin, setRedirect, setToggleModal, setModalText } =
-    props;
+  const { setOpenLogin, setRedirect, setToggleModal, setModalText } = props;
 
   const [swapForm, setSwapForm] = useState(true);
 
@@ -22,7 +21,7 @@ const Signup = (props) => {
         text: "Signup successful! Please login to continue",
       })
     );
-    setOpen(true);
+    store.dispatch(toggleNavbar(true));
     setOpenLogin(true);
   };
 

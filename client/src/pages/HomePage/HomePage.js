@@ -7,17 +7,10 @@ import { treeIcon, coralIcon, findCenter } from "../../helperFunctions";
 import axios from "axios";
 import { Marker } from "react-leaflet";
 import store from "../../redux/store";
-import { toggleModalOn, toggleModalOff } from "../../redux/actions";
+import { toggleModalOn, toggleNavbar } from "../../redux/actions";
 
 const HomePage = (props) => {
-  const {
-    user,
-    setToggleModal,
-    setModalText,
-    setRedirect,
-    setOpen,
-    setOpenLogin,
-  } = props;
+  const { user, setToggleModal, setModalText, setOpenLogin } = props;
 
   const [search, setSearch] = useState("");
   const [areas, setAreas] = useState(null);
@@ -133,7 +126,7 @@ const HomePage = (props) => {
           text: "Please sign in to follow an area!",
         })
       );
-      setOpen(true);
+      store.dispatch(toggleNavbar(true));
       setOpenLogin(true);
     } else if (!clickedArea) {
       store.dispatch(
