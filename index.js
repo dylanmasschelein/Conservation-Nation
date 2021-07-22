@@ -38,7 +38,8 @@ app.post("/avatar", async (req, res) => {
     } else {
       const { avatar } = req.files;
 
-      avatar.mv("./uploads" + avatar.name);
+      // avatar.mv("./uploads" + avatar.name);
+      avatar.mv(`${__dirname}/uploads/${avatar.name}`);
 
       res.send({
         status: true,

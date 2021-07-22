@@ -26,28 +26,12 @@ const Signup = (props) => {
     setModalText("Passwords must match!");
   };
 
-  // const onClick = (e) => {
-  //   e.preventDefault();
-  //   const avatar = new FormData();
-  //   avatar.append("avatar", avatar[0]);
-  //   console.log(...avatar);
-  //   try {
-  //     const res = axios.post("/user/upload", {
-  //       headers: { "Content-Type": "multipart/form-data" },
-  //       avatar,
-  //     });
-
-  //     console.log(res);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
   // Used React--hooks-form library for form validation
   const onSubmit = async (data) => {
     const avatar = new FormData();
     avatar.append("avatar", data.avatar[0]);
 
+    console.log(data.avatar[0].name);
     const signup = {
       firstName: data.firstName,
       lastName: data.lastName,
@@ -55,6 +39,7 @@ const Signup = (props) => {
       city: data.city,
       country: data.country,
       volunteer: data.volunteer,
+      avatar: data.avatar[0].name,
       about: data.about,
       email: data.email,
       password: data.password,

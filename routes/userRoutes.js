@@ -7,18 +7,7 @@ require("dotenv").config();
 const authorize = require("../middleware/authorize");
 const User = require("../model/user");
 const secret = process.env.JWT_SECRET;
-const multer = require("multer");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
-
-const upload = multer({ storage: storage }).single("file");
 // Helpers
 function validateInput(input, res) {
   if (!input || typeof input !== "string") {
@@ -41,7 +30,6 @@ router
 
   // REGISTER
   .post("/register", async (req, res) => {
-    console.log("1");
     const {
       email,
       password: incomingPassword,
@@ -56,12 +44,7 @@ router
       volunteer,
       followedAreas,
     } = req.body;
-    console.log(req.body);
-    console.log(req.files);
-    console.log(avatar);
-    // the problem is sending res.json back twice at some point in the function
-    // but we are definately not getting the formdata send properly to the backend!!
-    // maybe try file input react-hook form again
+
     // Validation;
     validateInput(firstName, res);
     validateInput(lastName, res);
@@ -69,36 +52,22 @@ router
     validateInput(city, res);
     validateInput(country, res);
     validateInput(about, res);
-    console.log("2");
-
-    // Confirm file exists
-    if (!avatar) {
-      console.log("no files dummy");
-      res.send({ status: false, message: "No files" });
-    } else {
-      console.log(avatar.name, "my name!");
-      avatar.mv("./uploads/" + avatar.name);
-      console.log("after my name!");
-    }
-    console.log("3");
 
     if (!email || typeof email !== "string") {
       return res.status(400).json({ status: "error", error: "Invalid email" });
     }
-    console.log("4");
 
-    // if (incomingPassword !== confirmPassword) {
-    //   return res
-    //     .status(400)
-    //     .json({ status: "error", error: "Passwords must match" });
-    // }
+    if (incomingPassword !== confirmPassword) {
+      return res
+        .status(400)
+        .json({ status: "error", error: "Passwords must match" });
+    }
 
     if (!incomingPassword || typeof incomingPassword !== "string") {
       return res
         .status(400)
         .json({ status: "error", error: "Invalid password" });
     }
-    console.log("5");
 
     if (incomingPassword.length < 8) {
       return res.status(400).json({
@@ -106,13 +75,10 @@ router
         error: "Password too short. Should be at least 8 characters",
       });
     }
-    console.log("6");
 
     // Hashing password
     const password = await bcrypt.hash(incomingPassword, 8);
     try {
-      console.log("7");
-
       const newUser = await User.create({
         email,
         username: email,
@@ -123,6 +89,7 @@ router
         city,
         country,
         about,
+        avatar,
         volunteer,
         followedAreas,
       });
