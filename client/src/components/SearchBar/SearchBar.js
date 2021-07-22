@@ -2,13 +2,13 @@ import "./SearchBar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import store from "../../redux/store";
-import { areaSearch } from "../../redux/actions";
+import { areaSearch, terrestrialSearch } from "../../redux/actions";
 
 function SearchBar(props) {
-  const { handleSearch, search, setClickedObservation, setTerrestrial } = props;
+  const { handleSearch, search, setClickedObservation } = props;
 
-  const handleChange = (e) => {
-    setTerrestrial(e.target.value);
+  const handleTerrestrial = (e) => {
+    store.dispatch(terrestrialSearch(e.target.value));
   };
 
   const handleAreaSearch = (e) => {
@@ -35,7 +35,7 @@ function SearchBar(props) {
         <select
           name='terrestrial'
           id='terrestrial'
-          onChange={handleChange}
+          onChange={handleTerrestrial}
           className='search__select'
         >
           <option value='all' className='search__option'>

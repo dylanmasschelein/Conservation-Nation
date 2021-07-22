@@ -4,6 +4,8 @@ import {
   TOGGLE_NAVBAR,
   TOGGLE_LOGIN,
   SEARCH_AREA,
+  TERRESTRIAL_SEARCH,
+  AREA_BOUNDS,
 } from "../constants/action-types";
 
 export const toggleModalOn = (value) => ({
@@ -28,5 +30,15 @@ export const toggleLogin = (value) => ({
 
 export const areaSearch = (value) => ({
   type: SEARCH_AREA,
+  payload: value,
+});
+
+export const terrestrialSearch = (value) => ({
+  type: TERRESTRIAL_SEARCH,
+  payload: value,
+});
+
+export const setAreaBounds = (value) => ({
+  type: AREA_BOUNDS,
   payload: value,
 });

@@ -7,18 +7,22 @@ import { treeIcon, coralIcon, findCenter } from "../../helperFunctions";
 import axios from "axios";
 import { Marker } from "react-leaflet";
 import store from "../../redux/store";
-import { toggleModalOn, toggleNavbar, toggleLogin } from "../../redux/actions";
+import {
+  toggleModalOn,
+  toggleNavbar,
+  toggleLogin,
+  setAreaBounds,
+} from "../../redux/actions";
 
 const HomePage = ({ user }) => {
   const [areas, setAreas] = useState(null);
-  const [areaBounds, setAreaBounds] = useState(null);
+  // const [areaBounds, setAreaBounds] = useState(null);
   const [observations, setObservations] = useState(null);
   const [clickedObservation, setClickedObservation] = useState(null);
   const [clickedArea, setClickedArea] = useState(null);
   const [center, setCenter] = useState(null);
-  const [terrestrial, setTerrestrial] = useState("all");
 
-  const search = store.getState().areaSearch;
+  const { areaSearch: search, terrestrial, areaBounds } = store.getState();
 
   useEffect(() => {}, [
     areas,
@@ -57,12 +61,14 @@ const HomePage = ({ user }) => {
   const onEachArea = (feature, layer) => {
     layer.on("click", (e) => {
       const { _northEast, _southWest } = e.target._bounds;
-      setAreaBounds({
-        neLat: _northEast.lat,
-        neLng: _northEast.lng,
-        swLat: _southWest.lat,
-        swLng: _southWest.lng,
-      });
+      store.dispatch(
+        setAreaBounds({
+          neLat: _northEast.lat,
+          neLng: _northEast.lng,
+          swLat: _southWest.lat,
+          swLng: _southWest.lng,
+        })
+      );
     });
   };
 
@@ -157,7 +163,6 @@ const HomePage = ({ user }) => {
     <div className='home'>
       <div className='home__left'>
         <SearchBar
-          setTerrestrial={setTerrestrial}
           handleSearch={handleSearch}
           search={search}
           setClickedObservation={setClickedObservation}
