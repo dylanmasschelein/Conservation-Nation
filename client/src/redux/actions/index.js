@@ -6,6 +6,8 @@ import {
   SEARCH_AREA,
   TERRESTRIAL_SEARCH,
   AREA_BOUNDS,
+  ACTIVE_OBSERVATION,
+  RESET_OBSERVATION,
 } from "../constants/action-types";
 
 export const toggleModalOn = (value) => ({
@@ -40,5 +42,15 @@ export const terrestrialSearch = (value) => ({
 
 export const setAreaBounds = (value) => ({
   type: AREA_BOUNDS,
+  payload: value,
+});
+
+export const setActiveObservation = (value) => ({
+  type: ACTIVE_OBSERVATION,
+  payload: value,
+});
+
+export const resetObservation = (value) => ({
+  type: RESET_OBSERVATION,
   payload: value,
 });

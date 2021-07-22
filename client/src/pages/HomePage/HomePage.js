@@ -12,22 +12,27 @@ import {
   toggleNavbar,
   toggleLogin,
   setAreaBounds,
+  setActiveObservation,
+  resetObservation,
 } from "../../redux/actions";
 
 const HomePage = ({ user }) => {
   const [areas, setAreas] = useState(null);
-  // const [areaBounds, setAreaBounds] = useState(null);
   const [observations, setObservations] = useState(null);
-  const [clickedObservation, setClickedObservation] = useState(null);
   const [clickedArea, setClickedArea] = useState(null);
   const [center, setCenter] = useState(null);
 
-  const { areaSearch: search, terrestrial, areaBounds } = store.getState();
+  const {
+    areaSearch: search,
+    terrestrial,
+    areaBounds,
+    activeObservation,
+  } = store.getState();
 
   useEffect(() => {}, [
     areas,
     observations,
-    clickedObservation,
+    activeObservation,
     clickedArea,
     center,
   ]);
@@ -113,7 +118,7 @@ const HomePage = ({ user }) => {
           icon={clickedArea.marine ? coralIcon : treeIcon}
           eventHandlers={{
             click: () => {
-              setClickedObservation(observation);
+              store.dispatch(setActiveObservation(observation));
             },
           }}
         />
@@ -162,11 +167,7 @@ const HomePage = ({ user }) => {
   return (
     <div className='home'>
       <div className='home__left'>
-        <SearchBar
-          handleSearch={handleSearch}
-          search={search}
-          setClickedObservation={setClickedObservation}
-        />
+        <SearchBar handleSearch={handleSearch} search={search} />
         <div className='home__button-div'>
           <button onClick={followArea} className='home__button'>
             FOLLOW
@@ -180,12 +181,7 @@ const HomePage = ({ user }) => {
         </div>
         {clickedArea && <h3 className='home__area'>{clickedArea.name}</h3>}
 
-        {clickedObservation && (
-          <Observation
-            observation={clickedObservation}
-            setClickedObservation={setClickedObservation}
-          />
-        )}
+        {activeObservation && <Observation observation={activeObservation} />}
       </div>
       <div className='home__right'>
         <AreaMap
