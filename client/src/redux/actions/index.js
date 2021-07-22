@@ -3,6 +3,7 @@ import {
   TOGGLE_MODAL_OFF,
   TOGGLE_NAVBAR,
   TOGGLE_LOGIN,
+  SEARCH_AREA,
 } from "../constants/action-types";
 
 export const toggleModalOn = (value) => ({
@@ -22,5 +23,10 @@ export const toggleNavbar = (value) => ({
 
 export const toggleLogin = (value) => ({
   type: TOGGLE_LOGIN,
+  payload: value,
+});
+
+export const areaSearch = (value) => ({
+  type: SEARCH_AREA,
   payload: value,
 });

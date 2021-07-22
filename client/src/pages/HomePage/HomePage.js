@@ -10,7 +10,6 @@ import store from "../../redux/store";
 import { toggleModalOn, toggleNavbar, toggleLogin } from "../../redux/actions";
 
 const HomePage = ({ user }) => {
-  const [search, setSearch] = useState("");
   const [areas, setAreas] = useState(null);
   const [areaBounds, setAreaBounds] = useState(null);
   const [observations, setObservations] = useState(null);
@@ -18,6 +17,8 @@ const HomePage = ({ user }) => {
   const [clickedArea, setClickedArea] = useState(null);
   const [center, setCenter] = useState(null);
   const [terrestrial, setTerrestrial] = useState("all");
+
+  const search = store.getState().areaSearch;
 
   useEffect(() => {}, [
     areas,
@@ -30,7 +31,6 @@ const HomePage = ({ user }) => {
   // Handling search
   const handleSearch = async (e) => {
     e.preventDefault(e);
-    console.log("button clicked");
     try {
       if (terrestrial === "marine") {
         const areas = await axios.get(`/areas/marine/${search}`);
@@ -158,7 +158,6 @@ const HomePage = ({ user }) => {
       <div className='home__left'>
         <SearchBar
           setTerrestrial={setTerrestrial}
-          setSearch={setSearch}
           handleSearch={handleSearch}
           search={search}
           setClickedObservation={setClickedObservation}
