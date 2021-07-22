@@ -6,6 +6,7 @@ import areaSearch from "./areaSearch";
 import terrestrial from "./terrestrial";
 import areaBounds from "./areaBounds";
 import activeObservation from "./activeObservation";
+import activeArea from "./activeArea";
 
 export default combineReducers({
   modal,
@@ -15,4 +16,5 @@ export default combineReducers({
   terrestrial,
   areaBounds,
   activeObservation,
+  activeArea,
 });

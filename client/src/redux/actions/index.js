@@ -8,6 +8,7 @@ import {
   AREA_BOUNDS,
   ACTIVE_OBSERVATION,
   RESET_OBSERVATION,
+  ACTIVE_AREA,
 } from "../constants/action-types";
 
 export const toggleModalOn = (value) => ({
@@ -52,5 +53,10 @@ export const setActiveObservation = (value) => ({
 
 export const resetObservation = (value) => ({
   type: RESET_OBSERVATION,
+  payload: value,
+});
+
+export const activeArea = (value) => ({
+  type: ACTIVE_AREA,
   payload: value,
 });

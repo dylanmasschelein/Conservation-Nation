@@ -13,13 +13,11 @@ import {
   toggleLogin,
   setAreaBounds,
   setActiveObservation,
-  resetObservation,
 } from "../../redux/actions";
 
 const HomePage = ({ user }) => {
   const [areas, setAreas] = useState(null);
   const [observations, setObservations] = useState(null);
-  const [clickedArea, setClickedArea] = useState(null);
   const [center, setCenter] = useState(null);
 
   const {
@@ -27,13 +25,14 @@ const HomePage = ({ user }) => {
     terrestrial,
     areaBounds,
     activeObservation,
+    activeArea,
   } = store.getState();
 
   useEffect(() => {}, [
     areas,
     observations,
     activeObservation,
-    clickedArea,
+    activeArea,
     center,
   ]);
 
@@ -79,7 +78,7 @@ const HomePage = ({ user }) => {
 
   // Retrieving Observations data on btn click
   const exploreArea = () => {
-    if (!clickedArea) {
+    if (!activeArea) {
       store.dispatch(
         toggleModalOn({
           toggleModal: true,
@@ -115,7 +114,7 @@ const HomePage = ({ user }) => {
             observation.geojson.coordinates[1],
             observation.geojson.coordinates[0],
           ]}
-          icon={clickedArea.marine ? coralIcon : treeIcon}
+          icon={activeArea.marine ? coralIcon : treeIcon}
           eventHandlers={{
             click: () => {
               store.dispatch(setActiveObservation(observation));
@@ -137,7 +136,7 @@ const HomePage = ({ user }) => {
       );
       store.dispatch(toggleNavbar(true));
       store.dispatch(toggleLogin(true));
-    } else if (!clickedArea) {
+    } else if (!activeArea) {
       store.dispatch(
         toggleModalOn({
           toggleModal: true,
@@ -149,7 +148,7 @@ const HomePage = ({ user }) => {
       const { email } = user;
       try {
         await axios.put(`/user/${email}`, {
-          clickedArea,
+          activeArea,
         });
         store.dispatch(
           toggleModalOn({
@@ -179,7 +178,7 @@ const HomePage = ({ user }) => {
             EXPLORE
           </button>
         </div>
-        {clickedArea && <h3 className='home__area'>{clickedArea.name}</h3>}
+        {activeArea && <h3 className='home__area'>{activeArea.name}</h3>}
 
         {activeObservation && <Observation observation={activeObservation} />}
       </div>
@@ -188,7 +187,6 @@ const HomePage = ({ user }) => {
           areas={areas}
           onEachArea={onEachArea}
           PlotObservations={PlotObservations}
-          setClickedArea={setClickedArea}
           center={center}
           observations={observations}
         />
