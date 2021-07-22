@@ -3,10 +3,9 @@ import { useState } from "react";
 import axios from "axios";
 import Media from "react-media";
 import store from "../../redux/store";
-import { toggleModalOn, toggleNavbar } from "../../redux/actions";
+import { toggleModalOn, toggleNavbar, toggleLogin } from "../../redux/actions";
 
-const Login = (props) => {
-  const { setOpenLogin } = props;
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,7 +19,7 @@ const Login = (props) => {
       })
     );
     store.dispatch(toggleNavbar(false));
-    setOpenLogin(false);
+    store.dispatch(toggleLogin(false));
   };
 
   const failedAlert = (alert) => {

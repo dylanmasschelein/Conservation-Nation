@@ -7,11 +7,9 @@ import { treeIcon, coralIcon, findCenter } from "../../helperFunctions";
 import axios from "axios";
 import { Marker } from "react-leaflet";
 import store from "../../redux/store";
-import { toggleModalOn, toggleNavbar } from "../../redux/actions";
+import { toggleModalOn, toggleNavbar, toggleLogin } from "../../redux/actions";
 
-const HomePage = (props) => {
-  const { user, setToggleModal, setModalText, setOpenLogin } = props;
-
+const HomePage = ({ user }) => {
   const [search, setSearch] = useState("");
   const [areas, setAreas] = useState(null);
   const [areaBounds, setAreaBounds] = useState(null);
@@ -127,7 +125,7 @@ const HomePage = (props) => {
         })
       );
       store.dispatch(toggleNavbar(true));
-      setOpenLogin(true);
+      store.dispatch(toggleLogin(true));
     } else if (!clickedArea) {
       store.dispatch(
         toggleModalOn({
@@ -180,8 +178,6 @@ const HomePage = (props) => {
 
         {clickedObservation && (
           <Observation
-            setToggleModal={setToggleModal}
-            setModalText={setModalText}
             observation={clickedObservation}
             setClickedObservation={setClickedObservation}
           />

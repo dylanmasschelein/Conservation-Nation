@@ -17,7 +17,6 @@ import Login from "./components/Login/Login";
 import store from "../src/redux/store";
 
 const App = () => {
-  const [openLogin, setOpenLogin] = useState(false);
   const [user, setUser] = useState(null);
 
   const state = store.getState();
@@ -26,14 +25,10 @@ const App = () => {
 
   return (
     <Router>
-      <Header user={user} openLogin={openLogin} setOpenLogin={setOpenLogin} />
+      <Header user={user} />
       {modal && <ModalWindow />}
       <Switch>
-        <Route
-          path='/'
-          exact
-          render={() => <HomePage user={user} setOpenLogin={setOpenLogin} />}
-        />
+        <Route path='/' exact render={() => <HomePage user={user} />} />
         <Route
           path='/profile'
           render={(routerProps) => (
@@ -42,15 +37,11 @@ const App = () => {
         />
         <Route
           path='/user/register'
-          render={(routerProps) => (
-            <Signup setOpenLogin={setOpenLogin} {...routerProps} />
-          )}
+          render={(routerProps) => <Signup {...routerProps} />}
         />
         <Route
           path='/user/login'
-          render={(routerProps) => (
-            <Login setOpenLogin={setOpenLogin} {...routerProps} />
-          )}
+          render={(routerProps) => <Login {...routerProps} />}
         />
         <Redirect to='/' />
       </Switch>

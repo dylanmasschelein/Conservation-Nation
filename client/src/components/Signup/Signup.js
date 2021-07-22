@@ -4,13 +4,10 @@ import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import "./Signup.scss";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import Avatar from "../Avatar/Avatar";
 import store from "../../redux/store";
-import { toggleModalOn, toggleNavbar } from "../../redux/actions";
+import { toggleModalOn, toggleNavbar, toggleLogin } from "../../redux/actions";
 
-const Signup = (props) => {
-  const { setOpenLogin, setRedirect, setToggleModal, setModalText } = props;
-
+const Signup = () => {
   const [swapForm, setSwapForm] = useState(true);
 
   const successAlert = () => {
@@ -22,7 +19,7 @@ const Signup = (props) => {
       })
     );
     store.dispatch(toggleNavbar(true));
-    setOpenLogin(true);
+    store.dispatch(toggleLogin(true));
   };
 
   const failedAlert = () => {

@@ -2,6 +2,7 @@ import {
   TOGGLE_MODAL_ON,
   TOGGLE_MODAL_OFF,
   TOGGLE_NAVBAR,
+  TOGGLE_LOGIN,
 } from "../constants/action-types";
 
 export const toggleModalOn = (value) => ({
@@ -16,5 +17,10 @@ export const toggleModalOff = (value) => ({
 
 export const toggleNavbar = (value) => ({
   type: TOGGLE_NAVBAR,
+  payload: value,
+});
+
+export const toggleLogin = (value) => ({
+  type: TOGGLE_LOGIN,
   payload: value,
 });

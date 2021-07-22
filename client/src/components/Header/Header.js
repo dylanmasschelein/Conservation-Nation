@@ -7,12 +7,10 @@ import "./Header.scss";
 import Media from "react-media";
 import Navbar from "../Navbar/Navbar";
 import store from "../../redux/store";
-import { toggleModalOn, toggleNavbar } from "../../redux/actions";
+import { toggleModalOn, toggleNavbar, toggleLogin } from "../../redux/actions";
 
-const Header = (props) => {
-  const { history, open, setOpen, openLogin, setOpenLogin } = props;
-
-  const navbar = store.getState().navbar;
+const Header = ({ history }) => {
+  const { navbar, login } = store.getState();
 
   const profileNavigation = () => {
     if (typeof sessionStorage.getItem("token") !== "string") {
@@ -23,7 +21,7 @@ const Header = (props) => {
           text: "Please login to continue",
         })
       );
-      setOpenLogin(true);
+      store.dispatch(toggleLogin(true));
     } else {
       history.push("/profile");
       store.dispatch(toggleNavbar(false));
@@ -64,18 +62,12 @@ const Header = (props) => {
               </Link>
               <Link
                 to='/'
-                onClick={() => setOpenLogin(!openLogin)}
+                onClick={() => store.dispatch(toggleLogin(!login))}
                 className='dropdown__link'
               >
                 Login
               </Link>
-              {openLogin && (
-                <Login
-                  history={history}
-                  setOpen={setOpen}
-                  setOpenLogin={setOpenLogin}
-                />
-              )}
+              {login && <Login />}
               <Link className='dropdown__link' onClick={profileNavigation}>
                 Profile
               </Link>
