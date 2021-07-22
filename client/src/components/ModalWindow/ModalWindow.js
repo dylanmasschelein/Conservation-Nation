@@ -1,21 +1,31 @@
 import "./ModalWindow.scss";
 import { withRouter } from "react-router";
+import store from "../../redux/store";
+import { toggleModalOff } from "../../redux/actions";
 
-const ModalWindow = ({ setToggleModal, modalText, redirect, history }) => {
+const ModalWindow = ({ setToggleModal, modalText, history }) => {
   const pageRedirect = () => {
     history.push(`${redirect}`);
   };
+  const state = store.getState();
+  const { redirect, text } = state.modal;
+
+  const onClose = () => {
+    store.dispatch(
+      toggleModalOff({
+        toggleModal: false,
+        redirect: "",
+        text: "",
+      })
+    );
+    history.push(`${redirect}`);
+  };
+
   return (
     <div className='modal'>
       <div className='modal__window'>
-        <h3 className='modal__message'>{modalText}</h3>
-        <button
-          onClick={() => {
-            setToggleModal(false);
-            pageRedirect();
-          }}
-          className='modal__button'
-        >
+        <h3 className='modal__message'>{text}</h3>
+        <button onClick={onClose} className='modal__button'>
           Okay!
         </button>
       </div>

@@ -3,6 +3,7 @@ import avatar from "../../assets/Images/Mugshot-1.jpg";
 import linkedin from "../../assets/Images/linkedin.png";
 import octocat from "../../assets/Images/Octocat.png";
 import gmail from "../../assets/Images/gmail.png";
+
 const ProfileInfo = ({ user }) => {
   const { firstName, address, city, country, about, volunteer } = user;
 

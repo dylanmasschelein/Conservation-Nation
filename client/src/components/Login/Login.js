@@ -2,6 +2,8 @@ import "./Login.scss";
 import { useState } from "react";
 import axios from "axios";
 import Media from "react-media";
+import store from "../../redux/store";
+import { toggleModalOn } from "../../redux/actions";
 
 const Login = (props) => {
   const { setOpen, setOpenLogin, setModalText, setToggleModal, setRedirect } =
@@ -11,16 +13,25 @@ const Login = (props) => {
 
   const successAlert = (token) => {
     sessionStorage.setItem("token", token);
-    setRedirect("/profile");
-    setToggleModal(true);
-    setModalText("Successfully logged in! Welcome!");
+    store.dispatch(
+      toggleModalOn({
+        toggleModal: true,
+        redirect: "/profile",
+        text: "Successfully logged in! Welcome!",
+      })
+    );
     setOpenLogin(false);
     setOpen(false);
   };
 
   const failedAlert = (alert) => {
-    setToggleModal(true);
-    setModalText(alert);
+    store.dispatch(
+      toggleModalOn({
+        toggleModal: true,
+        redirect: "",
+        text: alert,
+      })
+    );
   };
 
   const handleSubmit = async (e) => {

@@ -6,6 +6,8 @@ import Observation from "../../components/Observation/Observation";
 import { treeIcon, coralIcon, findCenter } from "../../helperFunctions";
 import axios from "axios";
 import { Marker } from "react-leaflet";
+import store from "../../redux/store";
+import { toggleModalOn, toggleModalOff } from "../../redux/actions";
 
 const HomePage = (props) => {
   const {
@@ -76,9 +78,13 @@ const HomePage = (props) => {
   // Retrieving Observations data on btn click
   const exploreArea = () => {
     if (!clickedArea) {
-      setRedirect("/");
-      setToggleModal(true);
-      setModalText("You must click an area to explore it!");
+      store.dispatch(
+        toggleModalOn({
+          toggleModal: true,
+          redirect: "/",
+          text: "You must click an area to explore it!",
+        })
+      );
     }
     if (areaBounds) getINaturalistData();
   };
@@ -120,26 +126,36 @@ const HomePage = (props) => {
 
   const followArea = async () => {
     if (!user) {
-      setToggleModal(true);
-      setModalText("Please sign in to follow an area!");
-      setRedirect("/");
+      store.dispatch(
+        toggleModalOn({
+          toggleModal: true,
+          redirect: "/",
+          text: "Please sign in to follow an area!",
+        })
+      );
       setOpen(true);
       setOpenLogin(true);
     } else if (!clickedArea) {
-      setToggleModal(true);
-      setModalText("You must inspect an area to follow it!");
-      setRedirect("/");
+      store.dispatch(
+        toggleModalOn({
+          toggleModal: true,
+          redirect: "/",
+          text: "You must inspect an area to follow it!",
+        })
+      );
     } else {
       const { email } = user;
       try {
-        console.log("user hit");
         await axios.put(`/user/${email}`, {
           clickedArea,
         });
-
-        setToggleModal(true);
-        setModalText("Area followed!");
-        setRedirect("/");
+        store.dispatch(
+          toggleModalOn({
+            toggleModal: true,
+            redirect: "/",
+            text: "Area followed!",
+          })
+        );
       } catch (err) {
         console.error(err);
       }

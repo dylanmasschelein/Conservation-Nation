@@ -5,6 +5,8 @@ import "./Signup.scss";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import Avatar from "../Avatar/Avatar";
+import store from "../../redux/store";
+import { toggleModalOn } from "../../redux/actions";
 
 const Signup = (props) => {
   const { setOpen, setOpenLogin, setRedirect, setToggleModal, setModalText } =
@@ -13,17 +15,25 @@ const Signup = (props) => {
   const [swapForm, setSwapForm] = useState(true);
 
   const successAlert = () => {
-    setRedirect("/user/register");
-    setToggleModal(true);
-    setModalText("Signup successful! Please login to continue");
+    store.dispatch(
+      toggleModalOn({
+        toggleModal: true,
+        redirect: "/user/register",
+        text: "Signup successful! Please login to continue",
+      })
+    );
     setOpen(true);
     setOpenLogin(true);
   };
 
   const failedAlert = () => {
-    setRedirect("/user/register");
-    setToggleModal(true);
-    setModalText("Passwords must match!");
+    store.dispatch(
+      toggleModalOn({
+        toggleModal: true,
+        redirect: "/user/register",
+        text: "Passwords must match!",
+      })
+    );
   };
 
   // Used React--hooks-form library for form validation

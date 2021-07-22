@@ -2,14 +2,19 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import "./Observation.scss";
+import store from "../../redux/store";
+import { toggleModalOn } from "../../redux/actions";
 
-export default function Observation(props) {
-  const { setModalText, setToggleModal, setClickedObservation } = props;
-
+export default function Observation({ setClickedObservation, props }) {
   // Protecting against observations that are null
   if (!props.observation.taxon) {
-    setToggleModal(true);
-    setModalText("Taxon information corrupt, please select another");
+    store.dispatch(
+      toggleModalOn({
+        toggleModal: true,
+        redirect: "",
+        text: "Taxon information corrupt, please select another",
+      })
+    );
     setClickedObservation(null);
     return null;
   }

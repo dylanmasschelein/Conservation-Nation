@@ -14,34 +14,27 @@ import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ModalWindow from "./components/ModalWindow/ModalWindow";
 import Login from "./components/Login/Login";
+import store from "../src/redux/store";
 
 const App = () => {
   const [open, setOpen] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
   const [user, setUser] = useState(null);
-  const [toggleModal, setToggleModal] = useState(false);
-  const [modalText, setModalText] = useState("");
-  const [redirect, setRedirect] = useState("");
+
+  const state = store.getState();
+  const modal = state.modal.toggleModal;
+  console.log(state);
 
   return (
     <Router>
       <Header
         user={user}
-        setToggleModal={setToggleModal}
-        setModalText={setModalText}
-        setRedirect={setRedirect}
         open={open}
         setOpen={setOpen}
         openLogin={openLogin}
         setOpenLogin={setOpenLogin}
       />
-      {toggleModal && (
-        <ModalWindow
-          redirect={redirect}
-          setToggleModal={setToggleModal}
-          modalText={modalText}
-        />
-      )}
+      {modal && <ModalWindow />}
       <Switch>
         <Route
           path='/'
@@ -49,9 +42,6 @@ const App = () => {
           render={() => (
             <HomePage
               user={user}
-              setToggleModal={setToggleModal}
-              setModalText={setModalText}
-              setRedirect={setRedirect}
               setOpenLogin={setOpenLogin}
               setOpen={setOpen}
             />
@@ -60,23 +50,13 @@ const App = () => {
         <Route
           path='/profile'
           render={(routerProps) => (
-            <ProfilePage
-              setUser={setUser}
-              user={user}
-              setToggleModal={setToggleModal}
-              setModalText={setModalText}
-              setRedirect={setRedirect}
-              {...routerProps}
-            />
+            <ProfilePage setUser={setUser} user={user} {...routerProps} />
           )}
         />
         <Route
           path='/user/register'
           render={(routerProps) => (
             <Signup
-              setToggleModal={setToggleModal}
-              setModalText={setModalText}
-              setRedirect={setRedirect}
               setOpenLogin={setOpenLogin}
               setOpen={setOpen}
               {...routerProps}
@@ -87,9 +67,6 @@ const App = () => {
           path='/user/login'
           render={(routerProps) => (
             <Login
-              setToggleModal={setToggleModal}
-              setModalText={setModalText}
-              setRedirect={setRedirect}
               setOpenLogin={setOpenLogin}
               setOpen={setOpen}
               {...routerProps}
