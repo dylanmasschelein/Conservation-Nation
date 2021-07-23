@@ -6,6 +6,8 @@ import Observation from "../../components/Observation/Observation";
 import { treeIcon, coralIcon, findCenter } from "../../helperFunctions";
 import axios from "axios";
 import { Marker } from "react-leaflet";
+import store from "../../redux/store";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   toggleModalOn,
@@ -42,7 +44,7 @@ const HomePage = ({ user }) => {
       if (terrestrial === "marine") {
         const areas = await axios.get(`/areas/marine/${search}`);
         setCenter(findCenter(areas));
-        setAreas(areas.data);
+        setAreas(areas);
         setObservations(null);
       } else if (terrestrial === "land") {
         const areas = await axios.get(`/areas/land/${search}`);
