@@ -1,24 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
-import store from "./redux/store";
 import { Provider } from "react-redux";
+import store from "./redux/store";
+
+import App from "./App";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
   document.getElementById("root")
 );
-
-// const render = () => {
-//   fancyLog();
-//   return ReactDOM.render(<App />, document.getElementById("root"));
-// };
-
-// render();
-// store.subscribe(render);
-
-// function fancyLog() {
-//   console.log(store.getState());
-// }

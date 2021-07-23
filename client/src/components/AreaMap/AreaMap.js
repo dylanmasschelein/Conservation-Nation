@@ -14,7 +14,7 @@ import { faToggleOn } from "@fortawesome/free-solid-svg-icons";
 import { marineStyle, landStyle } from "../../helperFunctions";
 import SpecificArea from "../../components/SpecificArea/SpecificArea";
 import { useDispatch } from "react-redux";
-import { activeArea } from "../../redux/actions";
+import { activeArea } from "../../redux/reducers/activeAreaSlice";
 
 const AreaMap = (props) => {
   const {
@@ -25,6 +25,7 @@ const AreaMap = (props) => {
     center,
     observations,
   } = props;
+
   const [toggleMap, setToggleMap] = useState(true);
   const dispatch = useDispatch();
 

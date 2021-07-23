@@ -6,18 +6,20 @@ import logo from "../../assets/Images/conservation-nation-logo.png";
 import "./Header.scss";
 import Media from "react-media";
 import Navbar from "../Navbar/Navbar";
+import { displayModal } from "../../redux/reducers/modalSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleModalOn, toggleNavbar, toggleLogin } from "../../redux/actions";
+import { toggleLogin } from "../../redux/reducers/loginSlice";
+import { toggleNavbar } from "../../redux/reducers/navbarSlice";
 
 const Header = ({ history }) => {
   const dispatch = useDispatch();
-  const navbar = useSelector((state) => state.navbar);
   const login = useSelector((state) => state.login);
+  const navbar = useSelector((state) => state.navbar);
 
   const profileNavigation = () => {
     if (typeof sessionStorage.getItem("token") !== "string") {
       dispatch(
-        toggleModalOn({
+        displayModal({
           toggleModal: true,
           redirect: "",
           text: "Please login to continue",

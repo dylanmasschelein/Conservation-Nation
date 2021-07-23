@@ -1,7 +1,7 @@
 import "./ModalWindow.scss";
 import { withRouter } from "react-router";
-import { toggleModalOff } from "../../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
+import { closeModal } from "../../redux/reducers/modalSlice";
 
 const ModalWindow = ({ history }) => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ const ModalWindow = ({ history }) => {
 
   const onClose = () => {
     dispatch(
-      toggleModalOff({
+      closeModal({
         toggleModal: false,
         redirect: "",
         text: "",

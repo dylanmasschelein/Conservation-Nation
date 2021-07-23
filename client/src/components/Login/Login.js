@@ -3,7 +3,9 @@ import { useState } from "react";
 import axios from "axios";
 import Media from "react-media";
 import { useDispatch } from "react-redux";
-import { toggleModalOn, toggleNavbar, toggleLogin } from "../../redux/actions";
+import { displayModal } from "../../redux/reducers/modalSlice";
+import { toggleLogin } from "../../redux/reducers/loginSlice";
+import { toggleNavbar } from "../../redux/reducers/navbarSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +16,7 @@ const Login = () => {
   const successAlert = (token) => {
     sessionStorage.setItem("token", token);
     dispatch(
-      toggleModalOn({
+      displayModal({
         toggleModal: true,
         redirect: "/profile",
         text: "Successfully logged in! Welcome!",
@@ -26,7 +28,7 @@ const Login = () => {
 
   const failedAlert = (alert) => {
     dispatch(
-      toggleModalOn({
+      displayModal({
         toggleModal: true,
         redirect: "",
         text: alert,

@@ -5,15 +5,18 @@ import "./Signup.scss";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { toggleModalOn, toggleNavbar, toggleLogin } from "../../redux/actions";
+import { displayModal } from "../../redux/reducers/modalSlice";
+import { toggleNavbar } from "../../redux/reducers/navbarSlice";
+import { toggleLogin } from "../../redux/reducers/loginSlice";
 
-const Signup = () => {
-  const [swapForm, setSwapForm] = useState(true);
+const Signup = (props) => {
   const dispatch = useDispatch();
+
+  const [swapForm, setSwapForm] = useState(true);
 
   const successAlert = () => {
     dispatch(
-      toggleModalOn({
+      displayModal({
         toggleModal: true,
         redirect: "/user/register",
         text: "Signup successful! Please login to continue",
@@ -25,7 +28,7 @@ const Signup = () => {
 
   const failedAlert = () => {
     dispatch(
-      toggleModalOn({
+      displayModal({
         toggleModal: true,
         redirect: "/user/register",
         text: "Passwords must match!",

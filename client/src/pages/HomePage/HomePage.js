@@ -6,28 +6,24 @@ import Observation from "../../components/Observation/Observation";
 import { treeIcon, coralIcon, findCenter } from "../../helperFunctions";
 import axios from "axios";
 import { Marker } from "react-leaflet";
-import store from "../../redux/store";
-
-import { useDispatch, useSelector } from "react-redux";
-import {
-  toggleModalOn,
-  toggleNavbar,
-  toggleLogin,
-  setAreaBounds,
-  setActiveObservation,
-} from "../../redux/actions";
-
+import { useSelector, useDispatch } from "react-redux";
+import { displayModal } from "../../redux/reducers/modalSlice";
+import { toggleNavbar } from "../../redux/reducers/navbarSlice";
+import { setAreaBounds } from "../../redux/reducers/areaBoundsSlice";
+import { setActiveObservation } from "../../redux/reducers/activeObservationSlice";
+import { toggleLogin } from "../../redux/reducers/loginSlice";
 const HomePage = ({ user }) => {
+  const dispatch = useDispatch();
+  console.log(toggleLogin);
+  const search = useSelector((state) => state.search);
+  const terrestrial = useSelector((state) => state.terrestrial);
+  const activeArea = useSelector((state) => state.activeArea);
+  const activeObservation = useSelector((state) => state.activeObservation);
+  const areaBounds = useSelector((state) => state.areaBounds);
+
   const [areas, setAreas] = useState(null);
   const [observations, setObservations] = useState(null);
   const [center, setCenter] = useState(null);
-  const dispatch = useDispatch();
-
-  const search = useSelector((state) => state.areaSearch);
-  const terrestrial = useSelector((state) => state.terrestrial);
-  const areaBounds = useSelector((state) => state.areaBounds);
-  const activeObservation = useSelector((state) => state.activeObservation);
-  const activeArea = useSelector((state) => state.activeArea);
 
   useEffect(() => {}, [
     areas,
@@ -44,7 +40,7 @@ const HomePage = ({ user }) => {
       if (terrestrial === "marine") {
         const areas = await axios.get(`/areas/marine/${search}`);
         setCenter(findCenter(areas));
-        setAreas(areas);
+        setAreas(areas.data);
         setObservations(null);
       } else if (terrestrial === "land") {
         const areas = await axios.get(`/areas/land/${search}`);
@@ -80,9 +76,8 @@ const HomePage = ({ user }) => {
   // Retrieving Observations data on btn click
   const exploreArea = () => {
     if (!activeArea) {
-      console.log("click");
       dispatch(
-        toggleModalOn({
+        displayModal({
           toggleModal: true,
           redirect: "/",
           text: "You must click an area to explore it!",
@@ -130,7 +125,7 @@ const HomePage = ({ user }) => {
   const followArea = async () => {
     if (!user) {
       dispatch(
-        toggleModalOn({
+        displayModal({
           toggleModal: true,
           redirect: "/",
           text: "Please sign in to follow an area!",
@@ -140,7 +135,7 @@ const HomePage = ({ user }) => {
       dispatch(toggleLogin(true));
     } else if (!activeArea) {
       dispatch(
-        toggleModalOn({
+        displayModal({
           toggleModal: true,
           redirect: "/",
           text: "You must inspect an area to follow it!",
@@ -152,8 +147,9 @@ const HomePage = ({ user }) => {
         await axios.put(`/user/${email}`, {
           activeArea,
         });
+
         dispatch(
-          toggleModalOn({
+          displayModal({
             toggleModal: true,
             redirect: "/",
             text: "Area followed!",

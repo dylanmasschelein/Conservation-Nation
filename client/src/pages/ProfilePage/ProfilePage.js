@@ -3,8 +3,8 @@ import "./ProfilePage.scss";
 import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
 import FollowedAreasList from "../../components/FollowedAreasList/FollowedAreasList";
 import axios from "axios";
+import { displayModal } from "../../redux/reducers/modalSlice";
 import { useDispatch } from "react-redux";
-import { toggleModalOn } from "../../redux/actions";
 
 const ProfilePage = (props) => {
   const { setUser, user } = props;
@@ -13,7 +13,6 @@ const ProfilePage = (props) => {
   const token = sessionStorage.getItem("token");
 
   const dispatch = useDispatch();
-
   // Getting user data from database
   const getData = async (token) => {
     const headers = {
@@ -43,9 +42,8 @@ const ProfilePage = (props) => {
     sessionStorage.removeItem("token");
     setUser(null);
     setFailedAuth(true);
-
     dispatch(
-      toggleModalOn({
+      displayModal({
         toggleModal: true,
         redirect: "/",
         text: "You have been logged out!",

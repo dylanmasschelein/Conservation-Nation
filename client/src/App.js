@@ -17,8 +17,8 @@ import Login from "./components/Login/Login";
 import { useSelector } from "react-redux";
 
 const App = () => {
-  const [user, setUser] = useState(null);
   const modal = useSelector((state) => state.modal.toggleModal);
+  const [user, setUser] = useState(null);
 
   return (
     <Router>

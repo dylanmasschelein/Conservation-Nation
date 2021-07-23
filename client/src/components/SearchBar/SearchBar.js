@@ -2,29 +2,27 @@ import "./SearchBar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
-import {
-  areaSearch,
-  terrestrialSearch,
-  resetObservation,
-} from "../../redux/actions";
-
+import { areaSearch } from "../../redux/reducers/searchSlice";
+import { terrestrialSearch } from "../../redux/reducers/terrestrialSlice";
+import { clearObservation } from "../../redux/reducers/activeObservationSlice";
 function SearchBar(props) {
-  const dispatch = useDispatch();
   const { handleSearch, search } = props;
 
-  const handleTerrestrial = (e) => {
-    dispatch(terrestrialSearch(e.target.value));
-  };
+  const dispatch = useDispatch();
 
   const handleAreaSearch = (e) => {
     dispatch(areaSearch(e.target.value));
+  };
+
+  const handleTerrestrialChange = (e) => {
+    dispatch(terrestrialSearch(e.target.value));
   };
 
   return (
     <form
       onSubmit={(e) => {
         handleSearch(e);
-        dispatch(resetObservation(null));
+        dispatch(clearObservation());
       }}
       className='search'
     >
@@ -40,7 +38,7 @@ function SearchBar(props) {
         <select
           name='terrestrial'
           id='terrestrial'
-          onChange={handleTerrestrial}
+          onChange={handleTerrestrialChange}
           className='search__select'
         >
           <option value='all' className='search__option'>

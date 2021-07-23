@@ -1,13 +1,25 @@
-import { applyMiddleware, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import reducer from "../reducers";
-import thunkMiddleware from "redux-thunk";
-import api from "../middleware/api";
-// import * as actions from "../actions/api";
+import { configureStore } from "@reduxjs/toolkit";
+import searchReducer from "../reducers/searchSlice";
+import terrestrialReducer from "../reducers/terrestrialSlice";
+import modalReducer from '../reducers/modalSlice';
+import activeAreaReducer from '../reducers/activeAreaSlice'
+import activeObservationReducer from "../reducers/activeObservationSlice";
+import areaBoundsReducer from '../reducers/areaBoundsSlice'
+import loginReducer from '../reducers/loginSlice';
+import navbarReducer from "../reducers/navbarSlice";
 
-const composedEnhancer = composeWithDevTools(
-  applyMiddleware(thunkMiddleware, api)
-);
-const store = createStore(reducer, composedEnhancer);
+const store = configureStore({
+  reducer: {
+    search: searchReducer,
+    terrestrial: terrestrialReducer,
+    modal: modalReducer,
+    activeArea: activeAreaReducer,
+    activeObservation: activeObservationReducer,
+    areaBounds: areaBoundsReducer,
+    login: loginReducer,
+    navbar: navbarReducer
+
+  },
+});
 
 export default store;
