@@ -12,9 +12,9 @@ import { toggleNavbar } from "../../redux/reducers/navbarSlice";
 import { setAreaBounds } from "../../redux/reducers/areaBoundsSlice";
 import { setActiveObservation } from "../../redux/reducers/activeObservationSlice";
 import { toggleLogin } from "../../redux/reducers/loginSlice";
+
 const HomePage = ({ user }) => {
   const dispatch = useDispatch();
-  console.log(toggleLogin);
   const search = useSelector((state) => state.search);
   const terrestrial = useSelector((state) => state.terrestrial);
   const activeArea = useSelector((state) => state.activeArea);
