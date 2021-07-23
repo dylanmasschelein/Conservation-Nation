@@ -9,9 +9,8 @@ import { displayModal } from "../../redux/reducers/modalSlice";
 import { toggleNavbar } from "../../redux/reducers/navbarSlice";
 import { toggleLogin } from "../../redux/reducers/loginSlice";
 
-const Signup = (props) => {
+const Signup = () => {
   const dispatch = useDispatch();
-
   const [swapForm, setSwapForm] = useState(true);
 
   const successAlert = () => {
@@ -58,7 +57,7 @@ const Signup = (props) => {
 
     try {
       const formRes = await axios.post(`/user/register`, signup);
-      const avatarRes = await axios.post(`/avatar`, avatar);
+      await axios.post(`/avatar`, avatar);
 
       formRes.data.status === "ok"
         ? successAlert(formRes.data.data)
@@ -149,7 +148,7 @@ const Signup = (props) => {
         )}
         {!swapForm && (
           <div className='signup__right'>
-            <label htmlFor='avatar' className='signup__label'>
+            {/* <label htmlFor='avatar' className='signup__label'>
               Avatar
               <input
                 {...register("avatar", { required: true })}
@@ -157,7 +156,7 @@ const Signup = (props) => {
                 id='avatar'
                 className='signup__avatar'
               />
-            </label>
+            </label> */}
             <label
               htmlFor='volunteer'
               className='signup__label signup__label--radio'

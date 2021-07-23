@@ -72,7 +72,11 @@ const Header = ({ history }) => {
                 Login
               </Link>
               {login && <Login />}
-              <Link className='dropdown__link' onClick={profileNavigation}>
+              <Link
+                to='/profile'
+                className='dropdown__link'
+                onClick={profileNavigation}
+              >
                 Profile
               </Link>
               <Link

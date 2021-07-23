@@ -27,6 +27,9 @@
 
   &__followed {
     width: 100%;
+    @include tablet {
+      height: 85vh;
+    }
   }
 
   &__title {
