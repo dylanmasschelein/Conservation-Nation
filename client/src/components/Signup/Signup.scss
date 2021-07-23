@@ -6,7 +6,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 88vh;
+  height: 93vh;
+
+  @include tablet {
+    height: 88vh;
+  }
 
   &__name {
     text-align: center;

@@ -4,7 +4,9 @@
 .user-info {
   @include flex-column;
   align-items: center;
-  height: 67vh;
+  @include tablet {
+    height: 67vh;
+  }
 
   &__name {
     margin-bottom: 1rem;
