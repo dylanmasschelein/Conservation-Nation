@@ -7,16 +7,32 @@ This project is the final capstone project for BrainStations Full Stack Web Deve
 Watch my demo!: https://lnkd.in/dGzF7H8  
 Checkout the deployed application: https://conservation-nation.herokuapp.com/
 
-![capstone pic](https://user-images.githubusercontent.com/71863937/124669998-33aef080-de68-11eb-9ba1-818b70324451.jpg)
+Since the completion of the program, I have implemented further technologies into the project to familiarize myself with new concepts, these include:  
+⭐ Heroku for full-stack deployment  
+⭐ Redux, React-Redux, and @Reduxjs/toolkit (Full application state not yet managed glabally)  
+⭐ React-media (JavaScript media query library)  
 
+I am taking a break for a few weeks to learn some new technologies and build another application  
 
 🧬 Next Steps 🧬  
-⭐ Minify GeoJSON files - When searching countries with large amounts of areas, loading will take a bit  
-⭐ Implement Redux to manage all application state  
-⭐ Refactor to use MVC architecture  
-⭐ Add additional info about areas and taxons (descriptions, articles, recent news etc...)  
+🔧 Minify GeoJSON files - When searching countries with large amounts of areas (ie. Canada) there will be a long loading time   
+🔧 Refactor to use MVC architecture  
+🔧 Add additional info about areas and taxons (descriptions, articles, recent news etc...)  
+🔧 Planning to make over some UI/UX to make the app more intuitive to navigate  
+
+Tips for navigation:  
+    ➡️ "Where To" will bring up the navigation bar in tablet screen and larger  
+    ➡️ Search a country in the search bar  
+    ➡️ Click on a protected area  
+    ➡️ Click the explore button  
+    ➡️ Then freely select the icons that appear on the map  
+    ➡️ Reapeat!!  
 
 ⭐ Please let me know if have any questions at all! I will surely be at my computer! :)  
 ⭐ Thank you to for your interest and happy exploring!
+
+
+![capstone pic](https://user-images.githubusercontent.com/71863937/124669998-33aef080-de68-11eb-9ba1-818b70324451.jpg)
+
 
 
