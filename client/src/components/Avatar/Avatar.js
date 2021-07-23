@@ -10,7 +10,6 @@ const Avatar = ({ register }) => {
         name='avatar'
         id='avatar'
         className='signup__avatar'
-        // onChange={onChange}
       />
     </label>
   );

@@ -1,7 +1,7 @@
 import "./SearchBar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import store from "../../redux/store";
+import { useDispatch } from "react-redux";
 import {
   areaSearch,
   terrestrialSearch,
@@ -9,21 +9,22 @@ import {
 } from "../../redux/actions";
 
 function SearchBar(props) {
+  const dispatch = useDispatch();
   const { handleSearch, search } = props;
 
   const handleTerrestrial = (e) => {
-    store.dispatch(terrestrialSearch(e.target.value));
+    dispatch(terrestrialSearch(e.target.value));
   };
 
   const handleAreaSearch = (e) => {
-    store.dispatch(areaSearch(e.target.value));
+    dispatch(areaSearch(e.target.value));
   };
 
   return (
     <form
       onSubmit={(e) => {
         handleSearch(e);
-        store.dispatch(resetObservation(null));
+        dispatch(resetObservation(null));
       }}
       className='search'
     >

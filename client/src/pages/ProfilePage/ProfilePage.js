@@ -3,7 +3,7 @@ import "./ProfilePage.scss";
 import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
 import FollowedAreasList from "../../components/FollowedAreasList/FollowedAreasList";
 import axios from "axios";
-import store from "../../redux/store";
+import { useDispatch } from "react-redux";
 import { toggleModalOn } from "../../redux/actions";
 
 const ProfilePage = (props) => {
@@ -11,6 +11,8 @@ const ProfilePage = (props) => {
   const [failedAuth, setFailedAuth] = useState(false);
   const [followedAreas, setFollowedAreas] = useState(null);
   const token = sessionStorage.getItem("token");
+
+  const dispatch = useDispatch();
 
   // Getting user data from database
   const getData = async (token) => {
@@ -42,7 +44,7 @@ const ProfilePage = (props) => {
     setUser(null);
     setFailedAuth(true);
 
-    store.dispatch(
+    dispatch(
       toggleModalOn({
         toggleModal: true,
         redirect: "/",

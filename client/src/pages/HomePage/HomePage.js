@@ -6,7 +6,7 @@ import Observation from "../../components/Observation/Observation";
 import { treeIcon, coralIcon, findCenter } from "../../helperFunctions";
 import axios from "axios";
 import { Marker } from "react-leaflet";
-import store from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import {
   toggleModalOn,
   toggleNavbar,
@@ -19,14 +19,13 @@ const HomePage = ({ user }) => {
   const [areas, setAreas] = useState(null);
   const [observations, setObservations] = useState(null);
   const [center, setCenter] = useState(null);
+  const dispatch = useDispatch();
 
-  const {
-    areaSearch: search,
-    terrestrial,
-    areaBounds,
-    activeObservation,
-    activeArea,
-  } = store.getState();
+  const search = useSelector((state) => state.areaSearch);
+  const terrestrial = useSelector((state) => state.terrestrial);
+  const areaBounds = useSelector((state) => state.areaBounds);
+  const activeObservation = useSelector((state) => state.activeObservation);
+  const activeArea = useSelector((state) => state.activeArea);
 
   useEffect(() => {}, [
     areas,
@@ -65,7 +64,7 @@ const HomePage = ({ user }) => {
   const onEachArea = (feature, layer) => {
     layer.on("click", (e) => {
       const { _northEast, _southWest } = e.target._bounds;
-      store.dispatch(
+      dispatch(
         setAreaBounds({
           neLat: _northEast.lat,
           neLng: _northEast.lng,
@@ -79,7 +78,8 @@ const HomePage = ({ user }) => {
   // Retrieving Observations data on btn click
   const exploreArea = () => {
     if (!activeArea) {
-      store.dispatch(
+      console.log("click");
+      dispatch(
         toggleModalOn({
           toggleModal: true,
           redirect: "/",
@@ -117,7 +117,7 @@ const HomePage = ({ user }) => {
           icon={activeArea.marine ? coralIcon : treeIcon}
           eventHandlers={{
             click: () => {
-              store.dispatch(setActiveObservation(observation));
+              dispatch(setActiveObservation(observation));
             },
           }}
         />
@@ -127,17 +127,17 @@ const HomePage = ({ user }) => {
 
   const followArea = async () => {
     if (!user) {
-      store.dispatch(
+      dispatch(
         toggleModalOn({
           toggleModal: true,
           redirect: "/",
           text: "Please sign in to follow an area!",
         })
       );
-      store.dispatch(toggleNavbar(true));
-      store.dispatch(toggleLogin(true));
+      dispatch(toggleNavbar(true));
+      dispatch(toggleLogin(true));
     } else if (!activeArea) {
-      store.dispatch(
+      dispatch(
         toggleModalOn({
           toggleModal: true,
           redirect: "/",
@@ -150,7 +150,7 @@ const HomePage = ({ user }) => {
         await axios.put(`/user/${email}`, {
           activeArea,
         });
-        store.dispatch(
+        dispatch(
           toggleModalOn({
             toggleModal: true,
             redirect: "/",

@@ -4,26 +4,27 @@ import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import "./Signup.scss";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import store from "../../redux/store";
+import { useDispatch } from "react-redux";
 import { toggleModalOn, toggleNavbar, toggleLogin } from "../../redux/actions";
 
 const Signup = () => {
   const [swapForm, setSwapForm] = useState(true);
+  const dispatch = useDispatch();
 
   const successAlert = () => {
-    store.dispatch(
+    dispatch(
       toggleModalOn({
         toggleModal: true,
         redirect: "/user/register",
         text: "Signup successful! Please login to continue",
       })
     );
-    store.dispatch(toggleNavbar(true));
-    store.dispatch(toggleLogin(true));
+    dispatch(toggleNavbar(true));
+    dispatch(toggleLogin(true));
   };
 
   const failedAlert = () => {
-    store.dispatch(
+    dispatch(
       toggleModalOn({
         toggleModal: true,
         redirect: "/user/register",

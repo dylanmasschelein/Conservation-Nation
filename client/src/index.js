@@ -2,15 +2,23 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import store from "./redux/store";
+import { Provider } from "react-redux";
 
-const render = () => {
-  fancyLog();
-  return ReactDOM.render(<App />, document.getElementById("root"));
-};
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
 
-render();
-store.subscribe(render);
+// const render = () => {
+//   fancyLog();
+//   return ReactDOM.render(<App />, document.getElementById("root"));
+// };
 
-function fancyLog() {
-  console.log(store.getState());
-}
+// render();
+// store.subscribe(render);
+
+// function fancyLog() {
+//   console.log(store.getState());
+// }

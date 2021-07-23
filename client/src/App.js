@@ -14,14 +14,11 @@ import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ModalWindow from "./components/ModalWindow/ModalWindow";
 import Login from "./components/Login/Login";
-import store from "../src/redux/store";
+import { useSelector } from "react-redux";
 
 const App = () => {
   const [user, setUser] = useState(null);
-
-  const state = store.getState();
-  const modal = state.modal.toggleModal;
-  console.log(state);
+  const modal = useSelector((state) => state.modal.toggleModal);
 
   return (
     <Router>

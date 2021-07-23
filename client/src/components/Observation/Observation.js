@@ -2,20 +2,21 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import "./Observation.scss";
-import store from "../../redux/store";
+import { useDispatch } from "react-redux";
 import { toggleModalOn, resetObservation } from "../../redux/actions";
 
 const Observation = (props) => {
+  const dispatch = useDispatch();
   // Protecting against observations that are null
   if (!props.observation.taxon) {
-    store.dispatch(
+    dispatch(
       toggleModalOn({
         toggleModal: true,
         redirect: "",
         text: "Taxon information corrupt, please select another",
       })
     );
-    store.dispatch(resetObservation(null));
+    dispatch(resetObservation(null));
     return null;
   }
   const { medium_url: photo } = props.observation.taxon.default_photo;
@@ -33,7 +34,7 @@ const Observation = (props) => {
     <div className='observation'>
       <FontAwesomeIcon
         icon={faTimes}
-        onClick={() => store.dispatch(resetObservation(null))}
+        onClick={() => dispatch(resetObservation(null))}
         className='observation__icon'
       />
       <div className='observation__photo-container'>

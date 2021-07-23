@@ -6,25 +6,27 @@ import logo from "../../assets/Images/conservation-nation-logo.png";
 import "./Header.scss";
 import Media from "react-media";
 import Navbar from "../Navbar/Navbar";
-import store from "../../redux/store";
+import { useSelector, useDispatch } from "react-redux";
 import { toggleModalOn, toggleNavbar, toggleLogin } from "../../redux/actions";
 
 const Header = ({ history }) => {
-  const { navbar, login } = store.getState();
+  const dispatch = useDispatch();
+  const navbar = useSelector((state) => state.navbar);
+  const login = useSelector((state) => state.login);
 
   const profileNavigation = () => {
     if (typeof sessionStorage.getItem("token") !== "string") {
-      store.dispatch(
+      dispatch(
         toggleModalOn({
           toggleModal: true,
           redirect: "",
           text: "Please login to continue",
         })
       );
-      store.dispatch(toggleLogin(true));
+      dispatch(toggleLogin(true));
     } else {
       history.push("/profile");
-      store.dispatch(toggleNavbar(false));
+      dispatch(toggleNavbar(false));
     }
   };
 
@@ -44,7 +46,7 @@ const Header = ({ history }) => {
               src={whereTo}
               alt='Where to navigation text'
               className='header__drop'
-              onClick={() => store.dispatch(toggleNavbar(!navbar))}
+              onClick={() => dispatch(toggleNavbar(!navbar))}
             />
             <nav
               className={
@@ -56,13 +58,13 @@ const Header = ({ history }) => {
               <Link
                 to='/'
                 className='dropdown__link'
-                onClick={() => store.dispatch(toggleNavbar(false))}
+                onClick={() => dispatch(toggleNavbar(false))}
               >
                 Home
               </Link>
               <Link
                 to='/'
-                onClick={() => store.dispatch(toggleLogin(!login))}
+                onClick={() => dispatch(toggleLogin(!login))}
                 className='dropdown__link'
               >
                 Login
@@ -74,7 +76,7 @@ const Header = ({ history }) => {
               <Link
                 to='/user/register'
                 className='dropdown__link'
-                onClick={() => store.dispatch(toggleNavbar(false))}
+                onClick={() => dispatch(toggleNavbar(false))}
               >
                 Register
               </Link>

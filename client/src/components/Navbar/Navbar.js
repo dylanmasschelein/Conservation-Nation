@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "./Navbar.scss";
-import Login from "../Login/Login";
 
 const Navbar = () => {
   return (

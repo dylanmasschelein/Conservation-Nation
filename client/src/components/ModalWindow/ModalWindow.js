@@ -1,14 +1,15 @@
 import "./ModalWindow.scss";
 import { withRouter } from "react-router";
-import store from "../../redux/store";
 import { toggleModalOff } from "../../redux/actions";
+import { useSelector, useDispatch } from "react-redux";
 
 const ModalWindow = ({ history }) => {
-  const state = store.getState();
-  const { redirect, text } = state.modal;
+  const dispatch = useDispatch();
+  const redirect = useSelector((state) => state.modal.redirect);
+  const text = useSelector((state) => state.modal.text);
 
   const onClose = () => {
-    store.dispatch(
+    dispatch(
       toggleModalOff({
         toggleModal: false,
         redirect: "",

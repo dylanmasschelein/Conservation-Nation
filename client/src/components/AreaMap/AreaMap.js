@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faToggleOn } from "@fortawesome/free-solid-svg-icons";
 import { marineStyle, landStyle } from "../../helperFunctions";
 import SpecificArea from "../../components/SpecificArea/SpecificArea";
-import store from "../../redux/store";
+import { useDispatch } from "react-redux";
 import { activeArea } from "../../redux/actions";
 
 const AreaMap = (props) => {
@@ -26,6 +26,7 @@ const AreaMap = (props) => {
     observations,
   } = props;
   const [toggleMap, setToggleMap] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {}, [areas, userLocation, toggleMap]);
 
@@ -54,7 +55,7 @@ const AreaMap = (props) => {
               style={!area.marine ? landStyle : marineStyle}
               eventHandlers={{
                 click: () => {
-                  store.dispatch(activeArea(area));
+                  dispatch(activeArea(area));
                 },
               }}
             >
